@@ -26,13 +26,8 @@ const userSchema = new Schema({
         type: "Boolean",
         required: true,
     },
-    created_at: {
-        type: "Date",
-        required: true,
-    },
-    updated_at: {
-        type: "Date"
-    }
+}, {
+    timestamps: true,
 });
 
 export default mongoose.model("User", userSchema);
