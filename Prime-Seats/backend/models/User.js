@@ -14,6 +14,11 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
+    password: {
+        type: String,
+        required: true,
+        minLength: 6,
+    },
     contact_number: {
         type: "String",
         required: true,
