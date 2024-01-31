@@ -4,11 +4,13 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    username: {
+    firstName: {
       type: String,
-      unique: true,
       required: true,
-      lowercase: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
     },
     email: {
       type: String,
@@ -16,24 +18,39 @@ const userSchema = new Schema(
       unique: true,
       lowercase: true,
     },
-    password: {
-      type: String,
-      required: true,
-      minLength: 6,
-    },
     phone: {
       type: Number,
       required: true,
     },
-   
-    userType: {
+    password: {
       type: String,
       required: true,
     },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    roles: [
+      {
+        type: String,
+        default: "user",
+      },
+    ],
+    ticket: [
+      {
+        type: String,
+      },
+    ],
   },
-  {
+  { 
     timestamps: true,
   }
 );
 
 export default mongoose.model("User", userSchema);
+  
