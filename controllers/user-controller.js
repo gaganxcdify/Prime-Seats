@@ -34,7 +34,7 @@ export const postSignupUser = async (req, res, next) => {
       lastName,
       email,
       phone,
-      password: hashedPassword, 
+      password: hashedPassword,
     });
     user = await user.save();
   } catch (err) {
@@ -45,9 +45,70 @@ export const postSignupUser = async (req, res, next) => {
   }
   return res.status(201).json({ user });
 };
- 
-export const updateUser = async (req, res, next)=>{
-  const id = req.params.id;
-  
 
+export const updateUser = async (req, res, next) => {
+  const id = req.params.id;
+  const { firstName, lastName, email, phone, password } = req.body;
+  if (
+    !firstName &&
+    firstName.trim() === "" &&
+    !email &&
+    email.trim() === "" &&
+    !password &&
+    password.trim() === "" &&
+    !phone
+  ) {
+    return res.status(422).json({ message: "Invalid User" });
+  }
+  const hashSalt = bcrypt.genSaltSync(saltRounds);
+  const hashedPassword = bcrypt.hashSync(password, hashSalt);
+  let user;
+  try {
+    user = await User.findByIdAndUpdate(id,{
+      firstName,
+      lastName,
+      email,
+      phone,
+      password: hashedPassword})
+    }catch(err){
+      return console.log(err)
+    }
+    if(!user){
+      return res.status(500).json({message: "Server side error"})
+    }
+    res.status(200).json({message: "user Updated successfully"})
+   
+};
+
+export const deleteUser = async(req, res, next)=>{
+  const id = req.params.id;
+  console.log(id)
+  let user;
+  try{
+    user = await User.findByIdAndDelete(id);
+
+  }catch(err){
+    return res.status(500).json({message: "server side error"})
+  }
+  return res.status(200).json({message: "user deleted successfully"})
+}
+
+export const loginUser = async (req, res, next)=>{
+  const {email, password} = req.body;
+
+  if(!email && email.trim()==="" && !password && password.trim()===""){
+    return res.status(422).json({message: "invalid request"})
+  }
+  let existingUser
+  try{
+    existingUser = await User.findOne({email})
+  }catch(err){
+    return res.status(500).json({message: "invalid server side error"})
+  }
+
+  const isPasswordCorrect = await   bcrypt.compare(password, existingUser.password)
+  if(!isPasswordCorrect){
+    return res.status(400).json({message: "password is incorrect"})
+  }
+  return res.status(200).json({message: "login successfully"})
 }
