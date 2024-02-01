@@ -134,3 +134,16 @@ export const AdminUpdate = async (req, res, next) => {
 //     }
 //     return res.status(200).json({ message: "admin Deleted successfully" })
 // }
+
+export const getAdmin = async (req, res, next) => {
+    let admins;
+    try {
+        admins = await Admin.find()
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!admins) {
+        return res.status(500).json({ message: "Inter server Error" })
+    }
+    return res.status(200).json({ admins })
+}

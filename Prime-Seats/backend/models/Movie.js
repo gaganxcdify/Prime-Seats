@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MovieSchema = new mongoose.schema({
+const movieSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -17,15 +17,21 @@ const MovieSchema = new mongoose.schema({
         type: String,
         required: true,
     },
-    cast: {
+    cast: [{
         type: String,
-    },
-    crew: {
+        required: true,
+    }],
+    crew: [{
         type: String,
-    },
-    booking: [{ type: String }],
+        required: true,
+    }],
+    booking: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Booking"
+    }],
     admin: {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: "Admin",
         required: true,
     },
     is_active: {
@@ -36,4 +42,4 @@ const MovieSchema = new mongoose.schema({
     timestamps: true,
 });
 
-export default mongoose.model("Movies", MovieSchema);
+export default mongoose.model("Movie", movieSchema);

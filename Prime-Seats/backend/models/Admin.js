@@ -11,7 +11,8 @@ const adminSchema = new mongoose.Schema({
         minLength: 6
     },
     addedMovies: [{
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: "Movie",
     }],
     is_active: {
         type: "Boolean",

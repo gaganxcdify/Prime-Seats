@@ -1,4 +1,7 @@
 import jwt from "jsonwebtoken";
+import Movie from "../models/Movie.js";
+import Admin from "../models/Admin.js";
+import mongoose from "mongoose";
 
 export const addMovie = async (req, res, next) => {
 
@@ -13,22 +16,73 @@ export const addMovie = async (req, res, next) => {
         if (err) {
             return res.status(400).json({ message: `${err.message}` });
         } else {
-            adminId = decrypted.indexOf;
+            adminId = decrypted.id;
             return;
         }
     });
 
     const { name, genre, releaseDate, posterurl, cast, crew, admin, is_active } = req.body
-    if (!name && name.trim() == "" && !genre && genre.trim() == "" && !releaseDate && releaseDate.trim() == "" && !cast && cast.trim() == "" && !crew && crew.trim() == "" && !posterurl && posterurl.trim() === ""){
-        return res.satus(422).json({message:"Invalid Inputs"})
+    if (!name && name.trim() == "" && !genre && genre.trim() == "" && !releaseDate && releaseDate.trim() == "" && !cast && cast.trim() == "" && !crew && crew.trim() == "" && !posterurl && posterurl.trim() === "" && !admin && admin.trim() === "") {
+        return res.satus(422).json({ message: "Invalid Inputs" })
     }
 
 
     let movie;
-    try{
-        movie = new Movie 
-    }catch(err){
+    try {
+        movie = new Movie({
+            name,
+            genre,
+            releaseDate: new Date(`${releaseDate}`),
+            posterurl,
+            cast,
+            crew,
+            admin: adminId,
+            is_active
+        });
+
+        const session = await mongoose.startSession();
+        const adminUser = await Admin.findById(adminId);
+        session.startTransaction();
+        await movie.save({ session });
+        adminUser.addedMovies.push(movie);
+        await adminUser.save({ session });
+        await session.commitTransaction();
+
+    } catch (err) {
         return console.log(err)
     }
-    return
+    if (!movie) {
+        return res.status(500).json({ message: "Request Failed" })
+    }
+    return res.status(201).json({ message: "Movie added successfully" })
+}
+
+
+
+export const getAllMovies = async (req, res, next) => {
+    let movies;
+    try {
+        movies = await Movie.find();
+    } catch (err) {
+        return console.log(err)
+    }
+    if (!movies) {
+        return res.status(500).json({ message: "Request failed" });
+    }
+    return res.status(200).json({ movies })
+}
+
+
+export const getMovieById = async (req, res, next) => {
+    let id = req.params.id;
+    let movie;
+    try {
+        movie = await Movie.findById(id)
+    } catch (err) {
+        return console.log(err)
+    }
+    if (!movie) {
+        return res.status(404).json({ message: "Invalid Id" })
+    }
+    return res.status(200).json({ movie })
 }
