@@ -12,12 +12,21 @@ const adminSchema = new mongoose.Schema(
       minLength: 6,
       required: true,
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
     addedMovies: [
         {
-            type: String,
+            type: mongoose.Types.ObjectId,
+            ref: "Movie",
         },
     ],
-  },
+  }, 
   {
     timestamps: true,
   }

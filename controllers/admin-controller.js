@@ -60,4 +60,18 @@ export const loginAdmin = async (req, res, next) => {
   })
   return res.status(200).json({message: "Authentication Successful", token, id:existingAdmin._id})
 };
+
+export const getAdmin = async (req, res, next)=>{
+  let admins;
+  try{
+    admins = await Admin.find()
+  }catch(err){  
+    console.log(err)
+  }
+  if(!admins){
+    return res.status(404).json({message: "invalid token"})
+  }
+  return res.status(200).json({admins}) 
+
+}
         

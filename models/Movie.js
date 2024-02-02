@@ -10,16 +10,24 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    releaseDate: {
+      type: Date,
+      required: true,
+    },
     posterUrl: {
       type: String,
       required: true,
     },
-    featured: {
-      type: Boolean,
+    genre: {
+      type: String,
+      required: true,
     },
+    cast: [{ type: String, required: true }],
+    crew: [{ type: String, required: true }],
     bookings: [{ type: String }],
     admin: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin",
       required: true,
     },
   },
@@ -28,4 +36,4 @@ const movieSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Movie", movieSchema)
+export default mongoose.model("Movie", movieSchema);

@@ -28,22 +28,17 @@ const userSchema = new Schema(
     },
     isActive: {
       type: Boolean,
-      default: false,
+      default: true,
     },
 
     isDeleted: {
       type: Boolean,
       default: false,
     },
-    roles: [
+    bookings: [
       {
-        type: String,
-        default: "user",
-      },
-    ],
-    ticket: [
-      {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: "Booking",
       },
     ],
   },
