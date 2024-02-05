@@ -84,5 +84,5 @@ export const getMovieById = async (req, res, next) => {
     if (!movie) {
         return res.status(404).json({ message: "Invalid Id" })
     }
-    return res.status(200).json({ movie })
+    return res.status(200).json({ message: "sent" })
 }

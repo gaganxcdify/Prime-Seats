@@ -33,7 +33,7 @@ export const newBooking = async (req, res, next) => {
         });
         const session = await mongoose.startSession();
         session.startTransaction();
-        existingUser.bookings.push(booking)
+        existingUser.booking.push(booking)
         existingMovie.booking.push(booking);
         await existingUser.save({ session });
         await existingMovie.save({ session });
@@ -64,18 +64,33 @@ export const getBookingById = async (req, res, next) => {
 }
 
 
-
-
 export const deleteBooking = async (req, res, next) => {
     const id = req.params.id;
     let booking;
     try {
         booking = await Booking.findByIdAndUpdate(id, { is_deleted: true });
+        if (!booking) {
+            return res.status(500).json({ message: "Booking not found" });
+        }
+
+        const session = await mongoose.startSession();
+
+        if (booking.user && booking.user.booking) {
+            await booking.user.booking.pull(booking);
+            await booking.user.save({ session });
+        }
+
+        if (booking.movie && booking.movie.booking) {
+            await booking.movie.booking.pull(booking);
+            await booking.movie.save({ session });
+        }
+
+        session.commitTransaction();
+
     } catch (err) {
-        return console.log(err)
-    }
-    if (!booking) {
+        console.error(err);
         return res.status(500).json({ message: "Something went wrong" });
     }
-    return res.status(200).json({ message: "booking Deleted successfully" })
-}
+    return res.status(200).json({ message: "Booking Deleted successfully" });
+};
+

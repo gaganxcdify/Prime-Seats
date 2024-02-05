@@ -1,14 +1,27 @@
 import mongoose from "mongoose";
 
 const adminSchema = new mongoose.Schema({
+    first_name: {
+        type: String,
+        required: true,
+    },
+    last_name: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
+        required: true,
         unique: true,
-        required: true
     },
     password: {
         type: String,
-        minLength: 6
+        required: true,
+        minLength: 6,
+    },
+    contact_number: {
+        type: "String",
+        required: true,
     },
     addedMovies: [{
         type: mongoose.Types.ObjectId,
@@ -25,5 +38,4 @@ const adminSchema = new mongoose.Schema({
 }, {
     timestamps: true,
 });
-
 export default mongoose.model("Admin", adminSchema)

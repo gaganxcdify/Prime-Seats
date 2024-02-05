@@ -4,31 +4,53 @@ import jwt from "jsonwebtoken";
 
 
 export const AdminSignup = async (req, res, next) => {
-    const { email, password, is_active, is_deleted } = req.body;
+    const { first_name, last_name, email, password, contact_number, secret_key } = req.body;
+    const secretkey = "123456"
+    if (
+        !first_name &&
+        first_name.trim() === "" &&
+        !last_name &&
+        last_name.trim() === "" &&
+        !email &&
+        email.trim() === "" &&
+        !password &&
+        password.trim() === "" &&
+        !contact_number &&
+        contact_number.trim() === "" &&
+        !secret_key &&
+        secret_key.trim() === "" &&
+        secret_key !== secretkey
+    ) {
+        return res.status(422).json({ message: "Invalid Inputs" })
+    }
     let existingAdmin;
     try {
         existingAdmin = await Admin.findOne({ email })
+
     } catch (err) {
         return console.log(err)
     }
+    if (!(secretkey === secret_key)) {
+        return res.status(400).json({ message: "Wrong secret key" });
+    }
     if (existingAdmin) {
-        return res.status(400).json({ message: "Admin already exist" })
+        return res.status(400).json({ message: "Admin already exists! Login instead" })
     }
 
     const hashedPassword = bcrypt.hashSync(password);
-    let admin;
+    let admins;
     try {
-        admin = new Admin({ email, password: hashedPassword, is_active, is_deleted });
-        admin = await admin.save()
+        admins = new Admin({ first_name, last_name, email, password: hashedPassword, contact_number, is_active: false, is_deleted: false });
+        admins = await admins.save();
     } catch (err) {
         return console.log(err);
     }
-    if (!admin) {
-        return res.send(500).json({ message: "Unable to store admin" })
+    if (!admins) {
+        return res.status(500).json({ message: "unexpected Error Occcured" });
     }
-    return res.status(201).json({ admin })
-}
 
+    return res.status(201).json({ message: "The secret key is correct and admin signup is successful", admins: admins });
+};
 
 
 
@@ -43,7 +65,7 @@ export const AdminLogin = async (req, res, next) => {
         password.trim() === ""
 
     ) {
-        return res.ststus(422).json({ message: "Invalid Inputs" })
+        return res.status(422).json({ message: "Invalid Inputs" })
     }
 
     let existingAdmin;
@@ -107,7 +129,7 @@ export const AdminUpdate = async (req, res, next) => {
         const admin = await Admin.findByIdAndUpdate(
             id,
             { email, password, is_active, is_deleted },
-            { new: true } // Return the modified document
+            { new: true }
         );
 
         if (!admin) {

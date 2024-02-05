@@ -1,5 +1,7 @@
 import User from "../models/User.js";
+import Booking from "../models/Bookings.js";
 import bcrypt from 'bcryptjs';
+import jwt from "jsonwebtoken";
 
 
 
@@ -23,7 +25,7 @@ export const getAllUsers = async (req, res, next) => {
 
 
 export const Signup = async (req, res, next) => {
-    const { first_name, last_name, email, password, contact_number, is_active, is_deleted } = req.body;
+    const { first_name, last_name, email, password, contact_number } = req.body;
     if (
         !first_name &&
         first_name.trim() === "" &&
@@ -38,11 +40,21 @@ export const Signup = async (req, res, next) => {
     ) {
         return res.status(422).json({ message: "Invalid Inputs" })
     }
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ email })
+
+    } catch (err) {
+        return console.log(err)
+    }
+    if (existingUser) {
+        return res.status(400).json({ message: "User already exists! Login instead" })
+    }
 
     const hashedPassword = bcrypt.hashSync(password);
     let users;
     try {
-        users = new User({ first_name, last_name, email, password: hashedPassword, contact_number, is_active, is_deleted });
+        users = new User({ first_name, last_name, email, password: hashedPassword, contact_number, is_active: false, is_deleted: false });
         users = await users.save();
     } catch (err) {
         return console.log(err);
@@ -50,7 +62,8 @@ export const Signup = async (req, res, next) => {
     if (!users) {
         return res.status(500).json({ message: "unexpected Error Occcured" });
     }
-    return res.status(201).json({ users: users });
+
+    return res.status(201).json({ message: "successfully logged in" });
 };
 
 
@@ -114,25 +127,90 @@ export const login = async (req, res, next) => {
         !password &&
         password.trim() === ""
     ) {
-        return res.ststus(422).json({ message: "Invalid Inputs" })
+        return res.status(422).json({ message: "Invalid Inputs" })
     }
 
-    let existingUSer;
+    let existingUser;
     try {
-        existingUSer = await User.findOne({ email });
+        existingUser = await User.findOne({ email });
     } catch (err) {
         return console.log(err)
     }
-    if (!existingUSer) {
+    if (!existingUser) {
         {
-            return res.status(404).json({ message: "Unable to find user fromthis ID" })
+            return res.status(404).json({ message: "User not found!, Signup please" })
         }
     }
-    const isPasswordCorrect = bcrypt.compareSync(password, existingUSer.password)
+    const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password)
 
     if (!isPasswordCorrect) {
         return res.status(400).json({ message: " Incorrect Password" })
 
     }
-    return res.status(200).json({ message: 'login successful' })
+    const token = jwt.sign({ id: existingUser.id }, process.env.SECRET_KEY, {
+        expiresIn: "30s"
+    })
+    res.cookie(String(existingUser.id), token, {
+        path: '',
+        expires: new Date(Date.now() + 1000 * 30),
+        httpOnly: true,
+        sameSite: "lax"
+    });
+
+
+    return res.status(200).json({ message: 'Login successful' })
+}
+
+
+
+
+export const verifyToken = (req, res, next) => {
+    const cookies = req.headers.cookie;
+    // console.log(cookies);
+    const extractedToken = cookies.split("=")[1];
+    console.log(extractedToken);
+    if (!extractedToken) {
+        return res.status(404).json({ message: "No token found" })
+    }
+    jwt.verify(extractedToken, process.env.SECRET_KEY, (err, user) => {
+        if (err) {
+            return res.status(400).json({ message: "Invalid Token" });
+        } else {
+            req.id = user.id;
+        }
+    });
+    next();
+}
+
+
+export const getUser = async (req, res, next) => {
+    const userId = req.id;
+    let user;
+    try {
+        user = await User.findById(userId, "-password")
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!user) {
+        return res.status(404).json({ message: "User not found" })
+    }
+    return res.status(200).json({ user })
+}
+
+
+
+
+
+export const getBookingOfUser = async (req, res, next) => {
+    const id = req.params.id;
+    let booking;
+    try {
+        booking = await Booking.find({ user: id })
+    } catch (err) {
+        return console.log(err);
+    }
+    if (!booking) {
+        return res.status(500).json({ message: "Unable to get bookings" });
+    }
+    return res.status(200).json({ booking })
 }

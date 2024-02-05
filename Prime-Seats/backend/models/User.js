@@ -23,7 +23,7 @@ const userSchema = new Schema({
         type: "String",
         required: true,
     },
-    bookings: [{
+    booking: [{
         type: mongoose.Types.ObjectId,
         ref: "Booking"
     }],

@@ -7,4 +7,5 @@ bookingRouter.post("/", newBooking)
 bookingRouter.get("/:id", getBookingById)
 bookingRouter.delete("/:id", deleteBooking)
 
+
 export default bookingRouter;
