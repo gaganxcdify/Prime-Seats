@@ -24,7 +24,7 @@ const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false)
     return (
         <nav>
-            <Link className="title" to="/">PrimeSeats</Link>
+            <Link className="title" to="/homepage">PrimeSeats</Link>
             <div className='menu' onClick={() => {
                 setMenuOpen(!menuOpen)
             }}>

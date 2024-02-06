@@ -2,6 +2,9 @@ import jwt from "jsonwebtoken";
 import Movie from "../models/Movie.js";
 import Admin from "../models/Admin.js";
 import mongoose from "mongoose";
+// import multer from 'multer';
+// const upload = multer({ dest: 'uploads/' });
+
 
 export const addMovie = async (req, res, next) => {
 
@@ -21,8 +24,8 @@ export const addMovie = async (req, res, next) => {
         }
     });
 
-    const { name, genre, releaseDate, posterurl, cast, crew, admin, is_active } = req.body
-    if (!name && name.trim() == "" && !genre && genre.trim() == "" && !releaseDate && releaseDate.trim() == "" && !cast && cast.trim() == "" && !crew && crew.trim() == "" && !posterurl && posterurl.trim() === "" && !admin && admin.trim() === "") {
+    const { name, genre, releaseDate, image, cast, crew, admin, is_active } = req.body
+    if (!name && name.trim() == "" && !genre && genre.trim() == "" && !releaseDate && releaseDate.trim() == "" && !cast && cast.trim() == "" && !crew && crew.trim() == "" && !image && image.trim() === "" && !admin && admin.trim() === "") {
         return res.satus(422).json({ message: "Invalid Inputs" })
     }
 
@@ -33,7 +36,7 @@ export const addMovie = async (req, res, next) => {
             name,
             genre,
             releaseDate: new Date(`${releaseDate}`),
-            posterurl,
+            image,
             cast,
             crew,
             admin: adminId,

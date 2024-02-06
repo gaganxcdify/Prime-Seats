@@ -63,7 +63,7 @@ export const Signup = async (req, res, next) => {
         return res.status(500).json({ message: "unexpected Error Occcured" });
     }
 
-    return res.status(201).json({ message: "successfully logged in" });
+    return res.status(201).json({ id: users._id });
 };
 
 
@@ -158,7 +158,7 @@ export const login = async (req, res, next) => {
     });
 
 
-    return res.status(200).json({ message: 'Login successful' })
+    return res.status(200).json({ message: 'User Login successful', id: existingUser._id })
 }
 
 

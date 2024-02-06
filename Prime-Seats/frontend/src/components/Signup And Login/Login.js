@@ -4,6 +4,7 @@ import axios from "axios";
 import "./SignupAndLogin.css";
 
 const SignUp = () => {
+    const [isAdmin, setIsAdmin] = useState(false);
     const history = useNavigate();
     const [inputs, setInputs] = useState({
         email: "",
@@ -19,20 +20,27 @@ const SignUp = () => {
 
     const sendRequest = async () => {
         try {
-            const res = await axios.post("http://localhost:5000/user/login", {
+            let url = isAdmin ? "http://localhost:5000/admin/login" : "http://localhost:5000/user/login";
+            const res = await axios.post(url, {
                 email: inputs.email,
                 password: inputs.password,
             });
             const data = res.data;
-            return data;
+            console.log(data);
+            if (res.status === 200) {
+                history("/homepage");
+            } else {
+                alert(data.mesage);
+            }
         } catch (err) {
             console.log(err);
+
         }
-    }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        sendRequest().then(() => history("/"))
+        sendRequest();
     };
 
     return (
@@ -46,8 +54,14 @@ const SignUp = () => {
                     <div className="inputs-login">
                         <input className='input' name='email' type="email" placeholder="  Email Id" onChange={handleChange} />
                         <input className='input' name='password' type="password" placeholder="  Password" onChange={handleChange} />
-                        {/* <input type='checkbox' /> */}
                     </div>
+                    <div className='checkbox'>
+                        <input type='checkbox' onChange={() => setIsAdmin(true)} />
+                        <label className='label' >
+                            Are you an Admin?
+                        </label>
+                    </div>
+
                     <div className='submit-container-login'>
                         <button type="submit" className="submit">LOG IN</button>
                     </div>

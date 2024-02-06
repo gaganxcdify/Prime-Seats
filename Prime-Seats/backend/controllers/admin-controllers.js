@@ -37,6 +37,8 @@ export const AdminSignup = async (req, res, next) => {
         return res.status(400).json({ message: "Admin already exists! Login instead" })
     }
 
+
+    
     const hashedPassword = bcrypt.hashSync(password);
     let admins;
     try {
@@ -91,7 +93,7 @@ export const AdminLogin = async (req, res, next) => {
     });
 
 
-    return res.status(200).json({ message: 'login successful', token, id: existingAdmin._id })
+    return res.status(200).json({ message: 'Admin login successful', token, id: existingAdmin._id })
 }
 
 

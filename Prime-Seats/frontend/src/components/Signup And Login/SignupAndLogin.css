@@ -96,3 +96,20 @@ input {
   font-weight: 700;
   cursor: pointer;
 }
+
+.checkbox {
+  margin-top: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-left: -120px;
+}
+
+.label {
+  display: flex;
+  margin-left: -180px;
+}
+
+input[type="checkbox"] {
+  transform: scale(0.5); /* Adjust the scale factor as needed */
+}
