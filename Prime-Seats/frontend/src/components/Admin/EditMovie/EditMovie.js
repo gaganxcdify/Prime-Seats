@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import "./Addmovie.css";
+import "./EditMovie.css";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
-const AddMovie = () => {
+const EditMovie = () => {
     const history = useNavigate();
     const [message, setMessage] = useState("");
     const [inputs, setInputs] = useState({
@@ -50,7 +50,7 @@ const AddMovie = () => {
     return (
         <form className='container' onSubmit={handleSubmit}>
             <div className='header'>
-                <div className='text'>Add Movie</div>
+                <div className='text'>Edit Movie</div>
                 <div className='underline'></div>
             </div>
             <div className='inputs'>
@@ -69,12 +69,12 @@ const AddMovie = () => {
                     </div>
                 </div>
                 <div className='submit-container-signup'>
-                    <button type="submit" className="submit">ADD</button>
+                    <button type="submit" className="submit">SUBMIT</button>
                 </div>
             </div>
         </form >
     );
 }
 
-export default AddMovie;
+export default EditMovie;
 

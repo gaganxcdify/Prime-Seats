@@ -20,7 +20,7 @@ const userSchema = new Schema({
         minLength: 6,
     },
     contact_number: {
-        type: "String",
+        type: String,
         required: true,
     },
     booking: [{
@@ -28,11 +28,11 @@ const userSchema = new Schema({
         ref: "Booking"
     }],
     is_active: {
-        type: "Boolean",
+        type: Boolean,
         required: true,
     },
     is_deleted: {
-        type: "Boolean",
+        type: Boolean,
         required: true,
     },
 }, {

@@ -2,14 +2,34 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import "./SignupAndLogin.css";
+import { useDispatch } from 'react-redux';
+import { personActions } from '../../store';
+import { adminActions } from '../../store';
 
-const SignUp = () => {
+
+const Login = () => {
+    const dispatch = useDispatch();
     const [isAdmin, setIsAdmin] = useState(false);
-    const history = useNavigate();
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         email: "",
         password: ""
     });
+
+    const onResReceived = async (data) => {
+        try {
+            let person = isAdmin ? "admin" : "user"
+            await dispatch(personActions.login());
+            localStorage.setItem(`${person}Id`, data.id);
+            if (person === "admin") {
+                await dispatch(adminActions.setlogin());
+                localStorage.setItem("token", data.token)
+            }
+            navigate("/homepage");
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const handleChange = (e) => {
         setInputs((prev) => ({
@@ -28,19 +48,19 @@ const SignUp = () => {
             const data = res.data;
             console.log(data);
             if (res.status === 200) {
-                history("/homepage");
+                onResReceived(data)
             } else {
                 alert(data.mesage);
             }
         } catch (err) {
             console.log(err);
-
         }
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         sendRequest();
+
     };
 
     return (
@@ -71,4 +91,4 @@ const SignUp = () => {
     );
 }
 
-export default SignUp;
+export default Login;

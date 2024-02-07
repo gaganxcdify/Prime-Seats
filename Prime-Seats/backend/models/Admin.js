@@ -20,7 +20,7 @@ const adminSchema = new mongoose.Schema({
         minLength: 6,
     },
     contact_number: {
-        type: "String",
+        type: String,
         required: true,
     },
     addedMovies: [{
@@ -28,14 +28,14 @@ const adminSchema = new mongoose.Schema({
         ref: "Movie",
     }],
     is_active: {
-        type: "Boolean",
+        type: Boolean,
         required: true,
     },
     is_deleted: {
-        type: "Boolean",
+        type: Boolean,
         required: true,
     },
 }, {
     timestamps: true,
 });
-export default mongoose.model("Admin", adminSchema)
+export default mongoose.model("Admin", adminSchema);

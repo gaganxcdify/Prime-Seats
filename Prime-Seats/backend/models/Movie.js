@@ -8,22 +8,24 @@ const movieSchema = new mongoose.Schema({
     },
     genre: {
         type: String,
+        required: true
     },
     releaseDate: {
         type: Date,
-        required: true,
+        required: true
     },
     image: {
         type: String,
-        required: true,
+        // data: Buffer,
+        required: true
     },
     cast: [{
         type: String,
-        required: true,
+        required: true
     }],
     crew: [{
         type: String,
-        required: true,
+        required: true
     }],
     booking: [{
         type: mongoose.Types.ObjectId,
@@ -35,7 +37,7 @@ const movieSchema = new mongoose.Schema({
         required: true,
     },
     is_active: {
-        type: "Boolean",
+        type: Boolean,
         required: true,
     },
 }, {

@@ -2,19 +2,15 @@ import jwt from "jsonwebtoken";
 import Movie from "../models/Movie.js";
 import Admin from "../models/Admin.js";
 import mongoose from "mongoose";
-// import multer from 'multer';
-// const upload = multer({ dest: 'uploads/' });
 
 
 export const addMovie = async (req, res, next) => {
-
     const extractedToken = req.headers.authorization.split(" ")[1];
     if (!extractedToken && extractedToken.trim() === "") {
         return res.status(404).json({ message: "Token not found" });
     }
 
     let adminId;
-
     jwt.verify(extractedToken, process.env.SECRET_KEY, (err, decrypted) => {
         if (err) {
             return res.status(400).json({ message: `${err.message}` });
@@ -24,9 +20,17 @@ export const addMovie = async (req, res, next) => {
         }
     });
 
-    const { name, genre, releaseDate, image, cast, crew, admin, is_active } = req.body
-    if (!name && name.trim() == "" && !genre && genre.trim() == "" && !releaseDate && releaseDate.trim() == "" && !cast && cast.trim() == "" && !crew && crew.trim() == "" && !image && image.trim() === "" && !admin && admin.trim() === "") {
-        return res.satus(422).json({ message: "Invalid Inputs" })
+    const {
+        name,
+        genre,
+        releaseDate,
+        cast,
+        crew,
+        admin } = req.body
+    const fileName = req.file.fileName;
+
+    if ((!name || name.trim() == "") && (!genre || genre.trim() == "") && (!releaseDate || releaseDate.trim() == "") && (!cast || cast.trim() == "") && (!crew || crew.trim() == "")) {
+        return res.status(422).json({ message: "Invalid Inputs" })
     }
 
 
@@ -36,11 +40,11 @@ export const addMovie = async (req, res, next) => {
             name,
             genre,
             releaseDate: new Date(`${releaseDate}`),
-            image,
+            image: fileName,
             cast,
             crew,
             admin: adminId,
-            is_active
+            is_active: true
         });
 
         const session = await mongoose.startSession();

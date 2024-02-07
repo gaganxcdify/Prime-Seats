@@ -38,7 +38,7 @@ export const AdminSignup = async (req, res, next) => {
     }
 
 
-    
+
     const hashedPassword = bcrypt.hashSync(password);
     let admins;
     try {

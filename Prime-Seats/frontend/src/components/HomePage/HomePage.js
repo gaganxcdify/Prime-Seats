@@ -4,6 +4,7 @@ import Moviecard from "../MovieCard/Moviecard";
 import "./HomePage.css"
 
 
+
 const HomePage = () => {
     const [movies, setMovies] = useState([]);
     const getAllmovies = async () => {
@@ -24,7 +25,8 @@ const HomePage = () => {
         <div className="home">
             {activeMovies.map((movie) => (
                 <Moviecard
-                    key={movie._id}
+                    key={index}
+                    id={movie._id}
                     name={movie.name}
                     genre={movie.genre}
                     releasedate={movie.releaseDate}

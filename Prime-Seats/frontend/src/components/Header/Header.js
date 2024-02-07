@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "./Header.css"
 import { CgProfile } from "react-icons/cg";
+import { useDispatch, useSelector } from 'react-redux';
+import { adminActions, personActions } from '../../store';
 
 const Header = () => {
-    const [isActive, setIsActive] = useState(false)
+    const [menuOpen, setMenuOpen] = useState(false)
+    const isAdmin = useSelector((state) => state.setlogin.isAdmin)
+    const isLoggedIn = useSelector((state) => state.login.isLoggedIn)
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch("http://localhost/user/user");
                 const data = await response.json();
-                setIsActive(data.is_active);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
@@ -21,7 +26,14 @@ const Header = () => {
     }, []);
 
 
-    const [menuOpen, setMenuOpen] = useState(false)
+    const Logout = () => {
+        if (isAdmin) {
+            dispatch(adminActions.setlogout());
+        } else {
+            dispatch(personActions.logout());
+        }
+        navigate("/login")
+    }
     return (
         <nav>
             <Link className="title" to="/homepage">PrimeSeats</Link>
@@ -33,21 +45,32 @@ const Header = () => {
                 <span></span>
             </div>
             <ul className={menuOpen ? "open" : ""}>
-                {isActive ? (
-                    <li>
-                        <NavLink to="/user" className="icon"><CgProfile /></NavLink>
-                    </li>
+                {isLoggedIn ? (
+                    <>
+                        {isAdmin && (
+                            <li>
+                                <NavLink to="/addmovie" >ADD NEW MOVIE</NavLink>
+                            </li>
+                        )}
+                        <li>
+                            <NavLink onClick={() => Logout()} to="/login" >LOG OUT</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/persondetails" className="icon"><CgProfile /></NavLink>
+                        </li>
+                    </>
                 ) : (
                     <>
                         <li>
-                            <NavLink to="/signup">Sign Up</NavLink>
+                            <NavLink to="/signup">SIGN UP</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/login">Log In</NavLink>
+                            <NavLink to="/login">LOG IN</NavLink>
                         </li>
                     </>
                 )}
             </ul>
+
         </nav>
     )
 }

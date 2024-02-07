@@ -20,7 +20,7 @@ const BookingSchema = new mongoose.Schema({
         required: true,
     },
     is_deleted: {
-        type: "Boolean",
+        type: Boolean,
         required: true,
     },
 });

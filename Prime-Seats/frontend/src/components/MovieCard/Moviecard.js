@@ -1,7 +1,12 @@
 import React from 'react'
 import "./Moviecard.css"
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 
 const Moviecard = (props) => {
+    const isAdmin = useSelector((state) => state.setlogin.isAdmin)
+
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
         return new Date(dateString).toLocaleDateString(undefined, options);
@@ -18,8 +23,10 @@ const Moviecard = (props) => {
                 <span className='genre'>{props.genre}</span>
                 <span className=''>{`Release Date: ${formatDate(props.releasedate)}`}</span>
                 <div className='book-container'>
-                        <button className="book">BOOK TICKETS</button>
-                    </div>
+                    <button className="book">
+                        {isAdmin ? (<NavLink className="navlink" to="/editmovie">EDIT MOVIE</NavLink>) : (<NavLink className="navlink" to={`/booking/${props.id}`} >BOOK TICKETS</NavLink>)}
+                    </button>
+                </div>
             </div>
         </div>
     )
