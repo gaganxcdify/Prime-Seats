@@ -5,6 +5,7 @@ import "./SignupAndLogin.css";
 import { useDispatch } from 'react-redux';
 import { personActions } from '../../store';
 import { adminActions } from '../../store';
+import { toastContainer, toast } from "react-toastify"
 
 
 const Login = () => {
@@ -50,9 +51,10 @@ const Login = () => {
             if (res.status === 200) {
                 onResReceived(data)
             } else {
-                alert(data.mesage);
+                alert("error")
             }
         } catch (err) {
+            alert("error")
             console.log(err);
         }
     };
@@ -60,15 +62,14 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         sendRequest();
-
     };
 
     return (
         <div className='container'>
             <form onSubmit={handleSubmit}>
                 <div className='header'>
-                    <div className='text'>LOG IN</div>
-                    <div className='underline'></div>
+                    <div className='signuptext'>LOG IN</div>
+                    <div className='loginunderline'></div>
                 </div>
                 <div className='inputs'>
                     <div className="inputs-login">
@@ -83,7 +84,8 @@ const Login = () => {
                     </div>
 
                     <div className='submit-container-login'>
-                        <button type="submit" className="submit">LOG IN</button>
+                        <button type="submit" className="login-submit">LOG IN</button>
+                        <toastContainer />
                     </div>
                 </div>
             </form>

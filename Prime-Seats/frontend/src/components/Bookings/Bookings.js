@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from "axios";
+import "./Bookings.css"
 
 const Booking = () => {
   const [movie, setMovie] = useState()
@@ -14,7 +15,7 @@ const Booking = () => {
     const resData = await res.data;
     return resData;
   }
-  
+
   useEffect(() => {
     getMovieDetails(id)
       .then((res) => setMovie(res.movie))
@@ -22,8 +23,19 @@ const Booking = () => {
   }, [id])
 
   return (
-    <div>BookTickets</div>
-  )
+    <div className="movie-page">
+      <div className="movie-details">
+        <div className="big-box">
+          <h2>Movie Details</h2>
+        </div>
+      </div>
+      <div className="booking-form">
+        <div className="big-box">
+          <h2>Booking Form</h2>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Booking;

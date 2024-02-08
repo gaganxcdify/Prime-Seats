@@ -19,17 +19,17 @@
   margin-top: 20px;
 }
 
-.text {
-  color: #1d4ed8;
+.editmovie-text {
+  color: #c92817;
   font-size: 37px;
   font-weight: 700;
   margin-bottom: 5px;
 }
 
-.underline {
+.editmovie-underline {
   width: 61px;
   height: 6px;
-  background: #1d4ed8;
+  background: #c92817;
   border-radius: 9px;
 }
 
@@ -91,11 +91,11 @@ input {
   align-items: center;
 }
 
-.submit {
+.editmovie-submit {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #1d4ed8;
+  background: #c92817;
   text-align: center;
   width: 220px;
   height: 59px;

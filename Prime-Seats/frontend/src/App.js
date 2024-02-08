@@ -13,16 +13,9 @@ import Booking from './components/Bookings/Bookings';
 
 
 function App() {
-  // const dispatch = useDispatch()
   const isLoggedIn = useSelector((state) => state.isLoggedIn)
   const isAdmin = useSelector((state) => state.isAdmin)
-  // useEffect(() => {
-  //   if (localStorage.getItem("userId")) {
-  //     //
-  //   } else if (localStorage.getItem("userId")) {
-
-  //   }
-  // }, [])
+  
   return (
     <Layout>
       <Routes>

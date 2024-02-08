@@ -1,9 +1,9 @@
-.container {
+.addmovie-container {
   display: flex;
   flex-direction: column;
   margin: auto;
   width: 600px;
-  height: 650px;
+  height: 700px;
   margin-top: 50px;
   background: #fff;
   padding-bottom: 30px;
@@ -19,17 +19,17 @@
   margin-top: 20px;
 }
 
-.text {
-  color: #1d4ed8;
+.addMovie-text {
+  color: #c92817;
   font-size: 37px;
   font-weight: 700;
   margin-bottom: 5px;
 }
 
-.underline {
+.addmovie-underline {
   width: 61px;
   height: 6px;
-  background: #1d4ed8;
+  background: #c92817;
   border-radius: 9px;
 }
 
@@ -77,25 +77,11 @@ input {
   font-size: 19px;
 }
 
-.submit-container-signup {
-  margin-top: 40px;
+.addmovie-submit {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.submit-container-login {
-  margin-top: 90px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #1d4ed8;
+  background: #c92817;
   text-align: center;
   width: 220px;
   height: 59px;
@@ -106,22 +92,20 @@ input {
   cursor: pointer;
 }
 
-
 input[type="checkbox"] {
-  transform: scale(0.5); 
+  transform: scale(0.5);
 }
 
-
-.label-date{
-    height: 50px;
-    width: 400px;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #797979;
-    font-size: 19px;
+.label-date {
+  height: 50px;
+  width: 400px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #797979;
+  font-size: 19px;
 }
 
-.input-file{
+.input-file {
   margin: auto;
 }

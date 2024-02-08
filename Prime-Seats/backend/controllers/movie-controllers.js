@@ -23,13 +23,17 @@ export const addMovie = async (req, res, next) => {
     const {
         name,
         genre,
-        releaseDate,
+        release_date,
         cast,
+        image,
         crew,
         admin } = req.body
-    const fileName = req.file.fileName;
 
-    if ((!name || name.trim() == "") && (!genre || genre.trim() == "") && (!releaseDate || releaseDate.trim() == "") && (!cast || cast.trim() == "") && (!crew || crew.trim() == "")) {
+    const releaseDate = new Date(release_date);
+    if (isNaN(releaseDate.getTime())) {
+        return res.status(422).json({ message: "Invalid release date" });
+    }
+    if ((!name || name.trim() == "") && (!genre || genre.trim() == "") && (!release_date || release_date.trim() == "") && (!cast || cast.trim() == "") && (!crew || crew.trim() == "")) {
         return res.status(422).json({ message: "Invalid Inputs" })
     }
 
@@ -39,12 +43,13 @@ export const addMovie = async (req, res, next) => {
         movie = new Movie({
             name,
             genre,
-            releaseDate: new Date(`${releaseDate}`),
-            image: fileName,
+            releaseDate,
+            image,
             cast,
             crew,
-            admin: adminId,
-            is_active: true
+            admin,
+            is_active: true,
+            is_deleted: false,
         });
 
         const session = await mongoose.startSession();
@@ -63,6 +68,8 @@ export const addMovie = async (req, res, next) => {
     }
     return res.status(201).json({ message: "Movie added successfully" })
 }
+
+
 
 
 
@@ -92,4 +99,18 @@ export const getMovieById = async (req, res, next) => {
         return res.status(404).json({ message: "Invalid Id" })
     }
     return res.status(200).json({ message: "sent" })
+}
+
+export const deleteMovieById = async (req, res, next) => {
+    let id = req.params.id;
+    let movie;
+    try {
+        movie = await Movie.findByIdAndUpdate(id, { is_deleted: true });
+    } catch (err) {
+        return console.log(err)
+    }
+    if (!movie) {
+        return res.status(404).json({ message: "Something went wrong" })
+    }
+    return res.status(200).json({ message: "Movie Deleted" })
 }

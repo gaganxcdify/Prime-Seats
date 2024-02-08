@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-    const history = useNavigate();
+    const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [inputs, setInputs] = useState({
         first_name: "",
@@ -55,15 +55,15 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        sendRequest().then(() => history("/login"))
+        sendRequest().then(() => navigate("/login"))
     }
 
     return (
         <div className='signup'>
             <form className='container' onSubmit={handleSubmit}>
                 <div className='header'>
-                    <div className='text'>SIGN UP</div>
-                    <div className='underline'></div>
+                    <div className='signuptext'>SIGN UP</div>
+                    <span className='loginunderline' ></span>
                 </div>
                 <div className='inputs'>
                     <div className="inputs-signup">
@@ -76,7 +76,7 @@ const SignUp = () => {
                         <div className="message">{message}</div>
                     </div>
                     <div className='submit-container-signup'>
-                        <button type="submit" className="submit">SIGN UP</button>
+                        <button type="signup" className="login-submit">SIGN UP</button>
                     </div>
                 </div>
             </form >

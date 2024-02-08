@@ -11,7 +11,7 @@ const movieSchema = new mongoose.Schema({
         required: true
     },
     releaseDate: {
-        type: Date,
+        type: String,
         required: true
     },
     image: {
@@ -37,6 +37,10 @@ const movieSchema = new mongoose.Schema({
         required: true,
     },
     is_active: {
+        type: Boolean,
+        required: true,
+    },
+    is_deleted: {
         type: Boolean,
         required: true,
     },

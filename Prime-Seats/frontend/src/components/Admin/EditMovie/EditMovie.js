@@ -50,8 +50,8 @@ const EditMovie = () => {
     return (
         <form className='container' onSubmit={handleSubmit}>
             <div className='header'>
-                <div className='text'>Edit Movie</div>
-                <div className='underline'></div>
+                <div className='editmovie-text'>Edit Movie</div>
+                <div className='editmovie-underline'></div>
             </div>
             <div className='inputs'>
                 <div className="inputs-signup">
@@ -69,7 +69,7 @@ const EditMovie = () => {
                     </div>
                 </div>
                 <div className='submit-container-signup'>
-                    <button type="submit" className="submit">SUBMIT</button>
+                    <button type="submit" className="editmovie-submit">SUBMIT</button>
                 </div>
             </div>
         </form >

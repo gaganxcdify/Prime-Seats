@@ -25,10 +25,11 @@ const HomePage = () => {
         <div className="home">
             {activeMovies.map((movie) => (
                 <Moviecard
-                    key={index}
+                    key={movie._id}
                     id={movie._id}
                     name={movie.name}
                     genre={movie.genre}
+                    image={movie.image}
                     releasedate={movie.releaseDate}
                     posterurl={movie.posterurl}
                 />

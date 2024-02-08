@@ -9,7 +9,6 @@ userRouter.delete("/:id", deleteUser);
 userRouter.post("/login", login)
 userRouter.get("/user", verifyToken, getUser)
 
-
 userRouter.get("/bookings/:id", getBookingOfUser)
 
 

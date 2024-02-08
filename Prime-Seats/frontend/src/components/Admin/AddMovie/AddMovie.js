@@ -9,12 +9,19 @@ const AddMovie = () => {
     const [inputs, setInputs] = useState({
         name: "",
         genre: "",
-        release_date: "",
-        image: "",
+        release_date: new Date(),
         cast: [],
         crew: [],
+        Myfile: ""
     });
 
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file)
+        setInputs(prev => ({ ...prev, Myfile: base64 }));
+
+    }
 
     const handleChange = (e) => {
         setInputs((prev) => ({
@@ -29,9 +36,14 @@ const AddMovie = () => {
                 name: inputs.name,
                 genre: inputs.genre,
                 release_date: inputs.release_date,
-                image: inputs.image,
+                image: inputs.Myfile,
                 cast: inputs.cast,
-                crew: inputs.crew
+                crew: inputs.crew,
+                admin: localStorage.getItem("adminId")
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
             });
             const data = res.data;
             setMessage(data.message);
@@ -44,14 +56,14 @@ const AddMovie = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        sendRequest().then(() => history("/hompage"))
+        sendRequest().then(() => history("/homepage"))
     }
 
     return (
-        <form className='container' onSubmit={handleSubmit}>
+        <form className='addmovie-container' onSubmit={handleSubmit}>
             <div className='header'>
-                <div className='text'>Add Movie</div>
-                <div className='underline'></div>
+                <div className='addMovie-text'>Add Movie</div>
+                <div className='addmovie-underline'></div>
             </div>
             <div className='inputs'>
                 <div className="inputs-signup">
@@ -61,15 +73,17 @@ const AddMovie = () => {
                     <input className="input" type="text" name="crew" placeholder="  Crew" value={inputs.crew} onChange={handleChange} />
                     <div className="input-date">
                         <label className='label-date'>Release Date:</label>
-                        <input type="date" name="releaseDate" value={inputs.releaseDate} onChange={handleChange} />
+                        <input type="date" name="release_date" value={inputs.release_date} onChange={handleChange} />
                     </div>
                     <div className="input-date">
                         <label className='label-date' htmlFor="dateInput">Poster Image:</label>
-                        <input className="input-file" type="file" accept="image/*" name="image" value={inputs.posterurl} onChange={handleChange} />
+                        {/* <input className="input-file" type="file" name="image" value={inputs.posterurl} onChange={handleChange} />
+                        <input className="input-file" type="file" name="image" onChange={(e) => setInputs({ ...inputs, image: e.target.files[0] })} /> */}
+                        <input type='file' name="MyFile" id="image-upload" accept='.jpg, .png, .jpeg' onChange={(e) => handleFileUpload(e)} />
                     </div>
                 </div>
                 <div className='submit-container-signup'>
-                    <button type="submit" className="submit">ADD</button>
+                    <button type="submit" className="addmovie-submit">ADD</button>
                 </div>
             </div>
         </form >
@@ -78,3 +92,16 @@ const AddMovie = () => {
 
 export default AddMovie;
 
+
+const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            resolve(fileReader.result)
+        };
+        fileReader.onerror = (error) => {
+            reject(error)
+        }
+    })
+}
