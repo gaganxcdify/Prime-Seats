@@ -1,16 +1,16 @@
-.container {
+.editmovie-container {
   display: flex;
   flex-direction: column;
   margin: auto;
   width: 600px;
-  height: 650px;
+  height: 700px;
   margin-top: 50px;
-  background: #c92817;
+  background: #fff;
   padding-bottom: 30px;
   border-radius: 15px;
 }
 
-.header {
+.editmovie-header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,42 +19,51 @@
   margin-top: 20px;
 }
 
-.signuptext {
+.editMovie-text {
   color: #c92817;
   font-size: 37px;
   font-weight: 700;
   margin-bottom: 5px;
 }
 
-.loginunderline {
+.editmovie-underline {
   width: 61px;
   height: 6px;
   background: #c92817;
   border-radius: 9px;
 }
 
-.inputs-signup {
+.editmovie-inputs {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-.inputs-login {
-  margin-top: 150px;
+.editmovie-inputs {
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-.input {
+.editmovie-input {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: auto;
   width: 480px;
   height: 50px;
-  background: #c92817;
+  background: #eaeaea;
+  border-radius: 6px;
+}
+
+.editmovie-input-date {
+  display: flex;
+  margin: auto;
+  width: 480px;
+  height: 50px;
+  background: #eaeaea;
   border-radius: 6px;
 }
 
@@ -64,52 +73,46 @@ input {
   background: transparent;
   border: none;
   outline: none;
-  color: #c92817;
+  color: #797979;
   font-size: 19px;
 }
 
-.submit-container-signup {
-  margin-top: 40px;
+.editmovie-submit {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.submit-container-login {
-  margin-top: 90px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
+  background: #c92817;
   text-align: center;
   width: 220px;
   height: 59px;
-  background-color: #c92817;
+  color: #fff;
   border-radius: 50px;
   font-size: 19px;
   font-weight: 700;
   cursor: pointer;
 }
 
-.checkbox {
-  margin-top: 7px;
+.editmovie-submit-container {
+  margin-top: 0.0006rem;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: start;
-  margin-left: -120px;
-}
-
-.label {
-  display: flex;
-  margin-left: -180px;
 }
 
 input[type="checkbox"] {
-  transform: scale(0.5); /* Adjust the scale factor as needed */
+  transform: scale(0.5);
+}
+
+.editmovie-label-date {
+  height: 50px;
+  width: 400px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #797979;
+  font-size: 19px;
+}
+
+.editmovie-input-file {
+  margin: auto;
 }

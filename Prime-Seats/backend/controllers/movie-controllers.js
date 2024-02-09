@@ -49,7 +49,6 @@ export const addMovie = async (req, res, next) => {
             crew,
             admin,
             is_active: true,
-            is_deleted: false,
         });
 
         const session = await mongoose.startSession();
@@ -87,6 +86,15 @@ export const getAllMovies = async (req, res, next) => {
 }
 
 
+
+
+
+
+
+
+
+
+
 export const getMovieById = async (req, res, next) => {
     let id = req.params.id;
     let movie;
@@ -98,14 +106,23 @@ export const getMovieById = async (req, res, next) => {
     if (!movie) {
         return res.status(404).json({ message: "Invalid Id" })
     }
-    return res.status(200).json({ message: "sent" })
+    return res.status(200).json({ movie })
 }
+
+
+
+
+
+
+
+
+
 
 export const deleteMovieById = async (req, res, next) => {
     let id = req.params.id;
     let movie;
     try {
-        movie = await Movie.findByIdAndUpdate(id, { is_deleted: true });
+        movie = await Movie.findByIdAndUpdate(id, { is_active: false });
     } catch (err) {
         return console.log(err)
     }
@@ -113,4 +130,32 @@ export const deleteMovieById = async (req, res, next) => {
         return res.status(404).json({ message: "Something went wrong" })
     }
     return res.status(200).json({ message: "Movie Deleted" })
+}
+
+
+export const updateMovie = async (req, res, next) => {
+    const id = req.params.id;
+    const { name, genre, cast, crew, release_date, image } = req.body;
+    if (
+        !name &&
+        name.trim() === "" &&
+        !genre &&
+        genre.trim() === "" &&
+        !cast &&
+        cast.trim() === "" &&
+        !crew &&
+        crew.trim() === ""
+    )
+        return res.status(422).json({ message: "Invalid Inputs" })
+
+    let user;
+    try {
+        user = await Movie.findByIdAndUpdate(id, { name, genre, cast, crew, release_date, image, is_active: true})
+    } catch (err) {
+        return console.log(err)
+    }
+    if (!user) {
+        return res.status(500).json({ message: "Something went wrong" })
+    }
+    res.status(200).json({ message: "Updated successfully" })
 }

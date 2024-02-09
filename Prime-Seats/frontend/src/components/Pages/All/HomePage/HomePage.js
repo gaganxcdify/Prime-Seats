@@ -18,9 +18,10 @@ const HomePage = () => {
     }
     useEffect(() => {
         getAllmovies().then(data => setMovies(data.movies)).catch(err => console.log(err));
-    }, [])
+    }, [movies])
 
-    const activeMovies = movies.filter((movie) => movie.is_active);
+    const activeMovies = movies.filter((movie) => movie.is_active === true);
+
     return (
         <div className="home">
             {activeMovies.map((movie) => (

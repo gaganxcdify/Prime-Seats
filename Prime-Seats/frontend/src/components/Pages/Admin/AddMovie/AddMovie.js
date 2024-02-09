@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 const AddMovie = () => {
-    const history = useNavigate();
+    const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [inputs, setInputs] = useState({
         name: "",
@@ -20,7 +20,6 @@ const AddMovie = () => {
         const file = e.target.files[0];
         const base64 = await convertToBase64(file)
         setInputs(prev => ({ ...prev, Myfile: base64 }));
-
     }
 
     const handleChange = (e) => {
@@ -56,33 +55,31 @@ const AddMovie = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        sendRequest().then(() => history("/homepage"))
+        sendRequest().then(() => navigate("/homepage"))
     }
 
     return (
         <form className='addmovie-container' onSubmit={handleSubmit}>
-            <div className='header'>
-                <div className='addMovie-text'>Add Movie</div>
+            <div className='addmovie-header'>
+                <div className='addmovie-text'>Add Movie</div>
                 <div className='addmovie-underline'></div>
             </div>
-            <div className='inputs'>
-                <div className="inputs-signup">
-                    <input className="input" type="text" name="name" placeholder="  Name" value={inputs.name} onChange={handleChange} />
-                    <input className="input" type="text" name="genre" placeholder="  Genre" value={inputs.genre} onChange={handleChange} />
-                    <input className="input" type="text" name="cast" placeholder="  Cast" value={inputs.cast} onChange={handleChange} />
-                    <input className="input" type="text" name="crew" placeholder="  Crew" value={inputs.crew} onChange={handleChange} />
-                    <div className="input-date">
-                        <label className='label-date'>Release Date:</label>
+            <div className='addmovie-inputs'>
+                <div className="addmovie-inputs">
+                    <input className="addmovie-input" type="text" name="name" placeholder="  Name" value={inputs.name} onChange={handleChange} />
+                    <input className="addmovie-input" type="text" name="genre" placeholder="  Genre" value={inputs.genre} onChange={handleChange} />
+                    <input className="addmovie-input" type="text" name="cast" placeholder="  Cast" value={inputs.cast} onChange={handleChange} />
+                    <input className="addmovie-input" type="text" name="crew" placeholder="  Crew" value={inputs.crew} onChange={handleChange} />
+                    <div className="editmovie-input-date">
+                        <label className='addmovie-label-date'>Release Date:</label>
                         <input type="date" name="release_date" value={inputs.release_date} onChange={handleChange} />
                     </div>
-                    <div className="input-date">
-                        <label className='label-date' htmlFor="dateInput">Poster Image:</label>
-                        {/* <input className="input-file" type="file" name="image" value={inputs.posterurl} onChange={handleChange} />
-                        <input className="input-file" type="file" name="image" onChange={(e) => setInputs({ ...inputs, image: e.target.files[0] })} /> */}
+                    <div className="addmovie-input-date">
+                        <label className='addmovie-label-date' htmlFor="dateInput">Poster Image:</label>
                         <input type='file' name="MyFile" id="image-upload" accept='.jpg, .png, .jpeg' onChange={(e) => handleFileUpload(e)} />
                     </div>
                 </div>
-                <div className='submit-container-signup'>
+                <div className='addmovie-submit-container'>
                     <button type="submit" className="addmovie-submit">ADD</button>
                 </div>
             </div>

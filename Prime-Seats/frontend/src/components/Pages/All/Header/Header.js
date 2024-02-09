@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import "./Header.css"
 import { CgProfile } from "react-icons/cg";
 import { useDispatch, useSelector } from 'react-redux';
-import { adminActions, personActions } from '../../store';
+import logo from "./logo/0ZIby5-LogoMakr.png"
+import { adminActions, personActions } from '../../../../store';
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false)
@@ -36,7 +37,7 @@ const Header = () => {
     }
     return (
         <nav>
-            <Link className="title" to="/homepage">PrimeSeats</Link>
+            <Link className="title" to="/homepage"><img src={logo} /></Link>
             <div className='menu' onClick={() => {
                 setMenuOpen(!menuOpen)
             }}>

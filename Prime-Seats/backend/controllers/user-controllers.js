@@ -184,7 +184,7 @@ export const verifyToken = (req, res, next) => {
 
 
 export const getUser = async (req, res, next) => {
-    const userId = req.id;
+    const userId = req.params.id;
     let user;
     try {
         user = await User.findById(userId, "-password")

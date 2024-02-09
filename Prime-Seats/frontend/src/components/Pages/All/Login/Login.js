@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import "./SignupAndLogin.css";
+import "./Login.css";
 import { useDispatch } from 'react-redux';
-import { personActions } from '../../store';
-import { adminActions } from '../../store';
-import { toastContainer, toast } from "react-toastify"
+import { personActions } from '../../../../store';
+import { adminActions } from '../../../../store';
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
@@ -51,10 +52,10 @@ const Login = () => {
             if (res.status === 200) {
                 onResReceived(data)
             } else {
-                alert("error")
+                toast.error("invalid credentials")
             }
         } catch (err) {
-            alert("error")
+            toast.error("invalid credentials")
             console.log(err);
         }
     };
@@ -65,27 +66,27 @@ const Login = () => {
     };
 
     return (
-        <div className='container'>
+        <div className='login-container'>
             <form onSubmit={handleSubmit}>
-                <div className='header'>
-                    <div className='signuptext'>LOG IN</div>
-                    <div className='loginunderline'></div>
+                <div className='login-header'>
+                    <div className='login-text'>LOG IN</div>
+                    <div className='login-underline'></div>
                 </div>
-                <div className='inputs'>
-                    <div className="inputs-login">
-                        <input className='input' name='email' type="email" placeholder="  Email Id" onChange={handleChange} />
-                        <input className='input' name='password' type="password" placeholder="  Password" onChange={handleChange} />
+                <div className='login-inputs'>
+                    <div className="login-inputs">
+                        <input className='login-input' name='email' type="email" placeholder="  Email Id" onChange={handleChange} />
+                        <input className='login-input' name='password' type="password" placeholder="  Password" onChange={handleChange} />
                     </div>
-                    <div className='checkbox'>
+                    <div className='login-checkbox'>
                         <input type='checkbox' onChange={() => setIsAdmin(true)} />
-                        <label className='label' >
+                        <label className='login-label' >
                             Are you an Admin?
                         </label>
                     </div>
 
-                    <div className='submit-container-login'>
+                    <div className='login-submit-container'>
                         <button type="submit" className="login-submit">LOG IN</button>
-                        <toastContainer />
+                        <ToastContainer position="bottom-right" />
                     </div>
                 </div>
             </form>

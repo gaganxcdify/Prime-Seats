@@ -39,11 +39,7 @@ const movieSchema = new mongoose.Schema({
     is_active: {
         type: Boolean,
         required: true,
-    },
-    is_deleted: {
-        type: Boolean,
-        required: true,
-    },
+    }
 }, {
     timestamps: true,
 });
