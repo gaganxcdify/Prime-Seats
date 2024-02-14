@@ -7,7 +7,7 @@ import userRouter from "./routes/user-routes.js";
 import adminRouter from "./routes/admin-routes.js";
 import movieRouter from "./routes/movie-routes.js";
 import bookingRouter from "./routes/booking-routes.js";
-
+import { notFound, errorhandler } from "./middlewares/errorMiddleware.js"
 
 
 
@@ -23,6 +23,9 @@ app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use("/movie", movieRouter);
 app.use("/booking", bookingRouter);
+
+app.use(notFound)
+app.use(errorhandler)
 
 mongoose
     .connect(

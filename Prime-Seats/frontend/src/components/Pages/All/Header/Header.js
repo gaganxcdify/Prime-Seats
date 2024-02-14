@@ -8,9 +8,10 @@ import logo from "./logo/0ZIby5-LogoMakr.png"
 import { adminActions, personActions } from '../../../../store';
 
 const Header = () => {
-    const [menuOpen, setMenuOpen] = useState(false)
-    const isAdmin = useSelector((state) => state.setlogin.isAdmin)
-    const isLoggedIn = useSelector((state) => state.login.isLoggedIn)
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const isAdmin = useSelector((state) => state.setlogin.isAdmin);
+    const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
@@ -26,6 +27,15 @@ const Header = () => {
         fetchData();
     }, []);
 
+    const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        // Perform search based on searchQuery
+        // Example: navigate(`/search?q=${searchQuery}`)
+    };
 
     const Logout = () => {
         if (isAdmin) {
@@ -35,9 +45,22 @@ const Header = () => {
         }
         navigate("/login")
     }
+
     return (
         <nav>
             <Link className="title" to="/homepage"><img src={logo} /></Link>
+            {isLoggedIn && (
+                <form onSubmit={handleSearchSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Search City"
+                        value={searchQuery}
+                        onChange={handleSearchInputChange}
+                    />
+                    <button type="submit" className="nav-button">Search</button>
+                </form>
+            )}
+
             <div className='menu' onClick={() => {
                 setMenuOpen(!menuOpen)
             }}>
@@ -50,30 +73,30 @@ const Header = () => {
                     <>
                         {isAdmin && (
                             <li>
-                                <NavLink to="/addmovie" >ADD NEW MOVIE</NavLink>
+                                <NavLink to="/addmovie" className="nav-button">ADD NEW MOVIE</NavLink>
                             </li>
                         )}
                         <li>
-                            <NavLink onClick={() => Logout()} to="/login" >LOG OUT</NavLink>
+                            <NavLink className="nav-button" onClick={() => Logout()} to="/login" >LOG OUT</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/persondetails" className="icon"><CgProfile /></NavLink>
+                            {isAdmin ? (<NavLink to="/admindetails" className="icon nav-button"><CgProfile /></NavLink>) : (<NavLink to="/userdetails" className="icon"><CgProfile /></NavLink>)}
                         </li>
                     </>
                 ) : (
                     <>
                         <li>
-                            <NavLink to="/signup">SIGN UP</NavLink>
+                            <NavLink to="/signup" className="nav-button">SIGN UP</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/login">LOG IN</NavLink>
+                            <NavLink to="/login" className="nav-button">LOG IN</NavLink>
                         </li>
                     </>
                 )}
             </ul>
-
         </nav>
-    )
+    );
 }
 
 export default Header;
+

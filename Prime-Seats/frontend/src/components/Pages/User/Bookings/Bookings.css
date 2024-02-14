@@ -1,24 +1,79 @@
-.movie-page {
+.moviedetail {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  padding: 4rem;
 }
 
-.row {
-  margin-bottom: 2rem;
-}
-
-.big-box {
+.moviedetail-card {
+  width: 48%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: white;
-  width: 80%;
-  border: 100rem;
-  padding: 2rem;
-  border-radius: 1rem;
 }
 
-.small-box {
+.moviedetail-moviedetail {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding-left: 10rem;
+}
+
+.moviedetail-theatersform {
+  justify-content: center;
+  text-align: center;
+}
+
+input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+input[type="date"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.bookings-theaterdetails {
+  background-color: #c92817;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+}
+
+.bookings-navlink {
+  margin-top: 50rem;
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding-top: 10rem;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.bookings-selectseats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ec1b2c;
+  text-align: center;
+  width: 160px;
+  height: 45px;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
 }

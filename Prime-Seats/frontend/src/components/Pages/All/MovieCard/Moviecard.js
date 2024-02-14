@@ -53,7 +53,7 @@ const Moviecard = (props) => {
                         (
                             <button className="book">
                                 <NavLink className="homepage-navlink" to={`/booking/${props.id}`} >
-                                    BOOK TICKETS
+                                    BOOK TICKET
                                 </NavLink>
                             </button>
                         )

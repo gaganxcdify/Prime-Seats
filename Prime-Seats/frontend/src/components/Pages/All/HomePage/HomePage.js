@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Moviecard from "../MovieCard/Moviecard";
-import "./HomePage.css"
-
-
+import "./HomePage.css";
 
 const HomePage = () => {
     const [movies, setMovies] = useState([]);
+    
     const getAllmovies = async () => {
-        const res = await axios.get("http://localhost:5000/movie").catch(err => console.log(err));
-        if (res.status !== 200) {
-            return console.log("No data")
+        try {
+            const res = await axios.get("http://localhost:5000/movie");
+            if (res.status === 200) {
+                return res.data.movies;
+            } else {
+                console.log("No data");
+                return [];
+            }
+        } catch (err) {
+            console.log(err);
+            return [];
         }
+    };
 
-        const data = await res.data;
-        return data;
-    }
     useEffect(() => {
-        getAllmovies().then(data => setMovies(data.movies)).catch(err => console.log(err));
-    }, [movies])
+        getAllmovies()
+            .then((data) => setMovies(data))
+            .catch((err) => console.log(err));
+    }, []);
 
     const activeMovies = movies.filter((movie) => movie.is_active === true);
 
@@ -32,11 +39,12 @@ const HomePage = () => {
                     genre={movie.genre}
                     image={movie.image}
                     releasedate={movie.releaseDate}
+                    city={movie.city}
                     posterurl={movie.posterurl}
                 />
             ))}
         </div>
-    )
-}
+    );
+};
 
 export default HomePage;

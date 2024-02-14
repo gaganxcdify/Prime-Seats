@@ -1,7 +1,7 @@
 .homepage-card {
   justify-content: center;
   width: 385px;
-  height: 38rem;
+  height: auto;
   margin: 20px 25px 40px 25px;
   display: flex;
   flex-direction: column;
@@ -15,8 +15,9 @@
 }
 
 .homepage-posterImg {
-  width: 385px;
-  height: 20rem;
+  padding: 1rem;
+  width: auto;
+  height: 28rem;
   object-fit: fill;
   border-radius: 7px;
 }

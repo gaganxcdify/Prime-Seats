@@ -1,0 +1,113 @@
+.selectseat-bigbox {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 600px;
+  height: 40rem;
+  margin-top: 50px;
+  background: white;
+  padding-bottom: 30px;
+  border-radius: 15px;
+}
+
+.selectseat-seatSelectionContainer {
+  text-align: center;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+}
+
+.selectseat-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+  height: 60%;
+  width: 70%;
+  margin: auto;
+  transform: perspective(800px) rotateX(-30deg);
+  box-shadow: 0 3px 120px rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+}
+
+.selectseat-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.selectseat-seat {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  cursor: pointer;
+  background-color: rgb(199, 184, 184);
+}
+
+.selectseat-seat.selected {
+  background-color: #6ceb9f;
+}
+.selectseat-seat.selected:hover {
+  background-color: #6ceb9f;
+}
+.selectseat-seat:hover {
+  background-color: #ec1b2c;
+}
+
+.selectseat-button {
+  background: #ec1b2c;
+  text-align: center;
+  width: 160px;
+  height: 10rem;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 20px; /* Add margin bottom for separation */
+}
+
+.selectseat-color-box-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  justify-content: center;
+  width: 100%;
+  justify-content: space-around;
+}
+.selectseat-color-box-container div {
+  display: flex;
+  justify-content: space-between;
+  width: 25%;
+}
+.selectseat-color-box {
+  width: 1rem;
+  height: 1rem;
+  margin: 1rem;
+  border-radius: 5px;
+}
+.selectseat-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectseat-available {
+  background-color: rgb(199, 184, 184);
+}
+.selectseat-selected {
+  background-color: #ec1b2c;
+}
+.selectseat-booked {
+  background-color: rgb(101, 111, 110);
+}
+
+.selectseat-booked:hover {
+  background-color: rgb(101, 111, 110);
+  pointer-events: none;
+}

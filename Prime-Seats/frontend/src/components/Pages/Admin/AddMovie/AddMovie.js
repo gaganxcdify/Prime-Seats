@@ -10,6 +10,7 @@ const AddMovie = () => {
         name: "",
         genre: "",
         release_date: new Date(),
+        // cities: [],
         cast: [],
         crew: [],
         Myfile: ""
@@ -38,6 +39,7 @@ const AddMovie = () => {
                 image: inputs.Myfile,
                 cast: inputs.cast,
                 crew: inputs.crew,
+                // cities: inputs.cities,
                 admin: localStorage.getItem("adminId")
             }, {
                 headers: {
@@ -70,6 +72,7 @@ const AddMovie = () => {
                     <input className="addmovie-input" type="text" name="genre" placeholder="  Genre" value={inputs.genre} onChange={handleChange} />
                     <input className="addmovie-input" type="text" name="cast" placeholder="  Cast" value={inputs.cast} onChange={handleChange} />
                     <input className="addmovie-input" type="text" name="crew" placeholder="  Crew" value={inputs.crew} onChange={handleChange} />
+                    {/* <input className="addmovie-input" type="text" name="cities" placeholder="  List cities for screening" value={inputs.cities} onChange={handleChange} /> */}
                     <div className="editmovie-input-date">
                         <label className='addmovie-label-date'>Release Date:</label>
                         <input type="date" name="release_date" value={inputs.release_date} onChange={handleChange} />

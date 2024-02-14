@@ -68,57 +68,6 @@ export const Signup = async (req, res, next) => {
 
 
 
-
-
-
-export const updateUser = async (req, res, next) => {
-    const id = req.params.id;
-    const { first_name, last_name, email, password, contact_number, is_active, is_deleted } = req.body;
-    if (
-        !first_name &&
-        first_name.trim() === "" &&
-        !last_name &&
-        last_name.trim() === "" &&
-        !email &&
-        email.trim() === "" &&
-        !password &&
-        password.trim() === "" &&
-        !contact_number &&
-        contact_number.trim() === ""
-    ) {
-        return res.status(422).json({ message: "Invalid Inputs" })
-    }
-    let user;
-    try {
-        user = await User.findByIdAndUpdate(id, { first_name, last_name, email, password, contact_number, is_active, is_deleted })
-    } catch (err) {
-        return console.log(err)
-    }
-    if (!user) {
-        return res.status(500).json({ message: "Something went wrong" })
-    }
-    res.status(200).json({ message: "Updated successfully" })
-}
-
-
-
-
-export const deleteUser = async (req, res, next) => {
-    const id = req.params.id;
-    let user;
-    try {
-        user = await User.findByIdAndUpdate(id, { is_deleted: true });
-    } catch (err) {
-        return console.log(err)
-    }
-    if (!user) {
-        return res.status(500).json({ message: "Something went wrong" });
-    }
-    return res.status(200).json({ message: "User Deleted successfully" })
-}
-
-
-
 export const login = async (req, res, next) => {
     const { email, password } = req.body;
     if (
@@ -162,6 +111,55 @@ export const login = async (req, res, next) => {
 }
 
 
+export const updateUser = async (req, res, next) => {
+    const id = req.params.id;
+    const { first_name, last_name, email, password, contact_number, is_active, is_deleted } = req.body;
+    if (
+        !first_name &&
+        first_name.trim() === "" &&
+        !last_name &&
+        last_name.trim() === "" &&
+        !email &&
+        email.trim() === "" &&
+        !password &&
+        password.trim() === "" &&
+        !contact_number &&
+        contact_number.trim() === ""
+    ) {
+        return res.status(422).json({ message: "Invalid Inputs" })
+    }
+    let user;
+    try {
+        user = await User.findByIdAndUpdate(id, { first_name, last_name, email, password, contact_number, is_active, is_deleted })
+    } catch (err) {
+        return console.log(err)
+    }
+    if (!user) {
+        return res.status(500).json({ message: "Something went wrong" })
+    }
+    res.status(200).json({ message: "Updated successfully" })
+}
+
+
+
+export const deleteUser = async (req, res, next) => {
+    const id = req.params.id;
+    let user;
+    try {
+        user = await User.findByIdAndUpdate(id, { is_deleted: true });
+    } catch (err) {
+        return console.log(err)
+    }
+    if (!user) {
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+    return res.status(200).json({ message: "User Deleted successfully" })
+}
+
+
+
+
+
 
 
 export const verifyToken = (req, res, next) => {
@@ -183,19 +181,20 @@ export const verifyToken = (req, res, next) => {
 }
 
 
-export const getUser = async (req, res, next) => {
-    const userId = req.params.id;
+
+export const getUserById = async (req, res, next) => {
+    const id = req.params.id;
     let user;
     try {
-        user = await User.findById(userId, "-password")
+      user = await User.findById(id);
     } catch (err) {
-        return console.log(err);
+      return console.log(err);
     }
     if (!user) {
-        return res.status(404).json({ message: "User not found" })
+      return res.status(500).json({ message: "Unexpected Error Occured" });
     }
-    return res.status(200).json({ user })
-}
+    return res.status(200).json({ user });
+  };
 
 
 

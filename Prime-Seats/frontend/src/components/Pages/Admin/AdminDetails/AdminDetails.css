@@ -1,0 +1,94 @@
+.admindetails-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.admindetails-whitebox {
+  padding: 1rem;
+  background-color: white;
+  width: 90%;
+  max-width: 70rem;
+  height: auto;
+  border-radius: 1rem;
+}
+
+.admindetails-details {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.admindetails-persondetails {
+  color: black;
+}
+
+.admindetails-profilepicture {
+  font-size: 15rem;
+  color: white;
+}
+
+.admindetails-addedmoviestitle {
+  color: #c92817;
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.admindetails-title {
+  color: #c92817;
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+
+.admindetails-addedmovies {
+  background-color: #c92817;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+}
+
+.admindetails-delete-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .admindetails-whitebox {
+    width: 90%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .admindetails-details {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+.admindetails-underline {
+  width: 61px;
+  height: 6px;
+  background: #c92817;
+  border-radius: 9px;
+  border-top: 1rem;
+}
+
+.admindetails-moviename {
+  font-weight: bolder;
+  font-size: larger;
+}

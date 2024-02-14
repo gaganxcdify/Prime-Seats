@@ -3,7 +3,7 @@
   flex-direction: column;
   margin: auto;
   width: 600px;
-  height: 700px;
+  height: auto;
   margin-top: 50px;
   background: #fff;
   padding-bottom: 30px;
@@ -31,13 +31,6 @@
   height: 6px;
   background: #c92817;
   border-radius: 9px;
-}
-
-.addmovie-inputs {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
 }
 
 .addmovie-inputs {
