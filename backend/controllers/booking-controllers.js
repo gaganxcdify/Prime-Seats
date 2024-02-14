@@ -3,50 +3,7 @@ import Movie from "../models/Movie.js";
 import User from "../models/User.js";
 import mongoose from "mongoose";
 
-// export const newBooking = async (req, res, next) => {
-//   const { userId, date, seats, is_deleted } = req.body;
-//   const movieId  = req.params.id;
-//   console.log(userId)
-//   let existingMovie;
-//   let existingUser;
-//   try {
-//     existingMovie = await Movie.findById(movieId);
-//     existingUser = await User.findById(userId);
-//   } catch (err) {
-//     return console.log(err);
-//   }
-//   if (!existingMovie) {
-//     return res.status(404).json({ message: "Movie not found" });
-//   }
-//   if (!userId) {
-//     return res.status(404).json({ message: "user not found" });
-//   }
 
-//   let booking;
-//   try {
-//     booking = new Booking({
-//       movieId,
-
-//       seats,
-//       userId,
-
-//     });
-//     const session = await mongoose.startSession();
-//     session.startTransaction();
-//     existingUser.booking.push(booking);
-//     existingMovie.booking.push(booking);
-//     await existingUser.save({ session });
-//     await existingMovie.save({ session });
-//     await booking.save({ session });
-//     session.commitTransaction();
-//   } catch (err) {
-//     return console.log(err);
-//   }
-//   if (!booking) {
-//     return res.status(500).json({ message: "Unable to create booking" });
-//   }
-//   return res.status(201).json({ booking: booking });
-// };
 export const newBooking = async (req, res, next) => {
   const { userId, seats } = req.body;
   const movieId = req.params.id;
@@ -109,7 +66,7 @@ export const newBooking = async (req, res, next) => {
   }
 };
 
-export const getBookingById = async (req, res, next) => {
+export const getBookingByMovieId = async (req, res, next) => {
   const movieId = req.params.id;
   //   console.log(req.params.id)
 

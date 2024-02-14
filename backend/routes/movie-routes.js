@@ -9,4 +9,4 @@ movieRouter.get("/:id", getMovieById)
 movieRouter.put("/:id", updateMovie)
 movieRouter.patch("/:id", deleteMovieById)
 
-export default movieRouter;
+export default movieRouter; 

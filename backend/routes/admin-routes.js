@@ -8,4 +8,4 @@ adminRouter.post("/login", AdminLogin);
 adminRouter.delete("/:id", AdminDelete);
 adminRouter.put("/:id", AdminUpdate);
 
-export default adminRouter;
+export default adminRouter; 

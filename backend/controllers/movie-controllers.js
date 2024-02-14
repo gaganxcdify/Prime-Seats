@@ -2,10 +2,12 @@ import jwt from "jsonwebtoken";
 import Movie from "../models/Movie.js";
 import Admin from "../models/Admin.js";
 import mongoose from "mongoose";
+import City from "../models/City.js";
 
 
 export const addMovie = async (req, res, next) => {
     const extractedToken = req.headers.authorization.split(" ")[1];
+
     if (!extractedToken && extractedToken.trim() === "") {
         return res.status(404).json({ message: "Token not found" });
     }
@@ -27,6 +29,7 @@ export const addMovie = async (req, res, next) => {
         cast,
         image,
         crew,
+        cityName,
         admin } = req.body
 
     const releaseDate = new Date(release_date);
@@ -48,15 +51,19 @@ export const addMovie = async (req, res, next) => {
             cast,
             crew,
             admin,
+            cityName,
             is_active: true,
         });
 
         const session = await mongoose.startSession();
         const adminUser = await Admin.findById(adminId);
+        const addToCity = await City.findOne({cityName});
         session.startTransaction();
         await movie.save({ session });
+        addToCity.movies.push(movie);
         adminUser.addedMovies.push(movie);
         await adminUser.save({ session });
+        await addToCity.save({ session });
         await session.commitTransaction();
 
     } catch (err) {

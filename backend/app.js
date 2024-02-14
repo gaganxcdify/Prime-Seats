@@ -7,9 +7,7 @@ import userRouter from "./routes/user-routes.js";
 import adminRouter from "./routes/admin-routes.js";
 import movieRouter from "./routes/movie-routes.js";
 import bookingRouter from "./routes/booking-routes.js";
-
-
-
+import cityRouter from "./routes/city-routes.js";
 
 
 dotenv.config();
@@ -23,10 +21,12 @@ app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use("/movie", movieRouter);
 app.use("/booking", bookingRouter);
+// app.use("/theater", theaterRouter);
+app.use("/city", cityRouter);
 
 mongoose
     .connect(
-        `mongodb+srv://admin:${process.env.MONGO_PASSWORD}@cluster0.fffwuar.mongodb.net/Primeseats?retryWrites=true&w=majority`
+        `mongodb+srv://admin:${process.env.MONGO_PASSWORD}@cluster0.fffwuar.mongodb.net/BookShow?retryWrites=true&w=majority`
     )
     .then(() =>
         app.listen(5000, () =>
