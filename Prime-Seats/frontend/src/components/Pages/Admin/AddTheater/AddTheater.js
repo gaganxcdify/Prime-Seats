@@ -13,6 +13,7 @@ const AddTheater = () => {
         location: "",
         cityname: ""
     });
+    
 
     const handleChange = (e) => {
         setInputs((prev) => ({

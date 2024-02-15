@@ -26,7 +26,7 @@
   text-align: center;
 }
 
-input[type="date"] {
+.bookings-date {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -34,7 +34,7 @@ input[type="date"] {
   margin-top: 10px;
 }
 
-input[type="date"]:focus {
+.bookings-date:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);

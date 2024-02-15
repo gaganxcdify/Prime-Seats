@@ -46,7 +46,7 @@ const Booking = () => {
         <span>Release Date: {movie?.releaseDate}</span>
       </div>
       <div className='moviedetail-card moviedetail-theatersform'>
-        <input type='date' min={minDate} max={maxDate} />
+        <input type='date' className='bookings-date' min={minDate} max={maxDate} />
         <div className='bookings-theaterdetails'>
           <h3 >theater name</h3>
           <div className='bookings-timeslots'>

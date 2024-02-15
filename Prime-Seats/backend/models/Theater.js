@@ -10,11 +10,16 @@ const theaterSchema = new Schema({
         type: String,
         required: true
     },
+    
     cityid: {
         type: mongoose.Types.ObjectId,
         ref: "City",
         required: true,
-    }
+    },
+    timeslots:[{
+        type:mongoose.Types.ObjectId,
+        ref:"Timeslot",
+    }]
 }, {
     timestamps: true,
 });
