@@ -52,7 +52,7 @@ const Moviecard = (props) => {
                         ) :
                         (
                             <button className="book">
-                                <NavLink className="homepage-navlink" to={`/booking/${props.id}`} >
+                                <NavLink className="homepage-navlink" to={`/booking/${props.id}?city=${props.city}`}>
                                     BOOK TICKET
                                 </NavLink>
                             </button>

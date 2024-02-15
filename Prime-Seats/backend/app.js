@@ -8,21 +8,25 @@ import adminRouter from "./routes/admin-routes.js";
 import movieRouter from "./routes/movie-routes.js";
 import bookingRouter from "./routes/booking-routes.js";
 import { notFound, errorhandler } from "./middlewares/errorMiddleware.js"
-
-
-
+import cityRouter from "./routes/city-routes.js";
+import theaterRouter from "./routes/theater-routes.js";
+// import timeslotsRouter from "./routes/timeslots-routes.js";
 
 dotenv.config();
 const app = express();
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
-//
 app.use(express.json());
 app.use(cookieParser())
+
+
 app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use("/movie", movieRouter);
 app.use("/booking", bookingRouter);
+app.use("/city", cityRouter)
+app.use("/theater", theaterRouter)
+// app.use("/timeslots", timeslotsRouter)
 
 app.use(notFound)
 app.use(errorhandler)

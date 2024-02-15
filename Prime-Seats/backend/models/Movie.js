@@ -27,6 +27,10 @@ const movieSchema = new mongoose.Schema({
         type: String,
         required: true
     }],
+    cities: [{
+        type: mongoose.Types.ObjectId,
+        ref: "City"
+    }],
     booking: [{
         type: mongoose.Types.ObjectId,
         ref: "Booking"

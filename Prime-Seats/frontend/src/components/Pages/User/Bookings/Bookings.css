@@ -77,3 +77,16 @@ input[type="date"]:focus {
   font-weight: 700;
   cursor: pointer;
 }
+
+.bookings-timeslots {
+  display: flex;
+}
+
+.bookings-movietitle {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.bookings-moviegenre {
+  font-size: 2rem;
+}

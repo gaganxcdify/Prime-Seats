@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { useDispatch, useSelector } from 'react-redux';
 import logo from "./logo/0ZIby5-LogoMakr.png"
 import { adminActions, personActions } from '../../../../store';
+import axios from 'axios';
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -14,18 +15,8 @@ const Header = () => {
     const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("http://localhost/user/user");
-                const data = await response.json();
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        };
 
-        fetchData();
-    }, []);
+
 
     const handleSearchInputChange = (event) => {
         setSearchQuery(event.target.value);
@@ -33,8 +24,6 @@ const Header = () => {
 
     const handleSearchSubmit = (event) => {
         event.preventDefault();
-        // Perform search based on searchQuery
-        // Example: navigate(`/search?q=${searchQuery}`)
     };
 
     const Logout = () => {
@@ -50,15 +39,17 @@ const Header = () => {
         <nav>
             <Link className="title" to="/homepage"><img src={logo} /></Link>
             {isLoggedIn && (
-                <form onSubmit={handleSearchSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Search City"
-                        value={searchQuery}
-                        onChange={handleSearchInputChange}
-                    />
-                    <button type="submit" className="nav-button">Search</button>
-                </form>
+                <>
+                    <form onSubmit={handleSearchSubmit}>
+                        <input
+                            type="text"
+                            placeholder="Search City"
+                            value={searchQuery}
+                            onChange={handleSearchInputChange}
+                        />
+                        <button type="submit" className="nav-button">Search</button>
+                    </form>
+                </>
             )}
 
             <div className='menu' onClick={() => {
@@ -72,9 +63,18 @@ const Header = () => {
                 {isLoggedIn ? (
                     <>
                         {isAdmin && (
-                            <li>
-                                <NavLink to="/addmovie" className="nav-button">ADD NEW MOVIE</NavLink>
-                            </li>
+                            <>
+                                <li>
+                                    <NavLink to="/addcity" className="nav-button">ADD CITY</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/addtheater" className="nav-button">ADD THEATER</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/addmovie" className="nav-button">ADD MOVIE</NavLink>
+                                </li>
+
+                            </>
                         )}
                         <li>
                             <NavLink className="nav-button" onClick={() => Logout()} to="/login" >LOG OUT</NavLink>
@@ -99,4 +99,3 @@ const Header = () => {
 }
 
 export default Header;
-

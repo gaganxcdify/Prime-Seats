@@ -10,7 +10,6 @@ const AddMovie = () => {
         name: "",
         genre: "",
         release_date: new Date(),
-        // cities: [],
         cast: [],
         crew: [],
         Myfile: ""
@@ -39,7 +38,6 @@ const AddMovie = () => {
                 image: inputs.Myfile,
                 cast: inputs.cast,
                 crew: inputs.crew,
-                // cities: inputs.cities,
                 admin: localStorage.getItem("adminId")
             }, {
                 headers: {
