@@ -1,0 +1,11 @@
+.summary-bigbox {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 600px;
+    height: 40rem;
+    margin-top: 50px;
+    background: white;
+    padding-bottom: 30px;
+    border-radius: 15px;
+  }

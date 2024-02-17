@@ -1,0 +1,58 @@
+.userdetails-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.userdetails-whitebox {
+  padding: 1rem;
+  background-color: white;
+  width: 90%;
+  max-width: 70rem;
+  height: auto;
+  border-radius: 1rem;
+}
+
+.userdetails-details {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.userdetails-persondetails {
+  color: black;
+}
+
+.userdetails-profilepicture {
+  font-size: 15rem;
+  color: white;
+}
+
+.userdetails-bookings {
+  background-color: #c92817;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  border-radius: 1rem;
+}
+
+.userdetails-delete-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .userdetails-whitebox {
+    width: 90%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .userdetails-details {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
