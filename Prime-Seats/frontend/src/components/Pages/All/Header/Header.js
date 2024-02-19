@@ -5,7 +5,7 @@ import "./Header.css"
 import { CgProfile } from "react-icons/cg";
 import { useDispatch, useSelector } from 'react-redux';
 import logo from "./logo/0ZIby5-LogoMakr.png"
-import { adminActions, personActions } from '../../../../store';
+import { adminActions, personActions } from '../../../../store/index';
 import axios from 'axios';
 
 const Header = () => {

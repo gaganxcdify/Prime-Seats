@@ -14,7 +14,6 @@ const SignUp = () => {
         contact_number: ""
     });
 
-
     const handleChange = (e) => {
         setInputs((prev) => ({
             ...prev,
