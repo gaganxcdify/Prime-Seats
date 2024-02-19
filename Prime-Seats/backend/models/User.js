@@ -14,27 +14,10 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
-    password: {
+    role: {
         type: String,
         required: true,
-        minLength: 6,
-    },
-    contact_number: {
-        type: String,
-        required: true,
-    },
-    booking: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Booking"
-    }],
-    is_active: {
-        type: Boolean,
-        required: true,
-    },
-    is_deleted: {
-        type: Boolean,
-        required: true,
-    },
+    }
 }, {
     timestamps: true,
 });

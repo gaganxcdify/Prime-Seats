@@ -13,7 +13,7 @@ const AddTheater = () => {
         location: "",
         cityname: ""
     });
-    
+
 
     const handleChange = (e) => {
         setInputs((prev) => ({
@@ -31,7 +31,7 @@ const AddTheater = () => {
 
             }, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`
                 }
             });
             const data = res.data;

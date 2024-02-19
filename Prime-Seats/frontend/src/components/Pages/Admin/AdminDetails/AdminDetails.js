@@ -3,7 +3,7 @@ import { IoPersonSharp } from "react-icons/io5";
 import "./AdminDetails.css";
 import axios from 'axios';
 
-const UserDetails = () => {
+const customerDetails = () => {
     const [admin, setAdmin] = useState([]);
 
     const formatDate = (dateString) => {
@@ -15,7 +15,7 @@ const UserDetails = () => {
     };
 
     const getAdminById = async () => {
-        const id = localStorage.getItem("adminId");
+        const id = sessionStorage.getItem("adminId");
         const res = await axios.get(`http://localhost:5000/admin/${id}`).catch((err) => console.log(err));
         if (res.status !== 200) {
             return console.log("Unexpected Error");
@@ -64,5 +64,5 @@ const UserDetails = () => {
     );
 };
 
-export default UserDetails;
+export default customerDetails;
 

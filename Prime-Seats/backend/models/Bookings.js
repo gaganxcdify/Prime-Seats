@@ -13,9 +13,9 @@ const BookingSchema = new mongoose.Schema({
 
         },
     ],
-    userId: {
+    customerId: {
         type: mongoose.Types.ObjectId,
-        ref: "User",
+        ref: "customer",
     },
     is_deleted: {
         type: Boolean,

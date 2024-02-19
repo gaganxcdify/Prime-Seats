@@ -1,11 +1,11 @@
-.userdetails-box {
+.customerdetails-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.userdetails-whitebox {
+.customerdetails-whitebox {
   padding: 1rem;
   background-color: white;
   width: 90%;
@@ -14,21 +14,21 @@
   border-radius: 1rem;
 }
 
-.userdetails-details {
+.customerdetails-details {
   padding-left: 3rem;
   padding-right: 3rem;
 }
 
-.userdetails-persondetails {
+.customerdetails-persondetails {
   color: black;
 }
 
-.userdetails-profilepicture {
+.customerdetails-profilepicture {
   font-size: 15rem;
   color: white;
 }
 
-.userdetails-bookings {
+.customerdetails-bookings {
   background-color: #c92817;
   display: flex;
   align-items: center;
@@ -38,20 +38,20 @@
   border-radius: 1rem;
 }
 
-.userdetails-delete-icon {
+.customerdetails-delete-icon {
   font-size: 1.5rem;
   cursor: pointer;
 }
 
 @media (max-width: 767px) {
-  .userdetails-whitebox {
+  .customerdetails-whitebox {
     width: 90%;
     max-width: none;
   }
 }
 
 @media (max-width: 575px) {
-  .userdetails-details {
+  .customerdetails-details {
     padding-left: 1rem;
     padding-right: 1rem;
   }

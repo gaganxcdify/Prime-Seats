@@ -147,13 +147,13 @@ export const updateMovie = async (req, res, next) => {
     )
         return res.status(422).json({ message: "Invalid Inputs" })
 
-    let user;
+    let customer;
     try {
-        user = await Movie.findByIdAndUpdate(id, { name, genre, cast, crew, release_date, image, is_active: true })
+        customer = await Movie.findByIdAndUpdate(id, { name, genre, cast, crew, release_date, image, is_active: true })
     } catch (err) {
         return console.log(err)
     }
-    if (!user) {
+    if (!customer) {
         return res.status(500).json({ message: "Something went wrong" })
     }
     res.status(200).json({ message: "Updated successfully" })

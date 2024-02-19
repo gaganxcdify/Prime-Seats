@@ -1,22 +1,23 @@
-import User from "../models/User.js";
+import Customer from "../models/Customer.js";
 import Booking from "../models/Bookings.js";
 import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 
 
-export const getAllUsers = async (req, res, next) => {
-    let users;
+export const getAllCustomers = async (req, res, next) => {
+    let customers;
     try {
-        users = await User.find()
+        customers = await Customer.find()
     } catch (err) {
         return next(err);
     }
-    if (!users) {
+    if (!customers) {
         return res.status(500).json({ message: "unexpected Error Occcured" });
     }
 
-    return res.status(200).json({ users })
+    return res.status(200).json({ customers })
 }
 
 
@@ -40,35 +41,41 @@ export const Signup = async (req, res, next) => {
     ) {
         return res.status(422).json({ message: "Invalid Inputs" })
     }
-    let existingUser;
+    let existingcustomer;
     try {
-        existingUser = await User.findOne({ email })
+        existingcustomer = await Customer.findOne({ email })
 
     } catch (err) {
         return console.log(err)
     }
-    if (existingUser) {
-        return res.status(400).json({ message: "User already exists! Login instead" })
+    if (existingcustomer) {
+        return res.status(400).json({ message: "customer already exists! Login instead" })
     }
 
     const hashedPassword = bcrypt.hashSync(password);
-    let users;
+    let customers;
+    let user;
     try {
-        users = new User({ first_name, last_name, email, password: hashedPassword, contact_number, is_active: false, is_deleted: false });
-        users = await users.save();
+        customers = new Customer({ first_name, last_name, email, password: hashedPassword, contact_number, is_active: false, is_deleted: false });
+        customers = await customers.save();
+
+        user = new User({ first_name, last_name, email, role: "Customer", is_active: false, is_deleted: false })
+        user = await user.save();
+
+
     } catch (err) {
         return console.log(err);
     }
-    if (!users) {
+    if (!customers) {
         return res.status(500).json({ message: "unexpected Error Occcured" });
     }
 
-    return res.status(201).json({ id: users._id });
+    return res.status(201).json({ id: customers._id });
 };
 
 
 
-export const login = async (req, res, next) => {
+export const customerLogin = async (req, res, next) => {
     const { email, password } = req.body;
     if (
         !email &&
@@ -79,39 +86,42 @@ export const login = async (req, res, next) => {
         return res.status(422).json({ message: "Invalid Inputs" })
     }
 
-    let existingUser;
+    let existingcustomer;
     try {
-        existingUser = await User.findOne({ email });
+        existingcustomer = await Customer.findOne({ email });
     } catch (err) {
         return console.log(err)
     }
-    if (!existingUser) {
+    if (!existingcustomer) {
         {
-            return res.status(404).json({ message: "User not found!, Signup please" })
+            return res.status(404).json({ message: "customer not found!, Signup please" })
         }
     }
-    const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password)
+    const isPasswordCorrect = bcrypt.compareSync(password, existingcustomer.password)
 
     if (!isPasswordCorrect) {
         return res.status(400).json({ message: " Incorrect Password" })
 
     }
-    const token = jwt.sign({ id: existingUser.id }, process.env.SECRET_KEY, {
-        expiresIn: "30s"
-    })
-    res.cookie(String(existingUser.id), token, {
-        path: '',
-        expires: new Date(Date.now() + 1000 * 30),
-        httpOnly: true,
-        sameSite: "lax"
+    // const token = jwt.sign({ id: existingcustomer.id }, process.env.SECRET_KEY, {
+    //     expiresIn: "7d",
+    // });
+    // res.cookie(String(existingcustomer.id), token, {
+    //     path: '',
+    //     expires: new Date(Date.now() + 1000 * 30),
+    //     httpOnly: true,
+    //     sameSite: "lax"
+    // });s
+    const token = jwt.sign({ id: existingcustomer.id }, process.env.SECRET_KEY, {
+        expiresIn: "7d",
     });
 
 
-    return res.status(200).json({ message: 'User Login successful', id: existingUser._id })
+    return res.status(200).json({ message: 'customer login successful', auth: token, id: existingcustomer._id })
 }
 
 
-export const updateUser = async (req, res, next) => {
+export const updatecustomer = async (req, res, next) => {
     const id = req.params.id;
     const { first_name, last_name, email, password, contact_number, is_active, is_deleted } = req.body;
     if (
@@ -128,13 +138,13 @@ export const updateUser = async (req, res, next) => {
     ) {
         return res.status(422).json({ message: "Invalid Inputs" })
     }
-    let user;
+    let customer;
     try {
-        user = await User.findByIdAndUpdate(id, { first_name, last_name, email, password, contact_number, is_active, is_deleted })
+        customer = await Customer.findByIdAndUpdate(id, { first_name, last_name, email, password, contact_number, is_active, is_deleted })
     } catch (err) {
         return console.log(err)
     }
-    if (!user) {
+    if (!customer) {
         return res.status(500).json({ message: "Something went wrong" })
     }
     res.status(200).json({ message: "Updated successfully" })
@@ -142,18 +152,18 @@ export const updateUser = async (req, res, next) => {
 
 
 
-export const deleteUser = async (req, res, next) => {
+export const deletecustomer = async (req, res, next) => {
     const id = req.params.id;
-    let user;
+    let customer;
     try {
-        user = await User.findByIdAndUpdate(id, { is_deleted: true });
+        customer = await Customer.findByIdAndUpdate(id, { is_deleted: true });
     } catch (err) {
         return console.log(err)
     }
-    if (!user) {
+    if (!customer) {
         return res.status(500).json({ message: "Something went wrong" });
     }
-    return res.status(200).json({ message: "User Deleted successfully" })
+    return res.status(200).json({ message: "customer Deleted successfully" })
 }
 
 
@@ -170,11 +180,11 @@ export const verifyToken = (req, res, next) => {
     if (!extractedToken) {
         return res.status(404).json({ message: "No token found" })
     }
-    jwt.verify(extractedToken, process.env.SECRET_KEY, (err, user) => {
+    jwt.verify(extractedToken, process.env.SECRET_KEY, (err, customer) => {
         if (err) {
             return res.status(400).json({ message: "Invalid Token" });
         } else {
-            req.id = user.id;
+            req.id = customer.id;
         }
     });
     next();
@@ -182,29 +192,29 @@ export const verifyToken = (req, res, next) => {
 
 
 
-export const getUserById = async (req, res, next) => {
+export const getcustomerById = async (req, res, next) => {
     const id = req.params.id;
-    let user;
+    let customer;
     try {
-      user = await User.findById(id);
+        customer = await Customer.findById(id);
     } catch (err) {
-      return console.log(err);
+        return console.log(err);
     }
-    if (!user) {
-      return res.status(500).json({ message: "Unexpected Error Occured" });
+    if (!customer) {
+        return res.status(500).json({ message: "Unexpected Error Occured" });
     }
-    return res.status(200).json({ user });
-  };
+    return res.status(200).json({ customer });
+};
 
 
 
 
 
-export const getBookingOfUser = async (req, res, next) => {
+export const getBookingOfcustomer = async (req, res, next) => {
     const id = req.params.id;
     let booking;
     try {
-        booking = await Booking.find({ user: id })
+        booking = await Booking.find({ customer: id })
     } catch (err) {
         return console.log(err);
     }

@@ -23,7 +23,7 @@ const AddCity = () => {
                 name: inputs.name,
             }, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`
                 }
             });
             const data = res.data;

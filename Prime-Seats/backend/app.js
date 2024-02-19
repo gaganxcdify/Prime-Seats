@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from "cookie-parser"
-import userRouter from "./routes/user-routes.js";
+import customerRouter from "./routes/customer-routes.js";
 import adminRouter from "./routes/admin-routes.js";
 import movieRouter from "./routes/movie-routes.js";
 import bookingRouter from "./routes/booking-routes.js";
 import { notFound, errorhandler } from "./middlewares/errorMiddleware.js"
 import cityRouter from "./routes/city-routes.js";
 import theaterRouter from "./routes/theater-routes.js";
+import userRouter from "./routes/user-controller.js";
 // import timeslotsRouter from "./routes/timeslots-routes.js";
 
 dotenv.config();
@@ -20,12 +21,13 @@ app.use(express.json());
 app.use(cookieParser())
 
 
+app.use("/customer", customerRouter);
 app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use("/movie", movieRouter);
 app.use("/booking", bookingRouter);
-app.use("/city", cityRouter)
-app.use("/theater", theaterRouter)
+app.use("/city", cityRouter);
+app.use("/theater", theaterRouter);
 // app.use("/timeslots", timeslotsRouter)
 
 app.use(notFound)

@@ -37,7 +37,7 @@ const SignUp = () => {
                 setMessage(data.message);
                 return data;
             } else {
-                const res = await axios.post("http://localhost:5000/user/signup", {
+                const res = await axios.post("http://localhost:5000/customer/signup", {
                     first_name: inputs.first_name,
                     last_name: inputs.last_name,
                     email: inputs.email,

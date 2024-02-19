@@ -1,25 +1,25 @@
 import Booking from "../models/Bookings.js";
+import Customer from "../models/Customer.js";
 import Movie from "../models/Movie.js";
-import User from "../models/User.js";
 import mongoose from "mongoose";
 
 // export const newBooking = async (req, res, next) => {
-//   const { userId, date, seats, is_deleted } = req.body;
+//   const { customerId, date, seats, is_deleted } = req.body;
 //   const movieId  = req.params.id;
-//   console.log(userId)
+//   console.log(customerId)
 //   let existingMovie;
-//   let existingUser;
+//   let existingcustomer;
 //   try {
 //     existingMovie = await Movie.findById(movieId);
-//     existingUser = await User.findById(userId);
+//     existingcustomer = await customer.findById(customerId);
 //   } catch (err) {
 //     return console.log(err);
 //   }
 //   if (!existingMovie) {
 //     return res.status(404).json({ message: "Movie not found" });
 //   }
-//   if (!userId) {
-//     return res.status(404).json({ message: "user not found" });
+//   if (!customerId) {
+//     return res.status(404).json({ message: "customer not found" });
 //   }
 
 //   let booking;
@@ -28,14 +28,14 @@ import mongoose from "mongoose";
 //       movieId,
 
 //       seats,
-//       userId,
+//       customerId,
 
 //     });
 //     const session = await mongoose.startSession();
 //     session.startTransaction();
-//     existingUser.booking.push(booking);
+//     existingcustomer.booking.push(booking);
 //     existingMovie.booking.push(booking);
-//     await existingUser.save({ session });
+//     await existingcustomer.save({ session });
 //     await existingMovie.save({ session });
 //     await booking.save({ session });
 //     session.commitTransaction();
@@ -48,14 +48,14 @@ import mongoose from "mongoose";
 //   return res.status(201).json({ booking: booking });
 // };
 export const newBooking = async (req, res, next) => {
-    const { userId, seats } = req.body;
+    const { customerId, seats } = req.body;
     const movieId = req.params.id;
 
     // Validation
-    if (!userId && !seats && !movieId) {
+    if (!customerId && !seats && !movieId) {
         return res
             .status(400)
-            .json({ message: "userId, date, and seats are required" });
+            .json({ message: "customerId, date, and seats are required" });
     }
     if (!movieId) {
         return res.status(400).json({ message: "movieId is required" });
@@ -64,34 +64,34 @@ export const newBooking = async (req, res, next) => {
         return res.status(400).json({ message: "seats must be a non-empty array" });
     }
     let existingMovie;
-    let existingUser;
+    let existingcustomer;
 
     try {
         existingMovie = await Movie.findById(movieId);
-        existingUser = await User.findById(userId);
+        existingcustomer = await Customer.findById(customerId);
 
         if (!existingMovie) {
             return res.status(404).json({ message: "Movie not found" });
         }
 
-        if (!existingUser) {
-            return res.status(404).json({ message: "User not found" });
+        if (!existingcustomer) {
+            return res.status(404).json({ message: "customer not found" });
         }
 
         const booking = new Booking({
             movieId,
             seats,
-            userId,
+            customerId,
             is_deleted: false,
         });
 
         const session = await mongoose.startSession();
         session.startTransaction();
 
-        existingUser.booking.push(booking);
+        existingcustomer.booking.push(booking);
         existingMovie.booking.push(booking);
 
-        await existingUser.save({ session });
+        await existingcustomer.save({ session });
         await existingMovie.save({ session });
         await booking.save({ session });
 
@@ -148,9 +148,9 @@ export const deleteBooking = async (req, res, next) => {
 
         const session = await mongoose.startSession();
 
-        if (booking.userId && booking.userId.booking) {
-            await booking.user.booking.pull(booking);
-            await booking.user.save({ session });
+        if (booking.customerId && booking.customerId.booking) {
+            await booking.customer.booking.pull(booking);
+            await booking.customer.save({ session });
         }
 
         if (booking.movieId && booking.movieId.booking) {

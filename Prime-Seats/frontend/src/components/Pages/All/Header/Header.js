@@ -80,7 +80,7 @@ const Header = () => {
                             <NavLink className="nav-button" onClick={() => Logout()} to="/login" >LOG OUT</NavLink>
                         </li>
                         <li>
-                            {isAdmin ? (<NavLink to="/admindetails" className="icon nav-button"><CgProfile /></NavLink>) : (<NavLink to="/userdetails" className="icon"><CgProfile /></NavLink>)}
+                            {isAdmin ? (<NavLink to="/admindetails" className="icon nav-button"><CgProfile /></NavLink>) : (<NavLink to="/customerdetails" className="icon"><CgProfile /></NavLink>)}
                         </li>
                     </>
                 ) : (

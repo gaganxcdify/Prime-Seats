@@ -1,6 +1,7 @@
 import Admin from "../models/Admin.js";
 import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 
 export const AdminSignup = async (req, res, next) => {
@@ -41,9 +42,14 @@ export const AdminSignup = async (req, res, next) => {
 
     const hashedPassword = bcrypt.hashSync(password);
     let admins;
+    let user;
     try {
         admins = new Admin({ first_name, last_name, email, password: hashedPassword, contact_number, is_active: false, is_deleted: false });
         admins = await admins.save();
+
+        user = new User({ first_name, last_name, email, role: "Admin"})
+        user = await user.save();
+
     } catch (err) {
         return console.log(err);
     }
@@ -78,7 +84,7 @@ export const AdminLogin = async (req, res, next) => {
     }
     if (!existingAdmin) {
         {
-            return res.status(400).json({ message: "Unable to find admin from this ID" })
+            return res.status(400).json({ message: "Unable to find admin" })
         }
     }
     const isPasswordCorrect = bcrypt.compareSync(password, existingAdmin.password)
@@ -93,7 +99,8 @@ export const AdminLogin = async (req, res, next) => {
     });
 
 
-    return res.status(200).json({ message: 'Admin login successful', token, id: existingAdmin._id })
+
+    return res.status(200).json({ message: 'Admin login successful', auth: token, id: existingAdmin._id })
 }
 
 

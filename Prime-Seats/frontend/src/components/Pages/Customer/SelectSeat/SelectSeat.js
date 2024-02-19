@@ -10,8 +10,8 @@ const SeatSelection = () => {
     const [bookedSeats, setBookedSeats] = useState([]);
     let { movieId } = useParams();
     console.log(movieId);
-    const userId = localStorage.getItem("userId");
-    console.log(userId);
+    const customerId = sessionStorage.getItem("customerId");
+    console.log(customerId);
     useEffect(() => {
         const fetchBookedSeats = async () => {
             try {
@@ -41,7 +41,7 @@ const SeatSelection = () => {
     const bookSeats = async () => {
         try {
             await axios.post(`http://localhost:5000/booking/${movieId}`, {
-                userId,
+                customerId,
                 seats: selectedSeats,
             });
             console.log("Seats booked successfully!");
