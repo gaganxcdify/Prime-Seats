@@ -1,18 +1,18 @@
 .active {
   background-color: white;
-  color: #c92817;
+  color: #5a5b5995;
 }
 
 .active:hover {
   background-color: white;
-  color: #c92817;
+  color: #5a5b5995;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #c92817;
+  background-color: #5a5b5995;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -78,14 +78,20 @@ nav input[type="text"]::placeholder {
   color: white; /* Set placeholder text color to white */
 }
 
-nav button {
+ nav button {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  background-color: #c92817;
+  background-color: #5a5b5995;
   color: white;
   border: none;
   cursor: pointer;
 }
+.nav-button:hover{
+  background-color: #25252495;
+  color: #fff;
+}
+
+
 .icon{
   transform: scale(1.5);
 }

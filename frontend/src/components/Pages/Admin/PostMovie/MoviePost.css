@@ -1,77 +1,105 @@
 .addtheater-container {
-    max-width: 600px;
-    margin: auto;
-    margin-top: 2rem;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 2rem;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }
 
 .addtheater-header {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .addtheater-text {
-    font-size: 24px;
-    font-weight: bold;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .addtheater-underline {
-    width: 50px;
-    height: 2px;
-    background-color: #333;
-    margin: 10px auto;
+  width: 50px;
+  height: 2px;
+  background-color: #333;
+  margin: 10px auto;
 }
 
 .select-container {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .select-input {
-    width: 100%;
+  width: 100%;
 }
 
 .addtheater-inputs {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .addtheater-input {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .addtheater-submit-container {
-    text-align: center;
+  text-align: center;
 }
 
 .addtheater-submit {
-    padding: 10px 20px;
-    background-color: red;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 10px 20px;
+  background-color: #5a5b5995;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .addtheater-submit:hover {
-    background-color: red;
+  background-color: #25252495;
 }
 
 /* Optional: Style for error messages */
 .error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-label{
-    margin-left: 5px;
-    font-weight: 600;
-    font-size: 1.2em;
+label {
+  margin-left: 5px;
+  font-weight: 600;
+  font-size: 1.2em;
 }
+
+.date-input {
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  
+  .date-input-container {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  .date-input input[type="date"] {
+    width: calc(100% - 20px); /* Adjust the width as needed */
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    float: left;
+  }
+  
+  .date-input input[type="date"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  

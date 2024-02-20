@@ -5,7 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background-image: url("../public/assets/rows-red-seats-theater_53876-64710.avif");
+  /* background-image: url("../public/assets/rows-red-seats-theater_53876-64710.avif"); */
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

@@ -38,7 +38,7 @@ const Header = () => {
       <Link className="title" to="/homepage">
         <img src={logo} alt="logo"  />
       </Link>
-      {isAdmin && (
+      {!isAdmin && (
         <>
           <form onSubmit={handleSearchSubmit}>
             <input
@@ -80,13 +80,18 @@ const Header = () => {
                   </NavLink>
                 </li>
                 <li>
+                  <NavLink to="/addTimeSlot" className="nav-button">
+                    ADD TimeSlot
+                  </NavLink>
+                </li>
+                <li>
                   <NavLink to="/addmovie" className="nav-button">
                     ADD MOVIE
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/addtimeslot" className="nav-button">
-                    MOVIE IN TIME SLOT
+                  <NavLink to="/movieInTheater" className="nav-button">
+                    Add MOVIE IN Theater
                   </NavLink>
                 </li>
               </>

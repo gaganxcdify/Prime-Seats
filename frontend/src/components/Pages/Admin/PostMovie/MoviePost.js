@@ -1,7 +1,7 @@
 import "./MoviePost.css";
-import axios from "axios";
+import axios, { all } from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Await, useNavigate } from "react-router-dom";
 import Select from "react-select";
 const MoviePost = () => {
   const navigate = useNavigate();
@@ -9,20 +9,21 @@ const MoviePost = () => {
   const [theater, setTheater] = useState([]);
   const [message, setMessage] = useState("");
   const [movies, setMovies] = useState("");
-  const [selectedCity, setSelectedCity] = useState([]);
-  const [inputs, setInputs] = useState({
-   
-  });
+  const [timeSlot, setTimeSlot] = useState([]);
+
+  const [selectedCity, setSelectedCity] = useState("");
+  const [inputs, setInputs] = useState({});
 
   const addMovieToTimeSlot = async () => {
     try {
       const res = await axios.post(
         "http://localhost:5000/timeslot/",
         {
-          city: inputs.city,
-          movie: inputs.movie,
-          theaters: inputs.theater,
-          timeSlot: inputs.timeSlot,
+          city: inputs?.city,
+          movie: inputs?.movie,
+          date: inputs?.posted_date,
+          theaters: inputs?.theaters,
+          timeSlot: inputs?.timeSlot,
         },
         {
           headers: {
@@ -40,7 +41,7 @@ const MoviePost = () => {
   };
 
   const filteredTheater = theater
-    ? theater.filter((t) => selectedCity.includes(t.cityid))
+    ? theater.filter((t) => t.cityid === selectedCity)
     : [];
 
   useEffect(() => {
@@ -61,7 +62,7 @@ const MoviePost = () => {
       try {
         const response = await axios.get("http://localhost:5000/city/");
         const citiesData = response.data.cities.map((city) => city);
-        console.log(citiesData);
+
         setCities(citiesData);
         if (!selectedCity && citiesData.length > 0) {
           setSelectedCity(citiesData[0]);
@@ -78,7 +79,7 @@ const MoviePost = () => {
     const fetchMovie = async () => {
       try {
         const response = await axios.get("http://localhost:5000/movie/");
-        const movieData = response.data.movies
+        const movieData = response.data.movies;
         setMovies(movieData);
       } catch (error) {
         console.error("Error fetching cities:", error);
@@ -88,7 +89,24 @@ const MoviePost = () => {
     fetchMovie();
   }, []);
 
-  console.log(movies);
+ 
+    const fetchTimeSlot = async (theaterId) => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/timeslot/${theaterId}`
+        );
+        const timeSlotData = response.data;
+        const allTimeSlots = timeSlotData
+          ?.map((slotObject) => slotObject.slot)
+          .flat();
+
+        setTimeSlot(allTimeSlots);
+      } catch (err) {
+        console.error("Error fetching TimeSlot:", err);
+      }
+    };
+
+  console.log(timeSlot);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -96,18 +114,27 @@ const MoviePost = () => {
     navigate("/homepage");
   };
   const handleCityChange = (selectedOptions) => {
-    const selectedCities = selectedOptions.map((option) => option.id);
+    const selectedCities = selectedOptions.id;
     setSelectedCity(selectedCities);
     setInputs((prev) => ({ ...prev, city: selectedCities }));
   };
 
-  const handleTheaterChange = (selectedOptions) => {
-    const selectedTheaters = selectedOptions.map((option) => option.value);
-    setInputs((prev) => ({ ...prev, theaters: selectedTheaters }));
-  };
+  const handleTheaterChange = async (selectedOptions) => {
+    const selectedTheaters = selectedOptions.value;
+    console.log(selectedTheaters);
+   setInputs((prev) => ({ ...prev, theaters: selectedTheaters }));
 
+   fetchTimeSlot(selectedTheaters);
+  };
+  console.log(timeSlot);
+  console.log(inputs.theaters);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInputs((prev) => ({ ...prev, [name]: value }));
+  };
   const handelTimeSlot = (selectedOptions) => {
-    const selectedTimeSlot = selectedOptions.map((option) => option.value);
+    const selectedTimeSlot = selectedOptions.value;
+
     setInputs((prev) => ({ ...prev, timeSlot: selectedTimeSlot }));
   };
   const handelMovieChange = (selectedMovie) => {
@@ -116,7 +143,6 @@ const MoviePost = () => {
       movie: selectedMovie,
     }));
   };
-  console.log(inputs);
 
   return (
     <form className="addtheater-container" onSubmit={handleSubmit}>
@@ -127,7 +153,7 @@ const MoviePost = () => {
       <div>
         <label> Cities:</label>
         <Select
-          isMulti
+          // isMulti
           options={cities.map((city, index) => ({
             value: city.name,
             label: city.name,
@@ -140,7 +166,7 @@ const MoviePost = () => {
       <div>
         <label> Theaters:</label>
         <Select
-          isMulti
+          // isMulti
           options={filteredTheater.map((theaterItem, index) => ({
             value: theaterItem._id,
             label: theaterItem.name,
@@ -151,14 +177,26 @@ const MoviePost = () => {
         />
       </div>
       <div>
+        <label className="date-input">Movie adding Date:</label>
+        <div className="date-input">
+          <div className="date-input-container">
+            <input
+              type="date"
+              name="posted_date"
+              value={inputs.release_date}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+      </div>
+      <div>
         <label> Time Slots:</label>
         <Select
           isMulti
-          options={[
-            { value: "theater1", label: "TImeSlot 1" },
-            { value: "theater2", label: "Theater 2" },
-            // Add more options as needed
-          ]}
+          options={timeSlot.map((slots) => ({
+            value: slots,
+            label: slots,
+          }))}
           onChange={handelTimeSlot}
           className="select-input"
         />
@@ -168,10 +206,12 @@ const MoviePost = () => {
         <Select
           options={
             movies &&
-            movies.map((movie, index) => ({
-              value: movie._id,
-              label: movie.name,
-            }))
+            movies
+              .filter((movie) => movie.is_active) // Filter only active movies
+              .map((movie, index) => ({
+                value: movie._id,
+                label: movie.name,
+              }))
           }
           onChange={handelMovieChange}
           className="select-input"

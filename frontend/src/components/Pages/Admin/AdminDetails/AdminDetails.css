@@ -25,11 +25,11 @@
 
 .admindetails-profilepicture {
   font-size: 15rem;
-  color: white;
+  color: #5a5b5995;
 }
 
 .admindetails-addedmoviestitle {
-  color: #c92817;
+  color: #5a5b5995;
   display: flex;
   flex-direction: column;
   font-size: 2rem;
@@ -40,7 +40,7 @@
 }
 
 .admindetails-title {
-  color: #c92817;
+  color: #5a5b5995;
   display: flex;
   flex-direction: column;
   font-size: 2rem;
@@ -50,7 +50,7 @@
 }
 
 .admindetails-addedmovies {
-  background-color: #c92817;
+  background-color: #5a5b5995;
   display: grid;
   grid-template-columns: auto auto auto;
   align-items: center;
@@ -83,7 +83,7 @@
 .admindetails-underline {
   width: 61px;
   height: 6px;
-  background: #c92817;
+  background: #5a5b5995;
   border-radius: 9px;
   border-top: 1rem;
 }

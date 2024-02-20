@@ -20,7 +20,7 @@
   }
   
   .addtheater-text {
-    color: #c92817;
+    color: #25252495;
     font-size: 37px;
     font-weight: 700;
     margin-bottom: 5px;
@@ -29,7 +29,7 @@
   .addtheater-underline {
     width: 61px;
     height: 6px;
-    background: #c92817;
+    background: #25252495;
     border-radius: 9px;
   }
   
@@ -81,7 +81,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #c92817;
+    background: #25252495;
     text-align: center;
     width: 220px;
     height: 59px;

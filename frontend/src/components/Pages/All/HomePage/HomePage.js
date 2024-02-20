@@ -88,6 +88,7 @@ import axios from "axios";
 import Moviecard from "../MovieCard/Moviecard";
 import "./HomePage.css";
 import { useSelector } from "react-redux";
+import Select from "react-select";
 
 const HomePage = () => {
   const isAdmin = useSelector((state) => state.setlogin.isAdmin);
@@ -114,10 +115,10 @@ const HomePage = () => {
     const fetchCities = async () => {
       try {
         const response = await axios.get("http://localhost:5000/city/");
-        const citiesData = response.data.cities.map((city) => city.name);
+        const citiesData = response.data.cities.map((city) => city);
         setCities(citiesData);
         if (!selectedCity && citiesData.length > 0) {
-          setSelectedCity(citiesData[0]);
+          setSelectedCity(citiesData[0].name);
         }
       } catch (error) {
         console.error("Error fetching cities:", error);
@@ -127,8 +128,8 @@ const HomePage = () => {
     fetchCities();
   }, [selectedCity]);
 
-  const handleCityChange = (event) => {
-    setSelectedCity(event.target.value);
+  const handleCityChange = (selectedOption) => {
+    setSelectedCity(selectedOption.value);
   };
 
   useEffect(() => {
@@ -141,24 +142,41 @@ const HomePage = () => {
 
   return (
     <>{!isAdmin &&
+      <div>
+      <label> Cities:</label>
+      <Select
+        
+        options={cities.map((city, index) => ({
+          value: city.name,
+          label: city.name,
+          id: city._id,
+        }))}
+        onChange={handleCityChange}
+        value={{ value: selectedCity, label: selectedCity }}
+      
+        className="select-input"
+      />
+    </div>
+    
 
-      <div className="select-container">
-        <select
-          className="select-dropdown"
-          value={selectedCity}
-          onChange={handleCityChange}
-          >
-          {cities.map((city, index) => (
-            <option key={index} value={city}>
-              {city}
-            </option>
-          ))}
-        </select>
-      </div>
+    //   <div className="select-container">
+    //     <select
+    //       className="select-dropdown"
+    //       value={selectedCity}
+    //       onChange={handleCityChange}
+    //       >
+    //       {cities.map((city, index) => (
+    //         <option key={index} value={city}>
+    //           {city}
+    //         </option>
+    //       ))}
+    //     </select>
+    //   </div>
         }
 
       <div className="home">
-        {activeMovies.map((movie) => (
+        {activeMovies.map((movie) => ( movie.is_active
+        &&
           <Moviecard
             key={movie._id}
             id={movie._id}

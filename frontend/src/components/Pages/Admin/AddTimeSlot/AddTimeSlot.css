@@ -1,4 +1,4 @@
-.addmovie-container {
+.addtheater-container {
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -10,7 +10,7 @@
   border-radius: 15px;
 }
 
-.addmovie-header {
+.addtheater-header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,28 +19,35 @@
   margin-top: 20px;
 }
 
-.addmovie-text {
-  color: #5d5d5d;
+.addtheater-text {
+  color: #25252495;
   font-size: 37px;
   font-weight: 700;
   margin-bottom: 5px;
 }
 
-.addmovie-underline {
+.addtheater-underline {
   width: 61px;
   height: 6px;
-  background: #545353;
+  background: #25252495;
   border-radius: 9px;
 }
 
-.addmovie-inputs {
+.addtheater-inputs {
   margin-top: 2rem;
+
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
+.input-select{
+  padding: .75rem;
+  color: #797979;
+  font-size: 1.2rem;
 
-.addmovie-input {
+}
+
+.addtheater-input {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,7 +58,7 @@
   border-radius: 6px;
 }
 
-.addmovie-input-date {
+.addtheater-input-date {
   display: flex;
   margin: auto;
   width: 480px;
@@ -70,11 +77,11 @@ input {
   font-size: 19px;
 }
 
-.addmovie-submit {
+.addtheater-submit {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #62605f;
+  background: #5a5b5995;
   text-align: center;
   width: 220px;
   height: 59px;
@@ -84,8 +91,11 @@ input {
   font-weight: 700;
   cursor: pointer;
 }
+.addtheater-submit:hover{
+  background-color: #25252495;
+}
 
-.addmovie-submit-container {
+.addtheater-submit-container {
   margin-top: 0.0006rem;
   display: flex;
   justify-content: center;
@@ -96,7 +106,8 @@ input[type="checkbox"] {
   transform: scale(0.5);
 }
 
-.addmovie-label-date {
+
+.addtheater-label-date {
   height: 50px;
   width: 400px;
   background: transparent;
@@ -106,6 +117,20 @@ input[type="checkbox"] {
   font-size: 19px;
 }
 
-.addmovie-input-file {
+.addtheater-input-file {
   margin: auto;
+}
+
+.addTime-input {
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+  padding: 8px 12px; /* Add padding for spacing inside the box */
+  width: 100%; /* Set width to fill the container */
+  height: 2rem;
+  box-sizing: border-box; /* Include padding and border in the width */
+}
+
+/* Optional: Add styles for placeholder text */
+.addTime-input::placeholder {
+  color: #999; /* Placeholder text color */
 }

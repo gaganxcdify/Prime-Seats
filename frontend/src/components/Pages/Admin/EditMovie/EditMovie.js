@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import "./EditMovie.css";
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
+import imageCompression from 'browser-image-compression';
+
 
 const EditMovie = () => {
     const { id } = useParams();
@@ -56,11 +58,24 @@ const EditMovie = () => {
 
 
 
+   
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
-        const base64 = await convertToBase64(file)
-        setMovieData(prev => ({ ...prev, Myfile: base64 }));
+        try {
+            const options = {
+                maxSizeMB: 0.05, // 50KB
+                maxWidthOrHeight: 1920,
+                useWebWorker: true
+            };
+            const compressedFile = await imageCompression(file, options);
+            const base64 = await convertToBase64(compressedFile);
+            setMovieData(prev => ({ ...prev, Myfile: base64 }));
+        } catch (error) {
+            console.error('Error compressing image:', error);
+        }
     }
+
+
 
     const handleChange = (e) => {
         setMovieData((prev) => ({

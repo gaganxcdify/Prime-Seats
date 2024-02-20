@@ -1,8 +1,11 @@
 import express from "express";
+import { createTimeSlot, getTimeSlots } from "../controllers/timeslot-controller.js";
+
 const timeslotsRouter = express.Router();
 
 
-movieRouter.post("/:id", createTimeSlot)
+timeslotsRouter.post("/:id", createTimeSlot)
+timeslotsRouter.get("/:id", getTimeSlots)
 
 
 export default timeslotsRouter;
