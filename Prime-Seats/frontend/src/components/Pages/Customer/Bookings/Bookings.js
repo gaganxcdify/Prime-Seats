@@ -38,13 +38,7 @@ const Booking = () => {
   }, []);
 
   return (
-    <div className='moviedetail'>
-      <div className='moviedetail-card  moviedetail-moviedetail'>
-        <span className='bookings-movietitle'>{movie?.name}</span>
-        <img src={movie?.image} alt="image" />
-        <span className='bookings-moviegenre'>{movie?.genre}</span>
-        <span>Release Date: {movie?.releaseDate}</span>
-      </div>
+    <div>
       <div className='moviedetail-card moviedetail-theatersform'>
         <input type='date' className='bookings-date' min={minDate} max={maxDate} />
         <div className='bookings-theaterdetails'>

@@ -5,9 +5,10 @@
   width: 600px;
   height: auto;
   margin-top: 50px;
-  background: #fff;
+  background: white; /* Taken from login-container */
   padding-bottom: 30px;
   border-radius: 15px;
+  box-shadow: 0px 5px 10px 0px rgb(91, 91, 91);
 }
 
 .addmovie-header {
@@ -20,7 +21,7 @@
 }
 
 .addmovie-text {
-  color: #c92817;
+  color: #e94539; /* Taken from login-text */
   font-size: 37px;
   font-weight: 700;
   margin-bottom: 5px;
@@ -29,7 +30,7 @@
 .addmovie-underline {
   width: 61px;
   height: 6px;
-  background: #c92817;
+  background: #e94539; /* Taken from login-underline */
   border-radius: 9px;
 }
 
@@ -66,7 +67,7 @@ input {
   background: transparent;
   border: none;
   outline: none;
-  color: #797979;
+  color: #323333; /* Taken from login-input in login-container */
   font-size: 19px;
 }
 
@@ -74,7 +75,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #c92817;
+  background: #e94539; /* Taken from login-submit in login-container */
   text-align: center;
   width: 220px;
   height: 59px;
@@ -102,7 +103,7 @@ input[type="checkbox"] {
   background: transparent;
   border: none;
   outline: none;
-  color: #797979;
+  color: #323333; /* Taken from login-input in login-container */
   font-size: 19px;
 }
 

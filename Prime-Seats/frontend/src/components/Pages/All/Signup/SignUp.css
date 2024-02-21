@@ -8,6 +8,24 @@
   background: white;
   padding-bottom: 30px;
   border-radius: 15px;
+  box-shadow: 0px 5px 10px 0px rgb(91, 91, 91);
+}
+
+.signup-submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  width: 220px;
+  height: 59px;
+  background-color: #e94539;
+  border-radius: 50px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .signup-header {
@@ -20,7 +38,7 @@
 }
 
 .signup-text {
-  color: #c92817;
+  color: #e94539;
   font-size: 37px;
   font-weight: 700;
   margin-bottom: 5px;
@@ -29,7 +47,7 @@
 .signup-underline {
   width: 61px;
   height: 6px;
-  background: #c92817;
+  background: #e94539;
   border-radius: 9px;
 }
 
@@ -57,7 +75,7 @@ input {
   background: transparent;
   border: none;
   outline: none;
-  color: #c92817;
+  color: #1e3249;
   font-size: 19px;
 }
 
@@ -68,26 +86,11 @@ input {
   align-items: center;
 }
 
-.signup-submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-align: center;
-  width: 220px;
-  height: 59px;
-  background-color: #c92817;
-  border-radius: 50px;
-  font-size: 19px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
 .signup-label {
   display: flex;
   margin-left: -180px;
 }
 
 input[type="checkbox"] {
-  transform: scale(0.5); /* Adjust the scale factor as needed */
+  transform: scale(0.5);
 }

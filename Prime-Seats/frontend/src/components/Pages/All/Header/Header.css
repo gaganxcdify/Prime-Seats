@@ -1,29 +1,28 @@
 .active {
   background-color: white;
-  color: #c92817;
+  color: #e94539;
+}
+
+img {
+  height: 4.5rem;
+  width: 10rem;
 }
 
 .active:hover {
   background-color: white;
-  color: #c92817;
+  color: #323333;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #c92817;
+  background-color: white;
   position: sticky;
   top: 0;
   z-index: 999;
-}
-
-.title {
-  font-size: 1.5rem;
-  margin: 1rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: white;
+  padding-inline: 1rem;
+  box-shadow: 0px 5px 10px 0px rgb(91, 91, 91);
 }
 
 nav ul {
@@ -37,7 +36,7 @@ nav ul li {
 nav ul li a {
   display: block;
   text-decoration: none;
-  color: white;
+  color: black;
   padding: 0.5rem;
   margin: 0 0.5rem;
   border-radius: 0.5rem;
@@ -71,11 +70,11 @@ nav input[type="text"] {
   border-radius: 0.5rem;
   border: 1px solid #ccc;
   margin-right: 0.5rem;
-  color: white; /* Ensure input text color is white */
+  color: white;
 }
 
 nav input[type="text"]::placeholder {
-  color: white; /* Set placeholder text color to white */
+  color: white;
 }
 
 nav button {
@@ -88,21 +87,22 @@ nav button {
 }
 
 nav button:hover {
-  background-color: #a51d13;
+  background-color: #faad40;
 }
 
 .nav-button:hover {
-  background-color: black;
+  background-color: #faad40;
 }
 
 @media (max-width: 768px) {
   .title {
-    font-size: 1.2rem; /* Decrease font size for smaller screens */
+    font-size: 1.2rem;
   }
 
   nav {
     flex-direction: column;
     align-items: start;
+    height: auto; /* Reset height for smaller screens */
   }
 
   nav .menu {
@@ -132,10 +132,14 @@ nav button:hover {
 
 @media (max-width: 480px) {
   nav form {
-    margin-right: 0.5rem; /* Adjust margin for smaller screens */
+    margin-right: 0.5rem;
   }
 
   nav input[type="text"] {
-    margin-right: 0.25rem; /* Adjust margin for smaller screens */
+    margin-right: 0.25rem;
   }
+}
+
+.icon{
+  font-size: 1.4rem;
 }

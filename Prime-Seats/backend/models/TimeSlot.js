@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const timeslotSchema = new Schema({
-    timeslot:{
+    slot:[{
         type:String,
         required:true,
-    },
+    }],
     theater:{
         type:mongoose.Types.ObjectId,
         ref:"Theater"

@@ -1,4 +1,4 @@
-.editmovie-container {
+ .editmovie-container {
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -8,6 +8,7 @@
   background: #fff;
   padding-bottom: 30px;
   border-radius: 15px;
+  box-shadow: 0px 5px 10px 0px rgb(91, 91, 91);
 }
 
 .editmovie-header {
@@ -20,7 +21,7 @@
 }
 
 .editMovie-text {
-  color: #c92817;
+  color: #e94539;
   font-size: 37px;
   font-weight: 700;
   margin-bottom: 5px;
@@ -29,7 +30,7 @@
 .editmovie-underline {
   width: 61px;
   height: 6px;
-  background: #c92817;
+  background: #e94539;
   border-radius: 9px;
 }
 
@@ -81,7 +82,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #c92817;
+  background: #e94539;
   text-align: center;
   width: 220px;
   height: 59px;
@@ -115,4 +116,5 @@ input[type="checkbox"] {
 
 .editmovie-input-file {
   margin: auto;
-}
+} 
+

@@ -25,42 +25,18 @@ const Moviecard = (props) => {
         return resdata;
     }
     return (
-        <div className="homepage-card">
+        <NavLink className="homepage-card" to={`/moviedetails/${props.id}/city=${props.city}`} >
             <img
                 className="homepage-posterImg"
                 src={props.image}
                 alt={props.name}
             />
             <div className="movieInfo">
-                <span className="movieCard-movieName">{props.name}</span>
+                <span className="moviecard-movieName">{props.name}</span>
                 <span className='genre'>{props.genre}</span>
-                <span className=''>{`Release Date: ${formatDate(props.releasedate)}`}</span>
-                <div className='homepage-button-container'>
-                    {isAdmin ?
-                        (<div className='homepage-button-div'>
-                            <button className="book">
-                                <NavLink className="homepage-navlink" to={`/editmovie/${props.id}`}>
-                                    EDIT MOVIE
-                                </NavLink>
-                            </button>
-                            <div className="homepage-navlink">
-                                <button className="book" onClick={() => handlePatch(props.id)}>
-                                    INACTIVE MOVIE
-                                </button>
-                            </div>
-                        </div>
-                        ) :
-                        (
-                            <button className="book">
-                                <NavLink className="homepage-navlink" to={`/booking/${props.id}?city=${props.city}`}>
-                                    BOOK TICKET
-                                </NavLink>
-                            </button>
-                        )
-                    }
-                </div>
+                <span className=''>{`COMING ON: ${formatDate(props.releasedate)}`}</span>
             </div>
-        </div >
+        </NavLink >
     )
 }
 export default Moviecard;

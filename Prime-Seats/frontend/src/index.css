@@ -5,12 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background-image: url("../public/assets/rows-red-seats-theater_53876-64710.avif");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  /* background-color:rgb(143, 207, 250); */
-  /* background-image: url("../public/assets/Online\ Movie\ Cashback\ Offers.JPG");*/
+  background-color: #1da59e;
 }
 
 code {

@@ -53,17 +53,20 @@ const CustomerDetails = () => {
             </div>
             <div className='customerdetails-whitebox'>
                 <div className='customerdetails-details'>
+                    <div className='admindetails-title'><span>YOUR DETAILS</span>
+                        <span className='admindetails-underline' ></span>
+                    </div>
                     <div className='customerdetails-persondetails'>
-                        <h1><span>Name: {customer.first_name} {customer.last_name}</span></h1>
-                        <h1> <span>Email: {customer.email}</span></h1>
-                        <h1> <span>Contact Number: {customer.contact_number}</span></h1>
+                        <h1 style={{ color: "#1e3249" }}><span>Name: {customer.first_name} {customer.last_name}</span></h1>
+                        <h1 style={{ color: "#1e3249" }}> <span>Email: {customer.email}</span></h1>
+                        <h1 style={{ color: "#1e3249" }}> <span>Contact Number: {customer.contact_number}</span></h1>
                     </div>
                     <div className='customerdetails-bookings'>
                         {/* {booking.map((booking,index)=>())} */}
-                        <h2>MOVIE: KGF</h2>
-                        <h3>SEATS: A2, A3, A4</h3>
-                        <h3>DATE: 25/02/2024</h3>
-                        <div className='customerdetails-delete-icon'><MdDeleteForever /></div>
+                        <h2 style={{ color: "#1e3249" }}>MOVIE: KGF</h2>
+                        <h3 style={{ color: "#1e3249" }}>SEATS: A2, A3, A4</h3>
+                        <h3 style={{ color: "#1e3249" }}>DATE: 25/02/2024</h3>
+                        <div className='customerdetails-delete-icon' style={{ color: "#1e3249" }}><MdDeleteForever /></div>
                     </div>
 
                 </div>

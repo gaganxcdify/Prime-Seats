@@ -3,7 +3,8 @@ import { IoPersonSharp } from "react-icons/io5";
 import "./AdminDetails.css";
 import axios from 'axios';
 
-const customerDetails = () => {
+const AdminDetails = () => {
+
     const [admin, setAdmin] = useState([]);
 
     const formatDate = (dateString) => {
@@ -26,7 +27,7 @@ const customerDetails = () => {
 
     useEffect(() => {
         getAdminById().then(data => setAdmin(data.admin)).catch(err => console.log(err));
-    }, [admin]);
+    }, []);
 
     return (
         <div className='admindetails-box'>
@@ -36,8 +37,9 @@ const customerDetails = () => {
             <div className='admindetails-whitebox'>
                 <div className='admindetails-details'>
                     <div className='admindetails-title'><span>ADMIN DETAILS</span>
-                        <span className='admindetails-underline' ></span></div>
-                    <div className='admindetails-persondetails'>
+                        <span className='admindetails-underline' ></span>
+                        </div>
+                    <div  className='admindetails-persondetails'>
                         <h1><span>Name: {admin.first_name} {admin.last_name}</span></h1>
                         <h1> <span>Email: {admin.email}</span></h1>
                         <h1> <span>Contact Number: {admin.contact_number}</span></h1>
@@ -45,7 +47,7 @@ const customerDetails = () => {
                     <div className='admindetails-addedmoviestitle'><span>ADDED MOVIES</span>
                         <span className='admindetails-underline' ></span></div>
                     <div >
-                        <div className='admindetails-addedmovies'>
+                        <div style={{backgroundColor:"#323333"}} className='admindetails-addedmovies'>
                             <h3 style={{ color: "White" }} className='admindetails-moviename'>MOVIE NAME </h3>
                             <h3 style={{ color: "White" }}>GENRE</h3>
                             <h3 style={{ color: "White" }}>RELEASE DATE</h3>
@@ -64,5 +66,5 @@ const customerDetails = () => {
     );
 };
 
-export default customerDetails;
 
+export default AdminDetails

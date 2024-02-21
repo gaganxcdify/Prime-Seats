@@ -17,8 +17,8 @@ const theaterSchema = new Schema({
         required: true,
     },
     timeslots:[{
-        type:mongoose.Types.ObjectId,
-        ref:"Timeslot",
+        type: mongoose.Types.ObjectId,
+        ref: "TimeSlot",
     }]
 }, {
     timestamps: true,

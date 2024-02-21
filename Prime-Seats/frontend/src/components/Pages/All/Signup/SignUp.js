@@ -61,7 +61,7 @@ const SignUp = () => {
         <form className='signup-container' onSubmit={handleSubmit}>
             <div className='signup-header'>
                 <div className='signup-text'>SIGN UP</div>
-                <span className='signup-underline' ></span>
+                <span className='signup-underline'></span>
             </div>
             <div className='signup-inputs'>
                 <div className="signup-inputs">
@@ -70,14 +70,14 @@ const SignUp = () => {
                     <input className="signup-input" type="email" name="email" placeholder="  Email Id" value={inputs.email} onChange={handleChange} />
                     <input className="signup-input" type="password" name="password" placeholder="  Password" value={inputs.password} onChange={handleChange} />
                     <input className="signup-input" type="tel" name="contact_number" placeholder=" Contact Number" value={inputs.contact_number} onChange={handleChange} />
-                    <input className="signup-input" type="password" name="secret_key" placeholder=" Secret Key(Only for Admins)" value={inputs.secret_key} onChange={handleChange} />
+                    <input className="signup-input" type="password" name="secret_key" placeholder=" Secret Key (only for admins)" value={inputs.secret_key} onChange={handleChange} />
                     <div className="signup-message">{message}</div>
                 </div>
                 <div className='signup-submit-container'>
                     <button type="signup" className="signup-submit">SIGN UP</button>
                 </div>
             </div>
-        </form >
+        </form>
     )
 }
 
