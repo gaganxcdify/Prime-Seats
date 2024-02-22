@@ -93,7 +93,7 @@ const AddMovieInTheater = () => {
     const fetchTimeSlot = async (theaterId) => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/timeslot/${theaterId}`
+          `http://localhost:5000/timeslots/${theaterId}`
         );
         const timeSlotData = response.data;
         const allTimeSlots = timeSlotData

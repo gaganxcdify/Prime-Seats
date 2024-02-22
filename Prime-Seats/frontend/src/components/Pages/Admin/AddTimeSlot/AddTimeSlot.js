@@ -12,6 +12,7 @@ const AddTimeSlot = () => {
   const [filteredTheater, setFilteredTheater] = useState([]);
   const [theater, setTheater] = useState([]);
   const [timeSlotsInput, setTimeSlotsInput] = useState("");
+  // const [timeSlots, setTimeSlots] = useState("");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -46,12 +47,6 @@ const AddTimeSlot = () => {
   };
   console.log(selectedCity);
 
-  //    const filter = theater
-  //   ? theater.filter((t) => t.cityid === selectedCity.value)
-  //   : [];
-  //   console.log(filter)
-
-  // //   setFilteredTheater(filter) //maiking infinite loop
 
   const handleCityChange = (selectedOption) => {
     setSelectedCity(selectedOption);
@@ -72,7 +67,8 @@ const AddTimeSlot = () => {
         {
           // city: selectedCity.value,
           theater: selectedTheater.value,
-          timeSlots: timeSlotsInput.split(",").map((slot) => slot.trim()), // Split input by comma and trim spaces
+          // timeSlots: timeSlotsInput.split(",").map((slot) => slot.trim()), // Split input by comma and trim spaces
+          timeSlots: timeSlotsInput, // Split input by comma and trim spaces
         },
         {
           headers: {
