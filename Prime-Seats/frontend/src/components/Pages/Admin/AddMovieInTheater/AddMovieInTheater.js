@@ -17,7 +17,7 @@ const AddMovieInTheater = () => {
   const addMovieToTimeSlot = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/timeslot/",
+        `http://localhost:5000/BookedSeatsOfTimeslot/timeSlots`,
         {
           city: inputs?.city,
           movie: inputs?.movie,
@@ -97,8 +97,10 @@ const AddMovieInTheater = () => {
         );
         const timeSlotData = response.data;
         const allTimeSlots = timeSlotData
-          ?.map((slotObject) => slotObject.slot)
-          .flat();
+          ?.map((slotObject) => slotObject)
+        // const allTimeSlots = timeSlotData
+        //   ?.map((slotObject) => slotObject.slot)
+        //   .flat();
 
         setTimeSlot(allTimeSlots);
       } catch (err) {
@@ -106,12 +108,11 @@ const AddMovieInTheater = () => {
       }
     };
 
-  console.log(timeSlot);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     await addMovieToTimeSlot();
-    navigate("/homepage");
+    // navigate("/homepage");
   };
   const handleCityChange = (selectedOptions) => {
     const selectedCities = selectedOptions.id;
@@ -127,23 +128,26 @@ const AddMovieInTheater = () => {
    fetchTimeSlot(selectedTheaters);
   };
   console.log(timeSlot);
-  console.log(inputs.theaters);
+  console.log(inputs.timeSlot);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
   const handelTimeSlot = (selectedOptions) => {
-    const selectedTimeSlot = selectedOptions.value;
-
+    const selectedTimeSlot = selectedOptions.map(option => option.id);
+    console.log(selectedTimeSlot);
+  
     setInputs((prev) => ({ ...prev, timeSlot: selectedTimeSlot }));
   };
+  
   const handelMovieChange = (selectedMovie) => {
+   
     setInputs((prev) => ({
       ...prev,
       movie: selectedMovie,
     }));
   };
-
+console.log(inputs)
   return (
     <form className="addmovieintheater-container" onSubmit={handleSubmit}>
       <div className="addmovieintheater-header">
@@ -194,8 +198,9 @@ const AddMovieInTheater = () => {
         <Select
           isMulti
           options={timeSlot.map((slots) => ({
-            value: slots,
-            label: slots,
+            id: slots._id,
+            value: slots.slot,
+            label: slots.slot,
           }))}
           onChange={handelTimeSlot}
           className="addmovieintheater-input"
@@ -209,7 +214,8 @@ const AddMovieInTheater = () => {
             movies
               .filter((movie) => movie.is_active) // Filter only active movies
               .map((movie, index) => ({
-                value: movie._id,
+                id: movie._id,
+                value: movie.name,
                 label: movie.name,
               }))
           }

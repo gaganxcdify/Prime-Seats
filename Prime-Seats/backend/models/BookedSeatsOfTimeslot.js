@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const BookedSeatsOfTimeslotSchema = new Schema({
     timeslot: {
-        type: String,
-        required: true,
+        type: mongoose.Types.ObjectId,
+        required: "TimeSlot",
     },
     date: {
         type: String,
