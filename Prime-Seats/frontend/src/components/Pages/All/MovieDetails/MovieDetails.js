@@ -62,6 +62,7 @@ const MovieDetails = (props) => {
                         src={movie.image}
                         alt={movie.name}
                     />
+
                     <div className="moviedetails-movieInfo">
                         <span className="moviedetails-movieName">{movie.name}</span>
                         <span className='moviedetails-genre'>{movie.genre}</span>

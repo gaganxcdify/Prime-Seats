@@ -78,7 +78,7 @@ const AddTheater = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const cityDetails = selectedCity;
-   
+
     if (cityDetails) {
       const cityId = cityDetails;
       console.log(cityId);
@@ -102,36 +102,68 @@ const AddTheater = () => {
         <div className="addtheater-underline"></div>
       </div>
       <div className="addtheater-inputs">
-        <div className="addtheater-inputs">
-          <label> Select City:</label>
-          <Select
-            // isMulti
-            options={cities.map((city, index) => ({
-              value: city.name,
-              label: city.name,
-              id: city._id,
-            }))}
-            onChange={handleCityChange}
-            className="select-input addtheater-input"
-          />
-          <div></div>
-          <input
-            className="addtheater-input"
-            type="text"
-            name="name"
-            placeholder="  Name"
-            value={inputs.name}
-            onChange={handleChange}
-          />
-          <input
-            className="addtheater-input"
-            type="text"
-            name="location"
-            placeholder="  Location"
-            value={inputs.location}
-            onChange={handleChange}
-          />
-        </div>
+        {/* <Select
+          options={cities.map((city, index) => ({
+            value: city.name,
+            label: city.name,
+            id: city._id,
+          }))}
+          onChange={handleCityChange}
+          className="addtheater-input-select"
+        /> */}
+        <Select
+          options={cities.map((city, index) => ({
+            value: city.name,
+            label: city.name,
+            id: city._id,
+          }))}
+          onChange={handleCityChange}
+          className="addtheater-input-select" // Apply the same class as name and location inputs
+          styles={{ // Define custom styles for the select input
+            control: (provided) => ({
+              ...provided,
+              height: "50px",
+              width: "480px",
+              backgroundColor: "#eaeaea",
+              borderRadius: "6px",
+              boxShadow: "0px 1px 2px 0px rgb(91, 91, 91)",
+            }),
+            option: (provided, state) => ({
+              ...provided,
+              backgroundColor: state.isSelected ? "#e94539" : "#eaeaea",
+              color: state.isSelected ? "#fff" : "#323333",
+              cursor: "pointer",
+            }),
+            singleValue: (provided) => ({
+              ...provided,
+              color: "#323333",
+              fontSize: "19px",
+            }),
+            dropdownIndicator: (provided) => ({
+              ...provided,
+              color: "#323333",
+            }),
+            indicatorSeparator: () => ({
+              display: "none",
+            }),
+          }}
+        />
+        <input
+          className="addtheater-input"
+          type="text"
+          name="name"
+          placeholder="  Name"
+          value={inputs.name}
+          onChange={handleChange}
+        />
+        <input
+          className="addtheater-input"
+          type="text"
+          name="location"
+          placeholder="  Location"
+          value={inputs.location}
+          onChange={handleChange}
+        />
         <div className="addtheater-submit-container">
           <button type="submit" className="addtheater-submit">
             ADD

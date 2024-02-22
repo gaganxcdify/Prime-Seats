@@ -29,11 +29,28 @@ const Header = () => {
     const Logout = () => {
         if (isAdmin) {
             dispatch(adminActions.setlogout());
+            dispatch(personActions.logout());
         } else {
             dispatch(personActions.logout());
         }
         navigate("/login")
     }
+
+
+    // useEffect(() => {
+    //     Logout()
+    // }, [])
+
+    // useEffect(() => {
+    //     const Logout = () => {
+    //         if (isAdmin) {
+    //             dispatch(adminActions.setlogout());
+    //         } else {
+    //             dispatch(personActions.logout());
+    //         }
+    //         navigate("/login");
+    //     }
+    // }, [isAdmin]);
 
     return (
         <nav>

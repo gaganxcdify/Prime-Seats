@@ -198,7 +198,7 @@ const AddMovieInTheater = () => {
             label: slots,
           }))}
           onChange={handelTimeSlot}
-          className="select-input"
+          className="addmovieintheater-input"
         />
       </div>
       <div>
@@ -214,7 +214,7 @@ const AddMovieInTheater = () => {
               }))
           }
           onChange={handelMovieChange}
-          className="select-input"
+          className="addmovieintheater-input"
         />
       </div>
       <div className="addmovieintheater-inputs">

@@ -60,9 +60,9 @@ const Login = () => {
         }));
     };
 
-    const sendRequest = async () => {
+    const sendRequest = async (role) => {
         try {
-            const url = isAdmin ? "http://localhost:5000/admin/login" : "http://localhost:5000/customer/login";
+            const url = (role && role === "Admin") ? "http://localhost:5000/admin/login" : "http://localhost:5000/customer/login";
             const res = await axios.post(url, {
                 email: inputs.email,
                 password: inputs.password,
@@ -83,7 +83,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await getUserRole()
-            .then(sendRequest())
+            .then((res) => res.data.user.role)
+            .then((role) => sendRequest(role))
             .catch((e) => console.log(e))
     };
 
