@@ -10,7 +10,6 @@ const theaterSchema = new Schema({
         type: String,
         required: true
     },
-    
     cityid: {
         type: mongoose.Types.ObjectId,
         ref: "City",

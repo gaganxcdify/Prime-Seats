@@ -68,7 +68,7 @@ const AddTimeSlot = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:5000/timeslot/${selectedTheater.value}`,
+        `http://localhost:5000/timeslots/${selectedTheater.value}`,
         {
           // city: selectedCity.value,
           theater: selectedTheater.value,
@@ -119,7 +119,7 @@ const AddTimeSlot = () => {
           type="text"
           value={timeSlotsInput}
           onChange={handleTimeSlotsInputChange}
-          placeholder="Separate by commas (e.g., 10:00 AM, 2:00 PM, 5:00 PM)"
+          placeholder=" Time Slot e.g., 10:00 AM, 2:00 PM, 5:00 PM"
           required
           className="addTime-input"
         />
