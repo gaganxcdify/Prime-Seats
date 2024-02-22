@@ -1,4 +1,4 @@
-import jwt  from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import TimeSlot from "../models/TimeSlot.js";
 import Theater from "../models/Theater.js";
 import mongoose from "mongoose";
@@ -8,11 +8,11 @@ export const createTimeSlot = async (req, res, next) => {
     const extractedToken = req.headers.authorization.split(" ")[1];
     const { timeSlots } = req.body;
     const theater = req.params.id;
- 
+
 
     if (!extractedToken || extractedToken.trim() === "") {
         return res.status(404).json({ message: "Token not found" });
-    }   
+    }
 
     let adminId;
     jwt.verify(extractedToken, process.env.SECRET_KEY, (err, decrypted) => {
@@ -22,7 +22,7 @@ export const createTimeSlot = async (req, res, next) => {
             adminId = decrypted.id;
         }
     });
- 
+
 
     if (!timeSlots || !theater) {
         return res.status(422).json({ message: "TimeSlots and theater are required" });
@@ -48,7 +48,7 @@ export const createTimeSlot = async (req, res, next) => {
     }
 }
 
-export const getTimeSlots = async (req, res, next) => { 
+export const getTimeSlots = async (req, res, next) => {
     const { id } = req.params;
 
     try {
