@@ -5,7 +5,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background-color: #1da59e;
+  /* background-color: #54e5de; */
+  background-color: #2bc7c0;
+
+  /* background-color: #faad40; */
+
 }
 
 code {

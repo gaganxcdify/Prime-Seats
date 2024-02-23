@@ -16,8 +16,7 @@ const Login = () => {
         password: ""
     });
 
-    console.log(isAdmin)
-
+    // console.log(isAdmin)
     const getUserRole = async () => {
         try {
             const res = await axios.get("http://localhost:5000/user", {
@@ -40,9 +39,9 @@ const Login = () => {
     };
 
 
-    const onResReceived = async (data) => {
+    const onResReceived = async (data, role) => {
         try {
-            const person = isAdmin ? "admin" : "customer";
+            const person = (role && role === "Admin") ? "admin" : "customer";
             await dispatch(personActions.login());
             sessionStorage.setItem(`${person}Id`, data.id);
             sessionStorage.setItem(`token`, data.auth);
@@ -70,7 +69,7 @@ const Login = () => {
             const data = res.data;
             console.log(data);
             if (res.status === 200) {
-                onResReceived(data);
+                onResReceived(data, role);
             } else {
                 toast.error("Invalid credentials");
             }

@@ -19,7 +19,6 @@ const AddMovie = () => {
         cities: [],
         theaters: []
     });
-
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
         try {
@@ -35,7 +34,6 @@ const AddMovie = () => {
             console.error('Error compressing image:', error);
         }
     }
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInputs(prev => ({
@@ -43,9 +41,6 @@ const AddMovie = () => {
             [name]: value,
         }));
     }
-
-   
-
     const sendRequest = async () => {
         try {
             const res = await axios.post("http://localhost:5000/movie", {
@@ -89,7 +84,7 @@ const AddMovie = () => {
                     <input className="addmovie-input" type="text" name="genre" placeholder="  Genre" value={inputs.genre} onChange={handleChange} />
                     <input className="addmovie-input" type="text" name="cast" placeholder="  Cast" value={inputs.cast} onChange={handleChange} />
                     <input className="addmovie-input" type="text" name="crew" placeholder="  Crew" value={inputs.crew} onChange={handleChange} />
-                    <div className="editmovie-input-date">
+                    <div className="addmovie-input-date">
                         <label className='addmovie-label-date'>Release Date:</label>
                         <input type="date" name="release_date" value={inputs.release_date} onChange={handleChange} />
                     </div>
@@ -97,7 +92,6 @@ const AddMovie = () => {
                         <label className='addmovie-label-date' htmlFor="dateInput">Poster Image:</label>
                         <input type='file' name="MyFile" id="image-upload" accept='.jpg, .png, .jpeg' onChange={(e) => handleFileUpload(e)} />
                     </div>
-                   
                 </div>
                 <div className='addmovie-submit-container'>
                     <button type="submit" className="addmovie-submit">ADD</button>

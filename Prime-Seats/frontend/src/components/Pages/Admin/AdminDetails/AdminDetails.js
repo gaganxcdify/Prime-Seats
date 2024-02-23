@@ -4,7 +4,6 @@ import "./AdminDetails.css";
 import axios from 'axios';
 
 const AdminDetails = () => {
-
     const [admin, setAdmin] = useState([]);
 
     const formatDate = (dateString) => {
@@ -38,25 +37,25 @@ const AdminDetails = () => {
                 <div className='admindetails-details'>
                     <div className='admindetails-title'><span>ADMIN DETAILS</span>
                         <span className='admindetails-underline' ></span>
-                        </div>
-                    <div  className='admindetails-persondetails'>
-                        <h1><span>Name: {admin.first_name} {admin.last_name}</span></h1>
-                        <h1> <span>Email: {admin.email}</span></h1>
-                        <h1> <span>Contact Number: {admin.contact_number}</span></h1>
+                    </div>
+                    <div className='admindetails-persondetails'>
+                        <h2><span>Name: {admin.first_name} {admin.last_name}</span></h2>
+                        <h2> <span>Email: {admin.email}</span></h2>
+                        <h2> <span>Contact Number: {admin.contact_number}</span></h2>
                     </div>
                     <div className='admindetails-addedmoviestitle'><span>ADDED MOVIES</span>
                         <span className='admindetails-underline' ></span></div>
                     <div >
-                        <div style={{backgroundColor:"#323333"}} className='admindetails-addedmovies'>
-                            <h3 style={{ color: "White" }} className='admindetails-moviename'>MOVIE NAME </h3>
-                            <h3 style={{ color: "White" }}>GENRE</h3>
-                            <h3 style={{ color: "White" }}>RELEASE DATE</h3>
+                        <div style={{ backgroundColor: "#323333" }} className='admindetails-addedmovies'>
+                            <h4 style={{ color: "White" }} className='admindetails-moviename'>MOVIE NAME </h4>
+                            <h4 style={{ color: "White" }}>GENRE</h4>
+                            <h4 style={{ color: "White" }}>RELEASE DATE</h4>
                         </div>
                         {admin.addedMovies && admin.addedMovies.map((movie) => (
                             <div key={movie._id} className='admindetails-addedmovies'>
-                                <h3 className='admindetails-moviename'>{movie.name}</h3>
-                                <h3>{movie.genre}</h3>
-                                <h3>{formatDate(movie.releaseDate)}</h3>
+                                <h3 className='admindetails-moviename' >{movie.name}</h3>
+                                <h3 >{movie.genre}</h3>
+                                <h3 >{formatDate(movie.releaseDate)}</h3>
                             </div>
                         ))}
                     </div>

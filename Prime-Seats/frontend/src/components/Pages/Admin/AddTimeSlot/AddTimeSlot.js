@@ -86,39 +86,98 @@ const AddTimeSlot = () => {
   return (
     <form className="addtimeslot-container" onSubmit={handleSubmit}>
       <div className="addtimeslot-header">
-        <div className="addtimeslot-text">Add Movie to Time Slot</div>
+        <div className="addtimeslot-text">Add  Time Slot</div>
         <div className="addtimeslot-underline"></div>
       </div>
-      <div>
-        <label>City:</label>
-        <Select
-          options={cities.map((city) => ({
-            value: city._id,
-            label: city.name,
-          }))}
-          onChange={handleCityChange}
-        />
-      </div>
-      <div>
-        <label>Theater:</label>
-        <Select
-          options={filteredTheater?.map((theater) => ({
-            value: theater._id,
-            label: theater.name,
-          }))}
-          onChange={handleTheaterChange}
-        />
-      </div>
-      <div>
-        <label>Time Slots:</label>
-        <input
-          type="text"
-          value={timeSlotsInput}
-          onChange={handleTimeSlotsInputChange}
-          placeholder=" Time Slot e.g., 10:00 AM, 2:00 PM, 5:00 PM"
-          required
-          className="addTime-input"
-        />
+      <div className='addtimeslot-inputs'>
+        <div>
+          <Select
+            placeholder="Select City"
+            className="addtimeslot-input"
+            options={cities.map((city) => ({
+              value: city._id,
+              label: city.name,
+            }))}
+            onChange={handleCityChange}
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                height: "50px",
+                width: "480px",
+                backgroundColor: "#eaeaea",
+                borderRadius: "6px",
+                boxShadow: "0px 1px 2px 0px rgb(91, 91, 91)",
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isSelected ? "#e94539" : "#eaeaea",
+                color: state.isSelected ? "#fff" : "#323333",
+                cursor: "pointer",
+              }),
+              singleValue: (provided) => ({
+                ...provided,
+                color: "#323333",
+                fontSize: "19px",
+              }),
+              dropdownIndicator: (provided) => ({
+                ...provided,
+                color: "#323333",
+              }),
+              indicatorSeparator: () => ({
+                display: "none",
+              }),
+            }}
+          />
+        </div>
+        <div>
+          <Select
+            placeholder="Select Theater"
+            className="addtimeslot-input"
+            options={filteredTheater?.map((theater) => ({
+              value: theater._id,
+              label: theater.name,
+            }))}
+            onChange={handleTheaterChange}
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                height: "50px",
+                width: "480px",
+                backgroundColor: "#eaeaea",
+                borderRadius: "6px",
+                boxShadow: "0px 1px 2px 0px rgb(91, 91, 91)",
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isSelected ? "#e94539" : "#eaeaea",
+                color: state.isSelected ? "#fff" : "#323333",
+                cursor: "pointer",
+              }),
+              singleValue: (provided) => ({
+                ...provided,
+                color: "#323333",
+                fontSize: "19px",
+              }),
+              dropdownIndicator: (provided) => ({
+                ...provided,
+                color: "#323333",
+              }),
+              indicatorSeparator: () => ({
+                display: "none",
+              }),
+            }}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            value={timeSlotsInput}
+            onChange={handleTimeSlotsInputChange}
+            placeholder=" Time Slot e.g., 10:00 AM, 2:00 PM, 5:00 PM"
+            required
+            className="addtimeslot-input"
+          />
+        </div>
       </div>
       <div className="addtimeslot-inputs">
         <div className="addtimeslot-submit-container">
@@ -132,3 +191,4 @@ const AddTimeSlot = () => {
 };
 
 export default AddTimeSlot;
+

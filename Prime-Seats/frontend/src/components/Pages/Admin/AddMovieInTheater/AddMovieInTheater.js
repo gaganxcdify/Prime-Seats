@@ -89,30 +89,26 @@ const AddMovieInTheater = () => {
     fetchMovie();
   }, []);
 
- 
-    const fetchTimeSlot = async (theaterId) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/timeslots/${theaterId}`
-        );
-        const timeSlotData = response.data;
-        const allTimeSlots = timeSlotData
-          ?.map((slotObject) => slotObject)
-        // const allTimeSlots = timeSlotData
-        //   ?.map((slotObject) => slotObject.slot)
-        //   .flat();
 
-        setTimeSlot(allTimeSlots);
-      } catch (err) {
-        console.error("Error fetching TimeSlot:", err);
-      }
-    };
+  const fetchTimeSlot = async (theaterId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/timeslots/${theaterId}`
+      );
+      const timeSlotData = response.data;
+      const allTimeSlots = timeSlotData
+        ?.map((slotObject) => slotObject)
+
+      setTimeSlot(allTimeSlots);
+    } catch (err) {
+      console.error("Error fetching TimeSlot:", err);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     await addMovieToTimeSlot();
-    // navigate("/homepage");
   };
   const handleCityChange = (selectedOptions) => {
     const selectedCities = selectedOptions.id;
@@ -123,9 +119,9 @@ const AddMovieInTheater = () => {
   const handleTheaterChange = async (selectedOptions) => {
     const selectedTheaters = selectedOptions.value;
     console.log(selectedTheaters);
-   setInputs((prev) => ({ ...prev, theaters: selectedTheaters }));
+    setInputs((prev) => ({ ...prev, theaters: selectedTheaters }));
 
-   fetchTimeSlot(selectedTheaters);
+    fetchTimeSlot(selectedTheaters);
   };
   console.log(timeSlot);
   console.log(inputs.timeSlot);
@@ -136,92 +132,198 @@ const AddMovieInTheater = () => {
   const handelTimeSlot = (selectedOptions) => {
     const selectedTimeSlot = selectedOptions.map(option => option.id);
     console.log(selectedTimeSlot);
-  
+
     setInputs((prev) => ({ ...prev, timeSlot: selectedTimeSlot }));
   };
-  
+
   const handelMovieChange = (selectedMovie) => {
-   
+
     setInputs((prev) => ({
       ...prev,
       movie: selectedMovie,
     }));
   };
-console.log(inputs)
+  console.log(inputs)
   return (
     <form className="addmovieintheater-container" onSubmit={handleSubmit}>
       <div className="addmovieintheater-header">
         <div className="addmovieintheater-text">Add Movie to Timeslot</div>
         <div className="addmovieintheater-underline"></div>
       </div>
-      <div>
-        <label> Cities:</label>
-        <Select
-          // isMulti
-          options={cities.map((city, index) => ({
-            value: city.name,
-            label: city.name,
-            id: city._id,
-          }))}
-          onChange={handleCityChange}
-          className="select-input"
-        />
-      </div>
-      <div>
-        <label> Theaters:</label>
-        <Select
-          // isMulti
-          options={filteredTheater.map((theaterItem, index) => ({
-            value: theaterItem._id,
-            label: theaterItem.name,
-            id: theaterItem._id,
-          }))}
-          onChange={handleTheaterChange}
-          className="select-input"
-        />
-      </div>
-      <div>
-        <label className="date-input">Movie adding Date:</label>
-        <div className="date-input">
-          <div className="date-input-container">
-            <input
-              type="date"
-              name="posted_date"
-              value={inputs.release_date}
-              onChange={handleChange}
-            />
-          </div>
+      <div className="addmovieintheater-inputs">
+        <div>
+          <Select
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                height: "50px",
+                width: "480px",
+                backgroundColor: "#eaeaea",
+                borderRadius: "6px",
+                boxShadow: "0px 1px 2px 0px rgb(91, 91, 91)",
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isSelected ? "#e94539" : "#eaeaea",
+                color: state.isSelected ? "#fff" : "#323333",
+                cursor: "pointer",
+              }),
+              singleValue: (provided) => ({
+                ...provided,
+                color: "#323333",
+                fontSize: "19px",
+              }),
+              dropdownIndicator: (provided) => ({
+                ...provided,
+                color: "#323333",
+              }),
+              indicatorSeparator: () => ({
+                display: "none",
+              }),
+            }}
+            className="addmovieintheater-input"
+            placeholder="Select City"
+            options={cities.map((city, index) => ({
+              value: city.name,
+              label: city.name,
+              id: city._id,
+            }))}
+            onChange={handleCityChange}
+          />
         </div>
-      </div>
-      <div>
-        <label> Time Slots:</label>
-        <Select
-          isMulti
-          options={timeSlot.map((slots) => ({
-            id: slots._id,
-            value: slots.slot,
-            label: slots.slot,
-          }))}
-          onChange={handelTimeSlot}
-          className="addmovieintheater-input"
-        />
-      </div>
-      <div>
-        <label> Movie</label>
-        <Select
-          options={
-            movies &&
-            movies
-              .filter((movie) => movie.is_active) // Filter only active movies
-              .map((movie, index) => ({
-                id: movie._id,
-                value: movie.name,
-                label: movie.name,
-              }))
-          }
-          onChange={handelMovieChange}
-          className="addmovieintheater-input"
-        />
+        <div>
+          <Select
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                height: "50px",
+                width: "480px",
+                backgroundColor: "#eaeaea",
+                borderRadius: "6px",
+                boxShadow: "0px 1px 2px 0px rgb(91, 91, 91)",
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isSelected ? "#e94539" : "#eaeaea",
+                color: state.isSelected ? "#fff" : "#323333",
+                cursor: "pointer",
+              }),
+              singleValue: (provided) => ({
+                ...provided,
+                color: "#323333",
+                fontSize: "19px",
+              }),
+              dropdownIndicator: (provided) => ({
+                ...provided,
+                color: "#323333",
+              }),
+              indicatorSeparator: () => ({
+                display: "none",
+              }),
+            }}
+            className="addmovieintheater-input"
+
+            placeholder="Select Theater"
+            options={filteredTheater.map((theaterItem, index) => ({
+              value: theaterItem._id,
+              label: theaterItem.name,
+              id: theaterItem._id,
+            }))}
+            onChange={handleTheaterChange}
+          />
+        </div>
+        <div className="addmovieintheater-input-date">
+          <label className='addmovieintheater-label-date'>Movie adding Date:</label>
+          <input type="date" name="posted_date" onChange={handleChange} />
+        </div>
+        <div>
+          <Select
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                height: "50px",
+                width: "480px",
+                backgroundColor: "#eaeaea",
+                borderRadius: "6px",
+                boxShadow: "0px 1px 2px 0px rgb(91, 91, 91)",
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isSelected ? "#e94539" : "#eaeaea",
+                color: state.isSelected ? "#fff" : "#323333",
+                cursor: "pointer",
+              }),
+              singleValue: (provided) => ({
+                ...provided,
+                color: "#323333",
+                fontSize: "19px",
+              }),
+              dropdownIndicator: (provided) => ({
+                ...provided,
+                color: "#323333",
+              }),
+              indicatorSeparator: () => ({
+                display: "none",
+              }),
+            }}
+            className="addmovieintheater-input"
+            placeholder="Select Timeslots"
+            isMulti
+            options={timeSlot.map((slots) => ({
+              id: slots._id,
+              value: slots.slot,
+              label: slots.slot,
+            }))}
+            onChange={handelTimeSlot}
+          // className="addmovieintheater-input"
+          />
+        </div>
+        <div>
+
+          <Select
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                height: "50px",
+                width: "480px",
+                backgroundColor: "#eaeaea",
+                borderRadius: "6px",
+                boxShadow: "0px 1px 2px 0px rgb(91, 91, 91)",
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isSelected ? "#e94539" : "#eaeaea",
+                color: state.isSelected ? "#fff" : "#323333",
+                cursor: "pointer",
+              }),
+              singleValue: (provided) => ({
+                ...provided,
+                color: "#323333",
+                fontSize: "19px",
+              }),
+              dropdownIndicator: (provided) => ({
+                ...provided,
+                color: "#323333",
+              }),
+              indicatorSeparator: () => ({
+                display: "none",
+              }),
+            }}
+            placeholder="Select Movie"
+            options={
+              movies &&
+              movies
+                .filter((movie) => movie.is_active) // Filter only active movies
+                .map((movie, index) => ({
+                  id: movie._id,
+                  value: movie.name,
+                  label: movie.name,
+                }))
+            }
+            onChange={handelMovieChange}
+            className="addmovieintheater-input"
+          />
+        </div>
       </div>
       <div className="addmovieintheater-inputs">
         <div className="addmovieintheater-submit-container">

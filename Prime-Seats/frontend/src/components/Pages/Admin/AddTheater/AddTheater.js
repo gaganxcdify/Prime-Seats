@@ -102,24 +102,16 @@ const AddTheater = () => {
         <div className="addtheater-underline"></div>
       </div>
       <div className="addtheater-inputs">
-        {/* <Select
-          options={cities.map((city, index) => ({
-            value: city.name,
-            label: city.name,
-            id: city._id,
-          }))}
-          onChange={handleCityChange}
-          className="addtheater-input-select"
-        /> */}
         <Select
+        placeholder="Select City"
           options={cities.map((city, index) => ({
             value: city.name,
             label: city.name,
             id: city._id,
           }))}
           onChange={handleCityChange}
-          className="addtheater-input-select" // Apply the same class as name and location inputs
-          styles={{ // Define custom styles for the select input
+          className="addtheater-input-select" 
+          styles={{ 
             control: (provided) => ({
               ...provided,
               height: "50px",

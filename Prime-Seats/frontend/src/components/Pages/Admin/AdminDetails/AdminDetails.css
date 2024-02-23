@@ -54,9 +54,8 @@
 .admindetails-addedmovies {
   background-color: white;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 28rem 26rem 25rem;
   align-items: center;
-  justify-content: space-between;
   padding-right: 2rem;
   padding-left: 2rem;
   border-radius: 1rem;
