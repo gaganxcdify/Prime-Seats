@@ -107,9 +107,11 @@ const AddMovieInTheater = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     await addMovieToTimeSlot();
+    navigate("/homepage");
+
   };
+
   const handleCityChange = (selectedOptions) => {
     const selectedCities = selectedOptions.id;
     setSelectedCity(selectedCities);

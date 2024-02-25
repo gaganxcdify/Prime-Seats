@@ -1,12 +1,15 @@
 import React from 'react'
 import "./Moviecard.css"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { homePageActions } from '../../../../store';
 
 
 const Moviecard = (props) => {
+    const dispatch = useDispatch();
     const isAdmin = useSelector((state) => state.setlogin.isAdmin)
+    const isHomePage = useSelector((state) => state.homePage.isHomePage);
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -24,8 +27,12 @@ const Moviecard = (props) => {
         const resdata = res.data
         return resdata;
     }
+    const handleCardClick = () => {
+        dispatch(homePageActions.notHomePage());
+    }
+
     return (
-        <NavLink className="homepage-card" to={`/moviedetails/${props.id}/city=${props.city}`} >
+        <NavLink className="homepage-card" onClick={handleCardClick} to={`/moviedetails/${props.id}/city=${props.city}`} >
             <img
                 className="homepage-posterImg"
                 src={props.image}

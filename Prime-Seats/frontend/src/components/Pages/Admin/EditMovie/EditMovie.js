@@ -32,6 +32,8 @@ const EditMovie = () => {
 
     const [movieData, setMovieData] = useState({
         name: "",
+        language: "",
+        trailerurl: "",
         genre: "",
         release_date: "",
         image: "",
@@ -72,6 +74,8 @@ const EditMovie = () => {
         try {
             const res = await axios.put(`http://localhost:5000/movie/${id}`, {
                 name: movieData.name,
+                trailerurl: movieData.trailerurl,
+                language: movieData.language,
                 genre: movieData.genre,
                 release_date: movieData.release_date,
                 image: movieData.Myfile,
@@ -95,15 +99,17 @@ const EditMovie = () => {
     return (
         <form className='editmovie-container' onSubmit={handleSubmit}>
             <div className='editmovie-header'>
-                <div className='editMovie-text'>Edit Movie</div>
+                <div className='editmovie-text'>Edit Movie</div>
                 <div className='editmovie-underline'></div>
             </div>
             <div className='editmovie-inputs'>
                 <div className="editmovie-inputs">
                     <input className="editmovie-input" type="text" name="name" placeholder="  Name" value={movieData.name} onChange={handleChange} />
+                    <input className="editmovie-input" type="text" name="language" placeholder="  Language" value={movieData.language} onChange={handleChange} />
                     <input className="editmovie-input" type="text" name="genre" placeholder="  Genre" value={movieData.genre} onChange={handleChange} />
                     <input className="editmovie-input" type="text" name="cast" placeholder="  Cast" value={movieData.cast} onChange={handleChange} />
                     <input className="editmovie-input" type="text" name="crew" placeholder="  Crew" value={movieData.crew} onChange={handleChange} />
+                    <input className="editmovie-input" type="text" name="trailerurl" placeholder="  Trailer URL" value={movieData.trailerurl} onChange={handleChange} />
                     <div className="editmovie-input-date">
                         <label className='editmovie-label-date'>Release Date:</label>
                         <input type="date" name="release_date" value={movieData.release_date} onChange={handleChange} />

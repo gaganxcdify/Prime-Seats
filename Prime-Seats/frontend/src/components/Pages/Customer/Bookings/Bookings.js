@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import axios from "axios";
-import "./Bookings.css"
+import { useSelector } from 'react-redux';
+import "./Bookings.css";
 
 const Booking = () => {
   const [minDate, setMinDate] = useState('');
   const [maxDate, setMaxDate] = useState('');
-  const [movie, setMovie] = useState()
-  const { id, city } = useParams()
-
+  const [movie, setMovie] = useState();
+  const { id } = useParams();
+  const selectedCity = useSelector((state) => state.city.cityName);
   const getMovieDetails = async (id) => {
-    const res = await axios
-      .get(`http://localhost:5000/movie/${id}`)
-      .catch((err) => console.log(err));
-
-    if (res.status !== 200) {
-      return console.log("Unexpected Error");
+    try {
+      const res = await axios.get(`http://localhost:5000/movie/${id}`);
+      return res.data;
+    } catch (error) {
+      console.log(error);
     }
-    const resData = await res.data;
-    return resData;
   };
 
   useEffect(() => {
     getMovieDetails(id)
       .then((res) => setMovie(res.movie))
-      .catch((err) => console.log(err))
-  }, [id])
+      .catch((err) => console.log(err));
+  }, [id]);
 
   useEffect(() => {
     const today = new Date();
@@ -42,7 +40,7 @@ const Booking = () => {
       <div className='moviedetail-card moviedetail-theatersform'>
         <input type='date' className='bookings-date' min={minDate} max={maxDate} />
         <div className='bookings-theaterdetails'>
-          <h3 >theater name</h3>
+          <h3>theater name</h3>
           <div className='bookings-timeslots'>
             <button className="">
               <NavLink to="/selectseats">
@@ -65,12 +63,10 @@ const Booking = () => {
               </NavLink>
             </button>
           </div>
-
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Booking;
-

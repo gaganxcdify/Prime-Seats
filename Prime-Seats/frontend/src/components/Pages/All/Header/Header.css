@@ -140,6 +140,34 @@ nav button:hover {
   }
 }
 
-.icon{
+.icon {
   font-size: 1.4rem;
+}
+
+.nav-button-dropdown {
+  margin-top: 0.2rem;
+  margin-right: 1.4rem;
+  position: relative;
+}
+
+.nav-button-dropdown select {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  color: black; /* Adjust text color */
+  background-color: white; /* Adjust background color */
+  cursor: pointer;
+}
+
+.nav-button-dropdown::after {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem; /* Adjust as needed */
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Style on hover if needed */
+.nav-button-dropdown:hover select {
+  background-color: #faad40; /* Adjust hover background color */
 }

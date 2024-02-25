@@ -8,9 +8,8 @@ import Confetti from 'react-confetti'
 const HomePage = () => {
     const isAdmin = useSelector((state) => state.setlogin.isAdmin);
     const [movies, setMovies] = useState([]);
-    const [cities, setCities] = useState([]);
-    const [selectedCity, setSelectedCity] = useState("");
-    const [showConfetti, setShowconfetti] = useState(true);
+    // const [showConfetti, setShowconfetti] = useState(true);
+    
     const getAllmovies = async () => {
         try {
             const res = await axios.get("http://localhost:5000/movie");
@@ -27,29 +26,6 @@ const HomePage = () => {
     };
 
     useEffect(() => {
-        const fetchCities = async () => {
-            try {
-                const response = await axios.get("http://localhost:5000/city/");
-                const citiesData = response.data.cities.map(city => city.name);
-                setCities(citiesData);
-                if (!selectedCity && citiesData.length > 0) {
-                    setSelectedCity(citiesData[0]);
-                }
-            } catch (error) {
-                console.error("Error fetching cities:", error);
-            }
-        };
-
-        fetchCities();
-
-        setTimeout(() => setShowconfetti(false), 6000)
-    }, []);
-
-    const handleCityChange = (event) => {
-        setSelectedCity(event.target.value);
-    };
-
-    useEffect(() => {
         getAllmovies()
             .then((data) => setMovies(data))
             .catch((err) => console.log(err));
@@ -59,17 +35,6 @@ const HomePage = () => {
 
     return (
         <>
-            <div className="homepage-dropdown">
-                {!isAdmin && (
-                    <div>
-                        <select value={selectedCity} onChange={handleCityChange}>
-                            {cities.map((city, index) => (
-                                <option key={index} value={city}>{city}</option>
-                            ))}
-                        </select>
-                    </div>
-                )}
-            </div>
             <div className="home">
                 {activeMovies.map((movie) => (
                     <Moviecard
@@ -79,14 +44,15 @@ const HomePage = () => {
                         genre={movie.genre}
                         image={movie.image}
                         releasedate={movie.releaseDate}
-                        city={selectedCity || cities[0]}
+                        // city={selectedCity || cities[0]}
+                        city="Bengaluru"
                         posterurl={movie.posterurl}
                     />
                 ))}
 
 
             </div>
-            {showConfetti &&
+            {/* {showConfetti &&
                 <Confetti
                     recycle={false}
                     width={window.innerWidth - 100}
@@ -95,7 +61,7 @@ const HomePage = () => {
                     color={"['#1da59e' '#faad40' '#e94539']"}
 
                 />
-            }
+            } */}
         </>
     );
 };

@@ -1,10 +1,9 @@
  .moviedetails-card {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: auto;
-  width: 75rem;
+  width: 80rem;
   height: auto;
   margin-top: 50px;
   background: white;
@@ -20,7 +19,7 @@
 .moviedetails-posterImg {
   margin-top: 1rem;
   width: 40rem;
-  height: auto;
+  height: 50rem;
   border-radius: 1rem;
 }
 
@@ -74,7 +73,7 @@
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -103,7 +102,15 @@
 
 .moviedetails-genre {
   font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 900;
+  margin-top: 1rem;
+  color: #323333;
+}
+
+.moviedetails-language {
+  font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
   font-weight: 900;
   margin-top: 1rem;
   color: #323333;
@@ -111,7 +118,7 @@
 
 .moviedetails-cast {
   font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 900;
   margin-top: 1rem;
   color: #323333;
@@ -123,3 +130,11 @@
   color: #323333;
 } 
 
+.moviedetails-posterImg-card{
+ padding-right: 10rem;
+ padding-left: 0;
+}
+
+.moviedetails-movieInfo-card{
+margin-right: 4rem;
+}

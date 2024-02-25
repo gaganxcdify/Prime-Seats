@@ -26,6 +26,8 @@ export const addMovie = async (req, res, next) => {
         release_date,
         cast,
         image,
+        language,
+        trailerurl,
         crew,
         admin } = req.body
 
@@ -33,7 +35,18 @@ export const addMovie = async (req, res, next) => {
     if (isNaN(releaseDate.getTime())) {
         return res.status(422).json({ message: "Invalid release date" });
     }
-    if ((!name || name.trim() == "") && (!genre || genre.trim() == "") && (!release_date || release_date.trim() == "") && (!cast || cast.trim() == "") && (!crew || crew.trim() == "")) {
+    if (!name &&
+        name.trim() === "" &&
+        !genre &&
+        genre.trim() === "" &&
+        !cast &&
+        cast.trim() === "" &&
+        !crew &&
+        crew.trim() === "" &&
+        !trailerurl &&
+        trailerurl.trim() === "" &&
+        !language &&
+        language.trim() === "") {
         return res.status(422).json({ message: "Invalid Inputs" })
     }
 
@@ -44,7 +57,9 @@ export const addMovie = async (req, res, next) => {
             genre,
             releaseDate,
             image,
+            trailerurl,
             cast,
+            language,
             crew,
             admin,
             is_active: true,
@@ -134,7 +149,7 @@ export const deleteMovieById = async (req, res, next) => {
 
 export const updateMovie = async (req, res, next) => {
     const id = req.params.id;
-    const { name, genre, cast, crew, release_date, image } = req.body;
+    const { name, genre, cast, trailerurl, crew, language, release_date, image } = req.body;
     if (
         !name &&
         name.trim() === "" &&
@@ -143,13 +158,17 @@ export const updateMovie = async (req, res, next) => {
         !cast &&
         cast.trim() === "" &&
         !crew &&
-        crew.trim() === ""
+        crew.trim() === "" &&
+        !trailerurl &&
+        trailerurl.trim() === "" &&
+        !language &&
+        language.trim() === ""
     )
         return res.status(422).json({ message: "Invalid Inputs" })
 
     let customer;
     try {
-        customer = await Movie.findByIdAndUpdate(id, { name, genre, cast, crew, release_date, image, is_active: true })
+        customer = await Movie.findByIdAndUpdate(id, { name, genre, cast, language, trailerurl, crew, release_date, image, is_active: true })
     } catch (err) {
         return console.log(err)
     }

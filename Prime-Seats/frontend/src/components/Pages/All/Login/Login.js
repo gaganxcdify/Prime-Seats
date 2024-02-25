@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import "./Login.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { personActions, adminActions } from '../../../../store';
+import { personActions, adminActions, homePageActions } from '../../../../store';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const dispatch = useDispatch();
     const isAdmin = useSelector((state) => state.setlogin.isAdmin);
+    const isHomePage = useSelector((state) => state.homePage.isHomePage);
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         email: "",
@@ -45,6 +46,7 @@ const Login = () => {
             await dispatch(personActions.login());
             sessionStorage.setItem(`${person}Id`, data.id);
             sessionStorage.setItem(`token`, data.auth);
+            dispatch(homePageActions.homePage());
             navigate("/homepage");
         } catch (err) {
             console.log(err);
