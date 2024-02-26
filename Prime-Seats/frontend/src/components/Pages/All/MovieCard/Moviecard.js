@@ -32,7 +32,7 @@ const Moviecard = (props) => {
     }
 
     return (
-        <NavLink className="homepage-card" onClick={handleCardClick} to={`/moviedetails/${props.id}/city=${props.city}`} >
+        <NavLink className="homepage-card" onClick={handleCardClick} to={`/moviedetails/${props.id}/${props.city}`} >
             <img
                 className="homepage-posterImg"
                 src={props.image}

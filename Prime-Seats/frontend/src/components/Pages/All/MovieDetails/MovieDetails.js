@@ -9,16 +9,16 @@ import axios from 'axios';
 const MovieDetails = (props) => {
     const [movie, setMovie] = useState({});
     const isAdmin = useSelector((state) => state.setlogin.isAdmin);
-    const { id, city } = useParams();
+    const { movieid, cityid } = useParams();
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-    const getMovieDetails = async (id) => {
+    const getMovieDetails = async (movieid) => {
         try {
-            const res = await axios.get(`http://localhost:5000/movie/${id}`);
+            const res = await axios.get(`http://localhost:5000/movie/${movieid}`);
             if (res.status === 200) {
                 return res.data;
             } else {
@@ -31,15 +31,15 @@ const MovieDetails = (props) => {
     };
 
     useEffect(() => {
-        getMovieDetails(id)
+        getMovieDetails(movieid)
             .then((res) => setMovie(res?.movie))
             .catch((err) => console.log(err));
-    }, [id]);
+    }, [movieid]);
 
-    const handlePatch = async (id) => {
+    const handlePatch = async (movieid) => {
         try {
-            console.log(id);
-            const res = await axios.patch(`http://localhost:5000/movie/${id}`, {
+            console.log(movieid);
+            const res = await axios.patch(`http://localhost:5000/movie/${movieid}`, {
                 is_active: false,
             });
             if (res.status === 200) {
@@ -97,7 +97,7 @@ const MovieDetails = (props) => {
                                         </NavLink>
                                     </button>
                                     <button className="moviedetails-book">
-                                        <NavLink className="moviedetails-navlink" to={`/booking/${movie._id}`}>
+                                        <NavLink className="moviedetails-navlink" to={`/booking/${movieid}/${cityid}`}>
                                             BOOK TICKET
                                         </NavLink>
                                     </button>

@@ -52,17 +52,17 @@ export const homePageActions = homePageSlice.actions;
 
 
 
-const citySlice = createSlice({
-    name: "city",
-    initialState: { cityName: "" },
-    reducers: {
-        setCity(state, action) {
-            state.cityName = action.payload;
-        }
-    }
-});
+// const citySlice = createSlice({
+//     name: "city",
+//     initialState: { cityName: "" },
+//     reducers: {
+//         setCity(state, action) {
+//             state.cityName = action.payload;
+//         }
+//     }
+// });
 
-export const cityActions = citySlice.actions;
+// export const cityActions = citySlice.actions;
 
 
 
@@ -71,7 +71,7 @@ export const store = configureStore({
         login: personSlice.reducer,
         setlogin: adminSlice.reducer,
         homePage: homePageSlice.reducer,
-        city: citySlice.reducer,
+        // city: citySlice.reducer,
     },
 });
 

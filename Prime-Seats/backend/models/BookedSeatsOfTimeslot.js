@@ -5,7 +5,10 @@ const BookedSeatsOfTimeslotSchema = new Schema({
         type: mongoose.Types.ObjectId,
         required: "TimeSlot",
     },
-    date: {
+    startdate: {
+        type: String,
+    },
+    enddate: {
         type: String,
     },
     movie: {

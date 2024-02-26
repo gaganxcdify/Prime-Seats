@@ -15,9 +15,13 @@ const theaterSchema = new Schema({
         ref: "City",
         required: true,
     },
-    timeslots:[{
+    timeslots: [{
         type: mongoose.Types.ObjectId,
         ref: "TimeSlot",
+    }],
+    movies: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Movie",
     }]
 }, {
     timestamps: true,

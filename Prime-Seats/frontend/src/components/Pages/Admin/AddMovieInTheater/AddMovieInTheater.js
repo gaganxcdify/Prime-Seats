@@ -17,12 +17,11 @@ const AddMovieInTheater = () => {
   const addMovieToTimeSlot = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/BookedSeatsOfTimeslot/timeSlots`,
+        `http://localhost:5000/BookedSeatsOfTimeslot/timeSlots/${inputs?.theaters}`,
         {
-          city: inputs?.city,
           movie: inputs?.movie,
-          date: inputs?.posted_date,
-          theaters: inputs?.theaters,
+          posted_date: inputs?.posted_date,
+          // theaters: inputs?.theaters,
           timeSlot: inputs?.timeSlot,
         },
         {
@@ -138,8 +137,8 @@ const AddMovieInTheater = () => {
     setInputs((prev) => ({ ...prev, timeSlot: selectedTimeSlot }));
   };
 
-  const handelMovieChange = (selectedMovie) => {
-
+  const handelMovieChange = (selectedOptions) => {
+    const selectedMovie = selectedOptions.id
     setInputs((prev) => ({
       ...prev,
       movie: selectedMovie,

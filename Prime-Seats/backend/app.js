@@ -30,7 +30,6 @@ app.use("/booking", bookingRouter);
 app.use("/city", cityRouter);
 app.use("/theater", theaterRouter);
 app.use("/BookedSeatsOfTimeslot", BookedSeatsOfTimeSlotRouter);
-
 app.use("/timeslots", timeslotsRouter)
 
 app.use(notFound)

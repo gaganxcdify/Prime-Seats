@@ -3,6 +3,22 @@ import jwt from "jsonwebtoken";
 import City from "../models/City.js";
 import mongoose from "mongoose";
 
+export const getTheatersByCityAndMovie = async (req, res, next) => {
+    const { cityid, movieid } = req.params;
+
+    let theaters;
+    try {
+        theaters = await Theater.find({ cityid, movies: movieid }).populate("timeslots");
+    } catch (err) {
+        return next(err);
+    }
+
+    if (!theaters) {
+        return res.status(404).json({ message: "No theaters found for the given city and movie." });
+    }
+
+    return res.status(200).json({ theaters });
+};
 
 export const getAllTheaters = async (req, res, next) => {
     let theaters;

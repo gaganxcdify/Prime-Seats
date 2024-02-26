@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import Movie from "../models/Movie.js";
 import Admin from "../models/Admin.js";
+import City from "../models/City.js";
+
 import mongoose from "mongoose";
 
 
@@ -26,8 +28,6 @@ export const addMovie = async (req, res, next) => {
         release_date,
         cast,
         image,
-        language,
-        trailerurl,
         crew,
         admin } = req.body
 
@@ -35,18 +35,7 @@ export const addMovie = async (req, res, next) => {
     if (isNaN(releaseDate.getTime())) {
         return res.status(422).json({ message: "Invalid release date" });
     }
-    if (!name &&
-        name.trim() === "" &&
-        !genre &&
-        genre.trim() === "" &&
-        !cast &&
-        cast.trim() === "" &&
-        !crew &&
-        crew.trim() === "" &&
-        !trailerurl &&
-        trailerurl.trim() === "" &&
-        !language &&
-        language.trim() === "") {
+    if ((!name || name.trim() == "") && (!genre || genre.trim() == "") && (!release_date || release_date.trim() == "") && (!cast || cast.trim() == "") && (!crew || crew.trim() == "")) {
         return res.status(422).json({ message: "Invalid Inputs" })
     }
 
@@ -57,9 +46,7 @@ export const addMovie = async (req, res, next) => {
             genre,
             releaseDate,
             image,
-            trailerurl,
             cast,
-            language,
             crew,
             admin,
             is_active: true,
@@ -101,14 +88,6 @@ export const getAllMovies = async (req, res, next) => {
 
 
 
-
-
-
-
-
-
-
-
 export const getMovieById = async (req, res, next) => {
     let id = req.params.id;
     let movie;
@@ -122,13 +101,6 @@ export const getMovieById = async (req, res, next) => {
     }
     return res.status(200).json({ movie })
 }
-
-
-
-
-
-
-
 
 
 
@@ -149,7 +121,7 @@ export const deleteMovieById = async (req, res, next) => {
 
 export const updateMovie = async (req, res, next) => {
     const id = req.params.id;
-    const { name, genre, cast, trailerurl, crew, language, release_date, image } = req.body;
+    const { name, genre, cast, crew, release_date, image } = req.body;
     if (
         !name &&
         name.trim() === "" &&
@@ -158,17 +130,13 @@ export const updateMovie = async (req, res, next) => {
         !cast &&
         cast.trim() === "" &&
         !crew &&
-        crew.trim() === "" &&
-        !trailerurl &&
-        trailerurl.trim() === "" &&
-        !language &&
-        language.trim() === ""
+        crew.trim() === ""
     )
         return res.status(422).json({ message: "Invalid Inputs" })
 
     let customer;
     try {
-        customer = await Movie.findByIdAndUpdate(id, { name, genre, cast, language, trailerurl, crew, release_date, image, is_active: true })
+        customer = await Movie.findByIdAndUpdate(id, { name, genre, cast, crew, release_date, image, is_active: true })
     } catch (err) {
         return console.log(err)
     }
@@ -176,4 +144,20 @@ export const updateMovie = async (req, res, next) => {
         return res.status(500).json({ message: "Something went wrong" })
     }
     res.status(200).json({ message: "Updated successfully" })
+}
+
+
+export const getMovieByCityId = async (req, res, next) => {
+    let id = req.params.id; 
+    let movies;
+    try {
+        movies = await City.findById(id).populate("theaters").populate("movies");
+        movies = [...movies.movies];
+    } catch (err) {
+        return console.log(err)
+    }
+    if (!movies) {
+        return res.status(500).json({ message: "Request failed" });
+    }
+    return res.status(200).json({ movies })
 }

@@ -1,3 +1,28 @@
+/* .home {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .card {
+    width: calc(50% - 40px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: calc(100% - 40px);
+  }
+}
+
+.homepage-dropdown {
+  display: flex;
+  justify-content: center;
+} */
+
+/* 
 .home {
   display: flex;
   justify-content: center;
@@ -20,4 +45,83 @@
 .homepage-dropdown {
   display: flex;
   justify-content: center;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  bottom: 3rem;
+  left: 73%;
+  z-index: 99999;
+}
+
+.homepage-dropdown select {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  color: black;
+  background-color: white; 
+  cursor: pointer;
+}
+
+.homepage-dropdown::after {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem; 
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.homepage-dropdown:hover select {
+  background-color: #faad40;
+} */
+
+/* HomePage.css */
+
+.home {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .card {
+    width: calc(50% - 40px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: calc(100% - 40px);
+  }
+}
+
+.homepage-dropdown {
+  position: fixed;
+  top: 20px;
+  left: 60%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  text-align: center;
+}
+
+.homepage-dropdown select {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  color: black; /* Adjust text color */
+  background-color: white;
+  cursor: pointer;
+}
+
+.homepage-dropdown::after {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem; /* Adjust as needed */
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Style on hover if needed */
+.homepage-dropdown:hover select {
+  background-color: #faad40; /* Adjust hover background color */
 }
