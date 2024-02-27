@@ -4,6 +4,7 @@ import Customer from "../models/Customer.js";
 import Movie from "../models/Movie.js";
 import mongoose from "mongoose";
 
+
 export const newBooking = async (req, res, next) => {
     const { timeslotid, customerId, seats, theaterid, date } = req.body;
     const movieId = req.params.id;
@@ -27,13 +28,13 @@ export const newBooking = async (req, res, next) => {
         session = await mongoose.startSession();
         session.startTransaction();
 
-        const existingBookedSeatsOfTimeslot = await BookedSeatsOfTimeslot.find({ timeslot: timeslotid }).session(session);
-        const existingMovie = await Movie.findById(movieId).session(session);
-        const existingCustomer = await Customer.findById(customerId).session(session);
-
-        if (!existingMovie) {
-            return res.status(404).json({ message: "Movie not found" });
+        const thisObject = await BookedSeatsOfTimeslot.findOne({ timeslot: timeslotid }).session(session);
+        if (!thisObject) {
+            throw new Error("No BookedSeatsOfTimeslot found for the given timeslotid");
         }
+
+        const existingBookedSeatsOfTimeslot = thisObject; // Accessing the document directly
+        const existingCustomer = await Customer.findById(customerId).session(session);
 
         if (!existingCustomer) {
             return res.status(404).json({ message: "Customer not found" });
@@ -50,13 +51,11 @@ export const newBooking = async (req, res, next) => {
 
         await booking.save({ session });
 
-        existingBookedSeatsOfTimeslot.bookings.push(booking);
+        existingBookedSeatsOfTimeslot.bookedseats.push(booking);
         existingCustomer.booking.push(booking);
-        existingMovie.booking.push(booking);
 
         await existingBookedSeatsOfTimeslot.save({ session });
         await existingCustomer.save({ session });
-        await existingMovie.save({ session });
 
         await session.commitTransaction();
 
@@ -75,6 +74,8 @@ export const newBooking = async (req, res, next) => {
         }
     }
 };
+
+
 
 
 export const getBookingById = async (req, res, next) => {

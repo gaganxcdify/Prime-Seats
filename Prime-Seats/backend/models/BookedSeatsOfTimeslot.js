@@ -15,7 +15,7 @@ const BookedSeatsOfTimeslotSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: "Movie"
     }],
-    bookings: [{
+    bookedseats: [{
         type: mongoose.Types.ObjectId,
         ref: "Booking"
     }],
