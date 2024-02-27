@@ -3,7 +3,7 @@ import { deleteBooking, getBookingById, newBooking } from "../controllers/bookin
 
 const bookingRouter = express.Router()
 
-bookingRouter.post("/", newBooking)
+bookingRouter.post("/:id", newBooking)
 bookingRouter.get("/:id", getBookingById)
 bookingRouter.delete("/:id", deleteBooking)
 

@@ -5,6 +5,13 @@ const BookingSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "Movie",
   },
+  theaterid: {
+    type: mongoose.Types.ObjectId,
+    ref: "Theater",
+  },
+  date: {
+    type: String
+  },
   seats: [
     {
       type: String,

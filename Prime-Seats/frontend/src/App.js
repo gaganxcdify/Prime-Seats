@@ -67,7 +67,7 @@ function App() {
             <Route path="/customerdetails" element={<CustomerDetails />} />
             <Route path="/moviedetails/:movieid/:cityid" element={<MovieDetails />} />
             <Route path="/booking/:movieid/:cityid" element={<Booking />} />
-            <Route path="/selectseats/:theaterid/:timeslotid" element={<SelectSeats />} />
+            <Route path="/selectseats/:movieid/:theaterid/:timeslotid/:selecteddate" element={<SelectSeats />} />
             <Route path="/summary" element={<SummaryPage />} />
           </>
         )}

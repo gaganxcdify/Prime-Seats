@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const BookedSeatsOfTimeslotSchema = new Schema({
     timeslot: {
         type: mongoose.Types.ObjectId,
-        required: "TimeSlot",
+        ref: "TimeSlot",
     },
     startdate: {
         type: String,
@@ -11,13 +11,13 @@ const BookedSeatsOfTimeslotSchema = new Schema({
     enddate: {
         type: String,
     },
-    movie: {
+    movie: [{
         type: mongoose.Types.ObjectId,
         ref: "Movie"
-    },
-    bookedseats: [{
+    }],
+    bookings: [{
         type: mongoose.Types.ObjectId,
-        ref: "Bookings"
+        ref: "Booking"
     }],
 }, {
     timestamps: true,

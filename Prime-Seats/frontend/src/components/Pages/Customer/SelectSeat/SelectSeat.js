@@ -8,25 +8,29 @@ import { NavLink } from 'react-router-dom';
 const SeatSelection = () => {
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [bookedSeats, setBookedSeats] = useState([]);
-    let { movieId } = useParams();
-    console.log(movieId);
+    let { selecteddate, movieid, theaterid, timeslotid } = useParams();
+    // console.log(movieId);
+
+
     const customerId = sessionStorage.getItem("customerId");
     console.log(customerId);
+
+
     useEffect(() => {
         const fetchBookedSeats = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:5000/booking/${movieId}`
+                    `http://localhost:5000/BookedSeatsOfTimeslot/${timeslotid}`
                 );
-                console.log(response.data.allSeats);
-                setBookedSeats(response.data.allSeats);
+                setBookedSeats(response.data.bookedseats);
             } catch (error) {
                 console.error("Error fetching booked seats:", error);
             }
         };
-
         fetchBookedSeats();
-    }, [movieId]);
+    }, [movieid]);
+
+
 
     const toggleSeat = (seat) => {
         if (selectedSeats.includes(seat)) {
@@ -36,13 +40,17 @@ const SeatSelection = () => {
         }
     };
 
+
     console.log(selectedSeats);
 
     const bookSeats = async () => {
         try {
-            await axios.post(`http://localhost:5000/booking/${movieId}`, {
+            await axios.post(`http://localhost:5000/booking/${movieid}`, {
                 customerId,
                 seats: selectedSeats,
+                theaterid,
+                date:selecteddate,
+                timeslotid,
             });
             console.log("Seats booked successfully!");
         } catch (error) {

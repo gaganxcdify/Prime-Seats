@@ -1,58 +1,64 @@
-import Booking from "../models/Bookings.js";
+import BookedSeatsOfTimeslot from "../models/BookedSeatsOfTimeslot.js";
+import Booking from "../models/Booking.js";
 import Customer from "../models/Customer.js";
 import Movie from "../models/Movie.js";
 import mongoose from "mongoose";
 
 export const newBooking = async (req, res, next) => {
-    const { customerId, seats } = req.body;
+    const { timeslotid, customerId, seats, theaterid, date } = req.body;
     const movieId = req.params.id;
 
     // Validation
-    if (!customerId && !seats && !movieId) {
+    if (!customerId || !seats || !movieId) {
         return res
             .status(400)
             .json({ message: "customerId, date, and seats are required" });
     }
-    if (!movieId) {
-        return res.status(400).json({ message: "movieId is required" });
+    if (!mongoose.Types.ObjectId.isValid(movieId)) {
+        return res.status(400).json({ message: "Invalid movieId" });
     }
     if (!Array.isArray(seats) || seats.length === 0) {
         return res.status(400).json({ message: "seats must be a non-empty array" });
     }
-    let existingMovie;
-    let existingcustomer;
+
+    let session;
 
     try {
-        existingMovie = await Movie.findById(movieId);
-        existingcustomer = await Customer.findById(customerId);
+        session = await mongoose.startSession();
+        session.startTransaction();
+
+        const existingBookedSeatsOfTimeslot = await BookedSeatsOfTimeslot.find({ timeslot: timeslotid }).session(session);
+        const existingMovie = await Movie.findById(movieId).session(session);
+        const existingCustomer = await Customer.findById(customerId).session(session);
 
         if (!existingMovie) {
             return res.status(404).json({ message: "Movie not found" });
         }
 
-        if (!existingcustomer) {
-            return res.status(404).json({ message: "customer not found" });
+        if (!existingCustomer) {
+            return res.status(404).json({ message: "Customer not found" });
         }
 
         const booking = new Booking({
             movieId,
+            theaterid,
+            date,
             seats,
             customerId,
             is_deleted: false,
         });
 
-        const session = await mongoose.startSession();
-        session.startTransaction();
-
-        existingcustomer.booking.push(booking);
-        existingMovie.booking.push(booking);
-
-        await existingcustomer.save({ session });
-        await existingMovie.save({ session });
         await booking.save({ session });
 
+        existingBookedSeatsOfTimeslot.bookings.push(booking);
+        existingCustomer.booking.push(booking);
+        existingMovie.booking.push(booking);
+
+        await existingBookedSeatsOfTimeslot.save({ session });
+        await existingCustomer.save({ session });
+        await existingMovie.save({ session });
+
         await session.commitTransaction();
-        // await booking.save()
 
         return res.status(201).json(booking);
     } catch (err) {
@@ -62,8 +68,14 @@ export const newBooking = async (req, res, next) => {
         }
         console.error(err);
         return res.status(500).json({ message: "Unable to create booking" });
+    } finally {
+        // End session
+        if (session) {
+            session.endSession();
+        }
     }
 };
+
 
 export const getBookingById = async (req, res, next) => {
     const movieId = req.params.id;

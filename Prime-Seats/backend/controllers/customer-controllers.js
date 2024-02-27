@@ -1,5 +1,5 @@
 import Customer from "../models/Customer.js";
-import Booking from "../models/Bookings.js";
+import Booking from "../models/Booking.js";
 import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
