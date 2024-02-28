@@ -107,8 +107,8 @@ const SeatSelection = () => {
                     ))}
                 </div>
                 <button className="selectseat-button" onClick={bookSeats}>
-                    <NavLink className="homepage-navlink" to="/summary" >
-                        SELECT SEATS
+                    <NavLink className="homepage-navlink" to={`/summary/${movieid}/${theaterid}/${timeslotid}/${selectedSeats}`} >
+                        BOOK TICKET
                     </NavLink>
                 </button>
             </div>

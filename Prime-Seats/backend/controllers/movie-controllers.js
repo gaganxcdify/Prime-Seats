@@ -24,7 +24,9 @@ export const addMovie = async (req, res, next) => {
 
     const {
         name,
+        language,
         genre,
+        trailerurl,
         release_date,
         cast,
         image,
@@ -44,7 +46,9 @@ export const addMovie = async (req, res, next) => {
         movie = new Movie({
             name,
             genre,
+            language,
             releaseDate,
+            trailerurl,
             image,
             cast,
             crew,
@@ -148,7 +152,7 @@ export const updateMovie = async (req, res, next) => {
 
 
 export const getMovieByCityId = async (req, res, next) => {
-    let id = req.params.id; 
+    let id = req.params.id;
     let movies;
     try {
         movies = await City.findById(id).populate("theaters").populate("movies");

@@ -68,7 +68,7 @@ function App() {
             <Route path="/moviedetails/:movieid/:cityid" element={<MovieDetails />} />
             <Route path="/booking/:movieid/:cityid" element={<Booking />} />
             <Route path="/selectseats/:movieid/:theaterid/:timeslotid/:selecteddate" element={<SelectSeats />} />
-            <Route path="/summary" element={<SummaryPage />} />
+            <Route path="/summary/:movieid/:theaterid/:timeslotid/:selectedSeats" element={<SummaryPage />} />
           </>
         )}
       </Routes>

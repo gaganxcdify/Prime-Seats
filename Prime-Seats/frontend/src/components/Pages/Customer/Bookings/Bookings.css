@@ -95,3 +95,12 @@
 .bookings-moviegenre {
   font-size: 2rem;
 }
+
+.bookings-date {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 10px auto; /* Center the input horizontally */
+  display: block; /* Ensure it takes full width */
+}

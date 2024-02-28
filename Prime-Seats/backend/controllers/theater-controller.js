@@ -88,22 +88,22 @@ export const getTheatersByCityId = async (req, res, next) => {
     if (!Array.isArray(cityIds) || cityIds.length === 0) {
         return res.status(400).json({ message: "City IDs should be provided as a non-empty array" });
     }
-    
+
     try {
         // Find cities for the provided city IDs and populate theaters
         const cities = await City.find({ _id: { $in: cityIds } }).populate('theaters');
-        
+
         if (cities.length === 0) {
             return res.status(404).json({ message: "No cities found for the provided city IDs" });
         }
-        
+
         // Extract theaters from cities
         const theaters = cities.flatMap(city => city.theaters);
-        
+
         if (theaters.length === 0) {
             return res.status(404).json({ message: "No theaters found for the provided city IDs" });
         }
-        
+
         return res.status(200).json({ theaters });
     } catch (err) {
         // Handle database or other errors
@@ -111,3 +111,35 @@ export const getTheatersByCityId = async (req, res, next) => {
         return res.status(500).json({ message: "An unexpected error occurred while fetching theaters" });
     }
 }
+
+
+
+export const getTheaterdata = async (req, res) => {
+    const { movieid, timeslotid, theaterid } = req.params;
+    let theaterdata;
+    try {
+        theaterdata = await Theater.findById(theaterid)
+            .populate({
+                path: 'timeslots',
+                match: { _id: timeslotid }
+            })
+            .populate({
+                path: 'movies',
+                match: { _id: movieid }
+            });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+    if (!theaterdata) {
+        return res.status(404).json({ message: "Theater not found" });
+    }
+
+    theaterdata.movies = theaterdata.movies.filter(movie => movie !== null);
+    theaterdata.timeslots = theaterdata.timeslots.filter(timeslot => timeslot !== null);
+
+    return res.status(200).json({ theaterdata });
+};
+
+
+
