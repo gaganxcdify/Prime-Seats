@@ -51,7 +51,7 @@ export const newBooking = async (req, res, next) => {
 
         await booking.save({ session });
 
-        existingBookedSeatsOfTimeslot.bookedseats.push(booking);
+        existingBookedSeatsOfTimeslot.bookedseats.push(...seats);
         existingCustomer.booking.push(booking);
 
         await existingBookedSeatsOfTimeslot.save({ session });

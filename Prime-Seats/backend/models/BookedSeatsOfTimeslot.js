@@ -16,8 +16,7 @@ const BookedSeatsOfTimeslotSchema = new Schema({
         ref: "Movie"
     }],
     bookedseats: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Booking"
+        type: String,
     }],
 }, {
     timestamps: true,

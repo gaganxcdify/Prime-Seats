@@ -70,20 +70,42 @@ export const addMovieToTimeSlot = async (req, res) => {
 };
 
 
+// export const getAllBookingsByTheaterId = async (req, res) => {
+//   let id = req.params.timeslotid;
+//   console.log(id)
+//   let bookedseats;
+//   try {
+//     bookedseats = await BookedSeatsOfTimeslot.find({ timeslot: id })
+//   console.log(bookedseats)
+
+//   } catch (err) {
+//     return console.log(err)
+//   }
+//   if (!bookedseats) {
+//     return res.status(404).json({ message: "Invalid Id" })
+//   }
+//   return res.status(200).json({ bookedseats })
+// }
+
+
 export const getAllBookingsByTheaterId = async (req, res) => {
-  let id = req.params.id;
+  let id = req.params.timeslotid;
+  // console.log(id)
   let bookedseats;
   try {
-    bookedseats = await BookedSeatsOfTimeslot.find({ timeslot: id })
+    bookedseats = await BookedSeatsOfTimeslot.find({ timeslot: id });
+    // console.log(bookedseats);
   } catch (err) {
-    return console.log(err)
+    console.log(err);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
-  if (!bookedseats) {
-    return res.status(404).json({ message: "Invalid Id" })
+  if (!bookedseats || bookedseats.length === 0) {
+    return res.status(404).json({ message: "No bookings found for this timeslot" });
   }
-  return res.status(200).json({ bookedseats })
-}
-
+  // Extracting only the 'bookedseats' array from the response object
+  const { bookedseats: bookedSeatsArray } = bookedseats[0];
+  return res.status(200).json({ bookedseats: bookedSeatsArray });
+};
 
 
 

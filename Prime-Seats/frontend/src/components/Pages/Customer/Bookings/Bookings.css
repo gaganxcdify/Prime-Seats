@@ -54,7 +54,6 @@
   border-radius: 1rem;
   margin-top: 1rem;
   box-shadow: 0px 2px 5px 0px rgb(91, 91, 91);
-
 }
 
 .bookings-navlink {
@@ -104,3 +103,45 @@
   margin: 10px auto; /* Center the input horizontally */
   display: block; /* Ensure it takes full width */
 }
+
+.booking-button {
+  border: none;
+  background-color: white;
+}
+.booking-timeslot-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  width: 85px;
+  height: 29px;
+  background-color: #e94539;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+.bookings-date {
+  width: 480px;
+  height: 50px;
+  background: rgba(223, 221, 221, 0.541);
+  border: none;
+  outline: none;
+  color: #323333;
+  font-size: 19px;
+}
+/* .bookings-date-input {
+  margin-top: 12rem;
+  display: flex;
+  margin: auto;
+  margin-top: 12rem; 
+  width: 480px;
+  height: 50px;
+  background: #eaeaea;
+  border-radius: 6px;
+} */

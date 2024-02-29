@@ -1,32 +1,6 @@
-// import React from 'react';
-// import "./SummaryPage.css";
-// import { useParams } from 'react-router-dom';
-
-// const SummaryPage = () => {
-//   const { movieid, theaterid, timeslotid, selectedSeats } = useParams();
-
-//   return (
-//     <div className='summary-bigbox'>
-//       <div className='summary-header'>
-//         <p className="summary-movie-name">MovieName</p>
-//         <p className="summary-theater-name">TheaterName</p>
-//         <p className="summary-timeslot">Timeslot</p>
-//       </div>
-//       <div className='summary-details'>
-//         <p className="summary-selected-seats">Selected seats: a1, a2</p>
-//         <p className="summary-amount">Amount</p>
-//         <button className="summary-pay-button">PAY</button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default SummaryPage;
-
-
 import React, { useState, useEffect } from 'react';
 import "./SummaryPage.css";
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const SummaryPage = () => {
@@ -66,9 +40,11 @@ const SummaryPage = () => {
       </div>
       <div className='summary-details'>
         <p className="summary-selected-seats">Selected seats: {selectedSeats}</p>
-        <p className="summary-amount">AMOUNT PER TICKET:150</p>
-        <p className="summary-amount">TOTAL AMOUNT:{seats * 150}</p>
-        <button className="summary-pay-button">PAY</button>
+        <p className="summary-amount">AMOUNT PER TICKET:&#8377;150</p>
+        <p className="summary-amount">TOTAL AMOUNT:&#8377;{seats * 150}</p>
+        <NavLink to="/payment">
+          <button className="summary-pay-button">PAY</button>
+        </NavLink>
       </div>
     </div>
   );

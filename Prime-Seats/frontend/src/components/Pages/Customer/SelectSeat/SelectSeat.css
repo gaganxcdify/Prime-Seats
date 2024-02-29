@@ -110,6 +110,6 @@
 }
 
 .selectseat-booked:hover {
-  background-color: rgb(101, 111, 110);
+  background-color: #1e3249;
   pointer-events: none;
 }

@@ -23,6 +23,7 @@ const SeatSelection = () => {
                     `http://localhost:5000/BookedSeatsOfTimeslot/${timeslotid}`
                 );
                 setBookedSeats(response.data.bookedseats);
+                // console.log(response.data.bookedseats)
             } catch (error) {
                 console.error("Error fetching booked seats:", error);
             }
@@ -49,7 +50,7 @@ const SeatSelection = () => {
                 customerId,
                 seats: selectedSeats,
                 theaterid,
-                date:selecteddate,
+                date: selecteddate,
                 timeslotid,
             });
             console.log("Seats booked successfully!");
@@ -87,17 +88,17 @@ const SeatSelection = () => {
                                 <div
                                     key={col}
                                     className={`selectseat-seat ${selectedSeats.includes(
-                                        `${String.fromCharCode(65 + row)}-${col}`
+                                        `${String.fromCharCode(65 + row)}-${col + 1}`
                                     )
                                         ? "selectseat-selected"
                                         : bookedSeats.includes(
-                                            `${String.fromCharCode(65 + row)}-${col}`
+                                            `${String.fromCharCode(65 + row)}-${col + 1}`
                                         )
                                             ? "selectseat-booked"
                                             : ""
                                         }`}
                                     onClick={() =>
-                                        toggleSeat(`${String.fromCharCode(65 + row)}-${col}`)
+                                        toggleSeat(`${String.fromCharCode(65 + row)}-${col + 1}`)
                                     }
                                 >
                                     {col + 1}

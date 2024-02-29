@@ -65,14 +65,17 @@ const Booking = () => {
   return (
     <div>
       <div className='moviedetail-card moviedetail-theatersform'>
+        <div className='bookings-date-input'>
         <input type='date' className='bookings-date' min={minDate} max={maxDate} value={selectedDate} onChange={handleDateChange} />
+
+        </div>
         {theaters.map((theater) => (
           <div className='bookings-theaterdetails' key={theater._id}>
             <h3>{theater.name}</h3>
             <div className='bookings-timeslots'>
               {theater.timeslots.map((timeslot) => (
-                <button key={timeslot._id}>
-                  <NavLink to={`/selectseats/${movieid}/${theater._id}/${timeslot._id}/selecteddate=${selectedDate}`}>
+                <button key={timeslot._id} className='booking-button'>
+                  <NavLink className='booking-timeslot-button' to={`/selectseats/${movieid}/${theater._id}/${timeslot._id}/selecteddate=${selectedDate}`}>
                     {timeslot.slot}
                   </NavLink>
                 </button>
