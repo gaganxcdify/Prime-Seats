@@ -16,6 +16,7 @@ img {
 nav {
   display: flex;
   justify-content: space-between;
+  /* justify-content:ap; */
   align-items: center;
   background-color: white;
   position: sticky;
@@ -57,7 +58,7 @@ nav .menu {
 nav .menu span {
   height: 0.4rem;
   width: 100%;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   border-radius: 0.2rem;
 }
 
@@ -153,7 +154,7 @@ nav button:hover {
 .nav-button-dropdown select {
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(0, 0, 0);
   color: black; /* Adjust text color */
   background-color: white; /* Adjust background color */
   cursor: pointer;
@@ -170,4 +171,11 @@ nav button:hover {
 /* Style on hover if needed */
 .nav-button-dropdown:hover select {
   background-color: #faad40; /* Adjust hover background color */
+}
+
+.header-logo-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 61%;
 }

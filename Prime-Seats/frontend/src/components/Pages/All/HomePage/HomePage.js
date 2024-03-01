@@ -3,16 +3,17 @@ import axios from "axios";
 import Moviecard from "../MovieCard/Moviecard";
 import "./HomePage.css";
 import { useSelector } from "react-redux";
-import Confetti from 'react-confetti'
+import Confetti from 'react-confetti';
 
 const HomePage = () => {
     const isAdmin = useSelector((state) => state.setlogin.isAdmin);
+    const cityId = useSelector((state) => state.city.cityid);
+    const movieId = useSelector((state) => state.movie.movieid);
     const [movies, setMovies] = useState([]);
-    const [cities, setCities] = useState([]);
-    const [selectedCity, setSelectedCity] = useState("");
-    const [showConfetti, setShowconfetti] = useState(true);
-    
-    const getAllmovies = async () => {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [showConfetti, setShowConfetti] = useState(true);
+
+    const getAllMovies = async () => {
         try {
             const res = await axios.get("http://localhost:5000/movie");
             if (res.status === 200) {
@@ -27,10 +28,10 @@ const HomePage = () => {
         }
     };
 
-    const getMovieByCityId = async (cityId) => {
+    const getMoviesByCityId = async (cityId) => {
         try {
             const response = await axios.get(`http://localhost:5000/movie/byCity/${cityId}`);
-            const moviesData = response.data.movies.map(movie => movie);
+            const moviesData = response.data.movies;
             setMovies(moviesData);
         } catch (error) {
             console.error("Error fetching movies:", error);
@@ -38,51 +39,30 @@ const HomePage = () => {
     }
 
     useEffect(() => {
-        const fetchCities = async () => {
-            try {
-                const response = await axios.get("http://localhost:5000/city/");
-                const citiesData = response.data.cities.map(city => city);
-                setCities(citiesData);
-                if (!selectedCity && citiesData.length > 0) {
-                    setSelectedCity(citiesData[0]._id); // Select city ID instead of entire city object
-                }
-            } catch (error) {
-                console.error("Error fetching cities:", error);
-            }
-        };
-
-        fetchCities();
-    }, []);
-
-    useEffect(() => {
-        if(selectedCity) {
-            getMovieByCityId(selectedCity);
+        if (cityId) {
+            getMoviesByCityId(cityId); // Fetch movies by city id if city id is available
+        } else {
+            // Fetch all movies if city id is not available
+            getAllMovies()
+                .then((data) => setMovies(data))
+                .catch((err) => console.log(err));
         }
-    }, [selectedCity]);
-
-    useEffect(() => {
-        getAllmovies()
-            .then((data) => setMovies(data))
-            .catch((err) => console.log(err));
-    }, []);
+    }, [cityId]); // Run useEffect whenever cityId changes
 
     const activeMovies = movies.filter((movie) => movie.is_active === true);
+    const filteredMovies = activeMovies.filter(movie =>
+        movie.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const movieeee = filteredMovies.filter((movie) => movie._id === movieId)
+
+    const name = movieId ? movieeee : filteredMovies
 
     return (
         <>
-            <div className="homepage-dropdown">
-                {!isAdmin && (
-                    <div>
-                        <select value={selectedCity} onChange={(event) => setSelectedCity(event.target.value)}>
-                            {cities.map((city, index) => (
-                                <option key={index} value={city._id}>{city.name}</option>
-                            ))}
-                        </select>
-                    </div>
-                )}
-            </div>
             <div className="home">
-                {activeMovies.map((movie) => (
+
+                {name.map((movie) => (
                     <Moviecard
                         key={movie._id}
                         id={movie._id}
@@ -90,20 +70,20 @@ const HomePage = () => {
                         genre={movie.genre}
                         image={movie.image}
                         releasedate={movie.releaseDate}
-                        city={selectedCity || cities[0]}
+                        city={cityId}
                         posterurl={movie.posterurl}
                     />
                 ))}
             </div>
-            {/* {showConfetti &&
+            {showConfetti &&
                 <Confetti
                     recycle={false}
                     width={window.innerWidth - 100}
                     height={window.innerHeight}
                     gravity={0.2}
-                    color={"['#1da59e' '#faad40' '#e94539']"}
+                    colors={['#1da59e', '#faad40', '#e94539']}
                 />
-            } */}
+            }
         </>
     );
 };
