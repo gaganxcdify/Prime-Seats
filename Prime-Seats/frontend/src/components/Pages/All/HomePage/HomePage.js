@@ -55,6 +55,7 @@ const HomePage = () => {
     );
 
     const movieeee = filteredMovies.filter((movie) => movie._id === movieId)
+    console.log(movieId)
 
     const name = movieId ? movieeee : filteredMovies
 
