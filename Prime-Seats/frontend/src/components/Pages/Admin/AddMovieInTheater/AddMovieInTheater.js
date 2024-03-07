@@ -17,11 +17,11 @@ const AddMovieInTheater = () => {
   const addMovieToTimeSlot = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/BookedSeatsOfTimeslot/timeSlots/${inputs?.theaters}`,
+        `http://localhost:5000/BookedSeatsOfTimeslot/timeSlots`,
         {
           movie: inputs?.movie,
           posted_date: inputs?.posted_date,
-          // theaters: inputs?.theaters,
+          theaterId: inputs?.theaters,
           timeSlot: inputs?.timeSlot,
         },
         {

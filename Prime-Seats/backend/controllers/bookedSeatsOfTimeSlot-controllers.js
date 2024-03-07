@@ -7,8 +7,8 @@ import City from "../models/City.js";
 
 export const addMovieToTimeSlot = async (req, res) => {
   try {
-    const { movie, posted_date, timeSlot } = req.body;
-    const theaterId = req.params.id;
+    const { theaterId, movie, posted_date, timeSlot } = req.body;
+
     console.log(req.body)
     // Validate the request body
     if (!movie || !posted_date || !theaterId || !timeSlot || !Array.isArray(timeSlot) || timeSlot.length === 0) {
@@ -25,6 +25,7 @@ export const addMovieToTimeSlot = async (req, res) => {
       const timeSlotDocuments = [];
       for (let slot of timeSlot) {
         const newTimeSlot = new BookedSeatsOfTimeslot({
+          theaterId,
           timeslot: slot,
           date: posted_date,
           movie: movie,
@@ -108,7 +109,22 @@ export const getAllBookingsByTheaterId = async (req, res) => {
 };
 
 
+export const getTimeslotByMovieAndTheater = async (req, res) => {
+  try {
+    const { movieid, theaterid } = req.query;
 
+    // Query the database for booked seats using movie ID and theater ID
+    const timeslots = await BookedSeatsOfTimeslot.find({
+      movie: movieid,
+      theaterId: theaterid
+    }).populate('timeslot'); // Assuming you want to populate the timeslot field
+
+    res.json(timeslots);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+}
 
 
 

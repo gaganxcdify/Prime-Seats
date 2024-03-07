@@ -12,15 +12,21 @@ const MovieDetails = (props) => {
     const { movieid, cityid } = useParams();
 
     const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear().toString();
+        return `${day}/${month}/${year}`;
     };
+
 
     const getMovieDetails = async (movieid) => {
         try {
             const res = await axios.get(`http://localhost:5000/movie/${movieid}`);
             if (res.status === 200) {
+                console.log(res.data)
                 return res.data;
+
             } else {
                 throw new Error("Unexpected Error");
             }
@@ -75,7 +81,7 @@ const MovieDetails = (props) => {
                             <span className='moviedetails-language'>{movie.language}</span>
                             <span className='moviedetails-cast'>cast: {movie.cast}</span>
                             <span className='moviedetails-crew'>crew: {movie.crew}</span>
-                            <span className=''>{`Release Date: ${formatDate(movie.releasedate)}`}</span>
+                            <span className=''>{`Release Date: ${formatDate(movie.releaseDate)}`}</span>
                             <div className='moviedetails-button-container'>
                                 {isAdmin ? (
                                     <div className='moviedetails-button-div'>

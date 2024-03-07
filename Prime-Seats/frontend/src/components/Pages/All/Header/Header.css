@@ -103,7 +103,7 @@ nav button:hover {
   nav {
     flex-direction: column;
     align-items: start;
-    height: auto; /* Reset height for smaller screens */
+    height: auto;
   }
 
   nav .menu {
@@ -135,10 +135,6 @@ nav button:hover {
   nav form {
     margin-right: 0.5rem;
   }
-  /* 
-  nav input[type="text"] {
-    margin-right: 0.25rem;
-  } */
 }
 
 .icon {
@@ -155,22 +151,21 @@ nav button:hover {
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid rgb(0, 0, 0);
-  color: black; /* Adjust text color */
-  background-color: white; /* Adjust background color */
+  color: black;
+  background-color: white; 
   cursor: pointer;
 }
 
 .nav-button-dropdown::after {
   position: absolute;
   top: 50%;
-  right: 0.75rem; /* Adjust as needed */
+  right: 0.75rem; 
   transform: translateY(-50%);
   pointer-events: none;
 }
 
-/* Style on hover if needed */
 .nav-button-dropdown:hover select {
-  background-color: #faad40; /* Adjust hover background color */
+  background-color: #faad40; 
 }
 
 .header-logo-search {

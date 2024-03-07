@@ -31,11 +31,25 @@ const Booking = () => {
   const getTheaters = async (cityid, movieid) => {
     try {
       const res = await axios.get(`http://localhost:5000/theater/${cityid}/${movieid}`);
+      console.log(res.data)
       return res.data;
     } catch (error) {
       console.log(error);
     }
   };
+
+
+  const gettimeslotbymovieandtheater =async(moveid,theaterid)=>{
+    try{
+      const res = await axios.get(`http://localhost:5000/BookedSeatsOfTimeslot/gettimeslotbymovieandtheater`,{
+        movieid:movieid,
+        theaterid:theaterid,
+      });
+      return res.data;
+    }catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     getTheaters(cityid, movieid)
@@ -55,11 +69,11 @@ const Booking = () => {
     const maxDateString = threeDaysLater.toISOString().split('T')[0];
     setMinDate(minDateString);
     setMaxDate(maxDateString);
-    setSelectedDate(minDateString); // Set initial selected date
+    setSelectedDate(minDateString); 
   }, []);
 
   const handleDateChange = (e) => {
-    setSelectedDate(e.target.value); // Update selected date
+    setSelectedDate(e.target.value); 
   };
 
   return (
@@ -67,12 +81,12 @@ const Booking = () => {
       <div className='moviedetail-card moviedetail-theatersform'>
         <div className='bookings-date-input'>
         <input type='date' className='bookings-date' min={minDate} max={maxDate} value={selectedDate} onChange={handleDateChange} />
-
         </div>
         {theaters.map((theater) => (
           <div className='bookings-theaterdetails' key={theater._id}>
             <h3>{theater.name}</h3>
             <div className='bookings-timeslots'>
+              
               {theater.timeslots.map((timeslot) => (
                 <button key={timeslot._id} className='booking-button'>
                   <NavLink className='booking-timeslot-button' to={`/selectseats/${movieid}/${theater._id}/${timeslot._id}/selecteddate=${selectedDate}`}>

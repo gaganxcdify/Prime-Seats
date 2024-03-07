@@ -37,10 +37,11 @@ const HomePage = () => {
             console.error("Error fetching movies:", error);
         }
     }
-
+    console.log(searchQuery)
     useEffect(() => {
         if (cityId) {
             getMoviesByCityId(cityId); // Fetch movies by city id if city id is available
+            setSearchQuery("")
         } else {
             // Fetch all movies if city id is not available
             getAllMovies()
@@ -56,7 +57,6 @@ const HomePage = () => {
 
     const movieeee = filteredMovies.filter((movie) => movie._id === movieId)
     console.log(movieId)
-
     const name = movieId ? movieeee : filteredMovies
 
     return (

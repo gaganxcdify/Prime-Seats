@@ -1,4 +1,4 @@
- .moviedetails-card {
+.moviedetails-card {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,9 +18,10 @@
 
 .moviedetails-posterImg {
   margin-top: 1rem;
-  width: 40rem;
-  height: 50rem;
+  width: 35rem;
+  height: 45rem;
   border-radius: 1rem;
+  margin-right: 1rem;
 }
 
 .moviedetails-movieInfo {
@@ -128,13 +129,13 @@
   font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
   font-weight: 900;
   color: #323333;
-} 
-
-.moviedetails-posterImg-card{
- padding-right: 10rem;
- padding-left: 0;
 }
 
-.moviedetails-movieInfo-card{
-margin-right: 4rem;
+.moviedetails-posterImg-card {
+  padding-right: 10rem;
+  padding-left: 0;
+}
+
+.moviedetails-movieInfo-card {
+  margin-right: 4rem;
 }

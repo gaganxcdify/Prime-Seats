@@ -74,25 +74,31 @@ const Header = () => {
 
     const handleSearchChange = (value) => {
         setSearchQuery(value);
+        setSearchQuery("");
     };
 
     useEffect(() => {
         dispatch(movieActions.setMovie(""));
     }, [selectedCity])
 
+
     const handleCityChange = (selectedOption) => {
-        const selectedCityId = selectedOption.id;
+        console.log(selectedOption)
+        const selectedCityId = selectedOption && (selectedOption.id ?? 0);
         setSelectedCity(selectedCityId)
         dispatch(cityActions.setCity(selectedCityId));
     }
+
+    // handleCityChange()
+
+
+
     const handleMovieChange = (selectedItem) => {
         // console.log(selectedItem)
         const selectedMovieId = selectedItem.id;
         dispatch(movieActions.setMovie(selectedMovieId));
         setSelectedMovie(selectedItem.name);
-        setSearchQuery(""); // clear search query after selection
     };
-
     useEffect(() => {
 
     }, [searchQuery])
@@ -155,14 +161,16 @@ const Header = () => {
                                         label: city.name,
                                         id: city._id,
                                     }))}
-                                    onChange={handleCityChange}
-                                    className="header-dropdown "
+                                    onChange={(option) => handleCityChange(option)}
+                                    className="header-dropdown"
                                     styles={{
                                         control: (provided) => ({
                                             ...provided,
                                             height: "50px",
-                                            width: "15rem",
+                                            width: "13rem",
                                             borderRadius: "6px",
+                                            justifyContent: "center",
+                                            marginRight:"1rem"
                                         }),
                                         option: (provided, state) => ({
                                             ...provided,
@@ -175,6 +183,12 @@ const Header = () => {
                                             color: "#323333",
                                             fontSize: "19px",
                                         }),
+                                        placeholder: (provided) => ({
+                                            ...provided,
+                                            textAlign: "center",
+                                            margin:"-10px"
+                                            // justifyContent: "center",
+                                        }),
                                         dropdownIndicator: (provided) => ({
                                             ...provided,
                                             color: "#323333",
@@ -184,6 +198,7 @@ const Header = () => {
                                         }),
                                     }}
                                 />
+
                             </li>
                         )}
                         <li>
