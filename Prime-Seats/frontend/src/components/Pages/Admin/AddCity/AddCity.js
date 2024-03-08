@@ -1,4 +1,67 @@
+// import React, { useState } from 'react';
+// import "./AddCity.css";
+// import axios from "axios";
+// import { useNavigate } from 'react-router-dom';
+
+// const AddCity = () => {
+//     const navigate = useNavigate();
+//     const [message, setMessage] = useState("");
+//     const [inputs, setInputs] = useState({
+//         name: ""
+//     });
+
+//     const handleChange = (e) => {
+//         setInputs((prev) => ({
+//             ...prev,
+//             [e.target.name]: e.target.value,
+//         }));
+//     }
+
+//     const sendRequest = async () => {
+//         try {
+//             const res = await axios.post("http://localhost:5000/city", {
+//                 name: inputs.name,
+//             }, {
+//                 headers: {
+//                     Authorization: `Bearer ${sessionStorage.getItem("token")}`
+//                 }
+//             });
+//             const data = res.data;
+//             setMessage(data.message);
+//             alert(message)
+//             return data;
+//         } catch (err) {
+//             console.log(err);
+//         }
+//     }
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         sendRequest().then(() => navigate("/homepage"))
+//     }
+
+//     return (
+//         <form className='addcity-container' onSubmit={handleSubmit}>
+//             <div className='addcity-header'>
+//                 <div className='addcity-text'>Add City</div>
+//                 <div className='addcity-underline'></div>
+//             </div>
+//             <div className='addcity-inputs'>
+//                 <div className="addcity-inputs">
+//                     <input className="addcity-input" type="text" name="name" placeholder="  Name" value={inputs.name} onChange={handleChange} />
+//                 </div>
+//                 <div className='addcity-submit-container'>
+//                     <button type="submit" className="addcity-submit">ADD</button>
+//                 </div>
+//             </div>
+//         </form >
+//     );
+// }
+
+// export default AddCity;
+
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import "./AddCity.css";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -6,59 +69,55 @@ import { useNavigate } from 'react-router-dom';
 const AddCity = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
-    const [inputs, setInputs] = useState({
-        name: ""
-    });
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleChange = (e) => {
-        setInputs((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-        }));
-    }
-
-    const sendRequest = async () => {
+    const sendRequest = async (data) => {
         try {
             const res = await axios.post("http://localhost:5000/city", {
-                name: inputs.name,
+                name: data.name,
             }, {
                 headers: {
                     Authorization: `Bearer ${sessionStorage.getItem("token")}`
                 }
             });
-            const data = res.data;
-            setMessage(data.message);
-            alert(message)
-            return data;
+            const responseData = res.data;
+            setMessage(responseData.message);
+            alert(message);
+            return responseData;
         } catch (err) {
             console.log(err);
         }
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        sendRequest().then(() => navigate("/homepage"))
+    const onSubmit = (data) => {
+        sendRequest(data).then(() => navigate("/homepage"));
     }
 
     return (
-        <form className='addcity-container' onSubmit={handleSubmit}>
+        <form className='addcity-container' onSubmit={handleSubmit(onSubmit)}>
             <div className='addcity-header'>
                 <div className='addcity-text'>Add City</div>
                 <div className='addcity-underline'></div>
             </div>
             <div className='addcity-inputs'>
                 <div className="addcity-inputs">
-                    <input className="addcity-input" type="text" name="name" placeholder="  Name" value={inputs.name} onChange={handleChange} />
+                    <input
+                        className="addcity-input"
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        {...register("name", { required: true })}
+                    />
+                    {errors.name && <span className="error">Name is required</span>}
                 </div>
                 <div className='addcity-submit-container'>
                     <button type="submit" className="addcity-submit">ADD</button>
                 </div>
             </div>
-        </form >
+        </form>
     );
 }
 
 export default AddCity;
-// export default withAuth(AddCity)
 
 

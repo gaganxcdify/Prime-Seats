@@ -11,7 +11,7 @@ const Booking = () => {
   const [theaters, setTheaters] = useState([]);
   const [movie, setMovie] = useState();
   const { movieid, cityid } = useParams();
-  // const selectedCity = useSelector((state) => state.city.cityName);
+
   const getMovieDetails = async (movieid) => {
     try {
       const res = await axios.get(`http://localhost:5000/movie/${movieid}`);
@@ -31,34 +31,22 @@ const Booking = () => {
   const getTheaters = async (cityid, movieid) => {
     try {
       const res = await axios.get(`http://localhost:5000/theater/${cityid}/${movieid}`);
-      console.log(res.data)
       return res.data;
     } catch (error) {
       console.log(error);
     }
   };
 
-
-  const gettimeslotbymovieandtheater =async(moveid,theaterid)=>{
-    try{
-      const res = await axios.get(`http://localhost:5000/BookedSeatsOfTimeslot/gettimeslotbymovieandtheater`,{
-        movieid:movieid,
-        theaterid:theaterid,
-      });
-      return res.data;
-    }catch (error) {
+  const getTimeslotsByTheater = async (theaterid) => {
+    try {
+      const res = await axios.get(`http://localhost:5000/BookedSeatsOfTimeslot/gettimeslotbymovieandtheater/${movieid}/${theaterid}`);
+      console.log(res.data);
+      return res.data.timeslots;
+    } catch (error) {
       console.log(error);
+      return [];
     }
-  }
-
-  useEffect(() => {
-    getTheaters(cityid, movieid)
-      .then((res) => {
-        setTheaters(res.theaters)
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-  }, [cityid, movieid]);
+  };
 
 
   useEffect(() => {
@@ -69,27 +57,42 @@ const Booking = () => {
     const maxDateString = threeDaysLater.toISOString().split('T')[0];
     setMinDate(minDateString);
     setMaxDate(maxDateString);
-    setSelectedDate(minDateString); 
+    setSelectedDate(minDateString);
+  }, []);
+
+  useEffect(() => {
+    getTheaters(cityid, movieid)
+      .then(async (res) => {
+        setTheaters(res.theaters);
+        console.log(res.theaters)
+        const theaterTimeslots = await Promise.all(res.theaters.map(theater => getTimeslotsByTheater(theater._id)));
+
+        const updatedTheaters = res.theaters.map((theater, index) => {
+          return { ...theater, timeslots: theaterTimeslots[index] };
+        });
+        // console.log(updatedTheaters)
+        setTheaters(updatedTheaters);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleDateChange = (e) => {
-    setSelectedDate(e.target.value); 
+    setSelectedDate(e.target.value);
   };
-
+  console.log(theaters)
   return (
     <div>
       <div className='moviedetail-card moviedetail-theatersform'>
         <div className='bookings-date-input'>
-        <input type='date' className='bookings-date' min={minDate} max={maxDate} value={selectedDate} onChange={handleDateChange} />
+          <input type='date' className='bookings-date' min={minDate} max={maxDate} value={selectedDate} onChange={handleDateChange} />
         </div>
         {theaters.map((theater) => (
           <div className='bookings-theaterdetails' key={theater._id}>
             <h3>{theater.name}</h3>
             <div className='bookings-timeslots'>
-              
               {theater.timeslots.map((timeslot) => (
                 <button key={timeslot._id} className='booking-button'>
-                  <NavLink className='booking-timeslot-button' to={`/selectseats/${movieid}/${theater._id}/${timeslot._id}/selecteddate=${selectedDate}`}>
+                  <NavLink className='booking-timeslot-button' to={`/selectseats/${movieid}/${theater._id}/${timeslot.timeslot._id}/selecteddate=${selectedDate}`}>
                     {timeslot.slot}
                   </NavLink>
                 </button>
@@ -101,5 +104,4 @@ const Booking = () => {
     </div>
   );
 };
-
 export default Booking;

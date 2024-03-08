@@ -7,6 +7,9 @@ import mongoose from "mongoose";
 
 export const newBooking = async (req, res, next) => {
     const { timeslotid, customerId, seats, theaterid, date } = req.body;
+    console.log(req.body)
+
+
     const movieId = req.params.id;
 
     // Validation
@@ -33,7 +36,7 @@ export const newBooking = async (req, res, next) => {
             throw new Error("No BookedSeatsOfTimeslot found for the given timeslotid");
         }
 
-        const existingBookedSeatsOfTimeslot = thisObject; // Accessing the document directly
+        const existingBookedSeatsOfTimeslot = thisObject;
         const existingCustomer = await Customer.findById(customerId).session(session);
 
         if (!existingCustomer) {
@@ -48,6 +51,7 @@ export const newBooking = async (req, res, next) => {
             customerId,
             is_deleted: false,
         });
+        console.log(booking)
 
         await booking.save({ session });
 
@@ -61,14 +65,12 @@ export const newBooking = async (req, res, next) => {
 
         return res.status(201).json(booking);
     } catch (err) {
-        // Rollback transaction if an error occurs
         if (session) {
             await session.abortTransaction();
         }
         console.error(err);
         return res.status(500).json({ message: "Unable to create booking" });
     } finally {
-        // End session
         if (session) {
             session.endSession();
         }

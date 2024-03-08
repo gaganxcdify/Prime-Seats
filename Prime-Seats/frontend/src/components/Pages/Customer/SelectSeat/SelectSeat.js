@@ -58,7 +58,7 @@ const SeatSelection = () => {
             console.error("Error booking seats:", error);
         }
     };
-
+    console.log(selectedSeats);
     return (
         <div className="selectseat-bigbox">
             <div className="selectseat-seatSelectionContainer">
@@ -119,3 +119,8 @@ const SeatSelection = () => {
 };
 
 export default SeatSelection;
+/**
+|--------------------------------------------------
+| a sample comment
+|--------------------------------------------------
+*/

@@ -8,7 +8,7 @@ const BookedSeatsOfTimeSlotRouter = express.Router();
 // BookedSeatsOfTimeSlotRouter.get("/", getSeats);
 BookedSeatsOfTimeSlotRouter.post("/timeSlots", addMovieToTimeSlot);
 BookedSeatsOfTimeSlotRouter.get("/:timeslotid", getAllBookingsByTheaterId);
-BookedSeatsOfTimeSlotRouter.get("/gettimeslotbymovieandtheater", getTimeslotByMovieAndTheater);
+BookedSeatsOfTimeSlotRouter.get("/gettimeslotbymovieandtheater/:movieid/:theaterid", getTimeslotByMovieAndTheater);
 
 
 
