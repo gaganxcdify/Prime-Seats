@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import "./EditMovie.css";
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditMovie = () => {
     const { id } = useParams();
@@ -121,6 +124,7 @@ const EditMovie = () => {
                 </div>
                 <div className='editmovie-submit-container'>
                     <button type="submit" className="editmovie-submit">ADD</button>
+                    <ToastContainer position="bottom-right" />
                 </div>
             </div>
         </form >

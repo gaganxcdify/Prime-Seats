@@ -6,6 +6,8 @@ import axios from 'axios';
 
 const CustomerDetails = () => {
     const [customer, setcustomer] = useState([])
+    const [booking, setBooking] = useState([])
+
 
     const getcustomerById = async () => {
         const id = sessionStorage.getItem("customerId");
@@ -17,22 +19,23 @@ const CustomerDetails = () => {
         return resData;
     };
 
-    // const getcustomerBooking = async () => {
-    //     const id = sessionStorage.getItem("customerId");
-    //     const res = await axios
-    //         .get(`http://localhost:5000/customer/booking/${id}`)
-    //         .catch((err) => console.log(err));
+    const getcustomerBooking = async () => {
+        const id = sessionStorage.getItem("customerId");
+        const res = await axios
+            .get(`http://localhost:5000/booking/${id}`)
+            .catch((err) => console.log(err));
 
-    //     if (res.status !== 200) {
-    //         return console.log("Unexpected error");
-    //     }
-    //     const resData = await res.data;
-    //     return resData;
-    // }
+        if (res.status !== 200) {
+            return console.log("Unexpected error");
+        }
+        const resData = await res.data;
+        // console.log(resData)
+        return resData;
+    }
 
     // const deleteBooking = async (id) => {
     //     const res = await axios
-    //         .delete(`http://localhost:5000/customer/booking/${id}`)
+    //         .delete(`http://localhost:5000/booking/${id}`)
     //         .catch((err) => console.log(err));
 
     //     if (res.status !== 200) {
@@ -42,10 +45,14 @@ const CustomerDetails = () => {
     //     const resData = await res.data;
     //     return resData;
     // }
+
     useEffect(() => {
         getcustomerById().then(data => setcustomer(data.customer)).catch(err => console.log(err));
-    }, [customer])
+        getcustomerBooking().then(data => setBooking(data.book)).catch(err => console.log(err));
 
+    }, [])
+
+    // const activebookings = booking.filter((booking) => booking.is_deleted === false);
     return (
         <div className='customerdetails-box'>
             <div className='customerdetails-profilepicture'>
@@ -61,13 +68,31 @@ const CustomerDetails = () => {
                         <h1 style={{ color: "#1e3249" }}> <span>Email: {customer.email}</span></h1>
                         <h1 style={{ color: "#1e3249" }}> <span>Contact Number: {customer.contact_number}</span></h1>
                     </div>
-                    <div className='customerdetails-bookings'>
-                        {/* {booking.map((booking,index)=>())} */}
-                        <h2 style={{ color: "#1e3249" }}>MOVIE: KGF</h2>
-                        <h3 style={{ color: "#1e3249" }}>SEATS: A2, A3, A4</h3>
-                        <h3 style={{ color: "#1e3249" }}>DATE: 25/02/2024</h3>
-                        <div className='customerdetails-delete-icon' style={{ color: "#1e3249" }}><MdDeleteForever /></div>
+                    <div className='table-container'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Movie</th>
+                                    <th>Theater</th>
+                                    <th>Seats</th>
+                                    <th>Date</th>
+                                    {/* <th>  </th> */}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {booking.map((data, index) =>
+                                    <tr key={index}>
+                                        <td>{data.movieId.name}</td>
+                                        <td>{data.theaterid.name}</td>
+                                        <td>{data.seats.join(', ')}</td>
+                                        <td>{data.date}</td>
+                                        {/* <td><div className='customerdetails-delete-icon' style={{ color: "#1e3249" }} onClick={deleteBooking(data._id)}><MdDeleteForever /></div></td> */}
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
+
 
                 </div>
 

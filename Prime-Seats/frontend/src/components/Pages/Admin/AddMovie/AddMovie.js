@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import "./Addmovie.css";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
+import 'react-toastify/dist/ReactToastify.css';
 import imageCompression from 'browser-image-compression';
+import { ToastContainer, toast } from "react-toastify";
+
 
 const AddMovie = () => {
     const navigate = useNavigate();
@@ -103,6 +105,7 @@ const AddMovie = () => {
                 </div>
                 <div className='addmovie-submit-container'>
                     <button type="submit" className="addmovie-submit">ADD</button>
+                    <ToastContainer position="bottom-right" />
                 </div>
             </div>
         </form >

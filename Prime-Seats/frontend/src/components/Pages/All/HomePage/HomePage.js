@@ -40,15 +40,14 @@ const HomePage = () => {
     console.log(searchQuery)
     useEffect(() => {
         if (cityId) {
-            getMoviesByCityId(cityId); // Fetch movies by city id if city id is available
+            getMoviesByCityId(cityId);
             setSearchQuery("")
         } else {
-            // Fetch all movies if city id is not available
             getAllMovies()
                 .then((data) => setMovies(data))
                 .catch((err) => console.log(err));
         }
-    }, [cityId]); // Run useEffect whenever cityId changes
+    }, [cityId]);
 
     const activeMovies = movies.filter((movie) => movie.is_active === true);
     const filteredMovies = activeMovies.filter(movie =>

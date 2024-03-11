@@ -210,16 +210,16 @@ export const getcustomerById = async (req, res, next) => {
 
 
 
-export const getBookingOfcustomer = async (req, res, next) => {
-    const id = req.params.id;
-    let booking;
-    try {
-        booking = await Booking.find({ customer: id })
-    } catch (err) {
-        return console.log(err);
-    }
-    if (!booking) {
-        return res.status(500).json({ message: "Unable to get bookings" });
-    }
-    return res.status(200).json({ booking })
-}
+// export const getBookingOfcustomer = async (req, res, next) => {
+//     const id = req.params.id;
+//     let booking;
+//     try {
+//         booking = await Booking.find({ customer: id })
+//     } catch (err) {
+//         return console.log(err);
+//     }
+//     if (!booking) {
+//         return res.status(500).json({ message: "Unable to get bookings" });
+//     }
+//     return res.status(200).json({ booking })
+// }

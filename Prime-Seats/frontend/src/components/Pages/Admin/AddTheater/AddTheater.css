@@ -145,3 +145,10 @@ input[type="checkbox"] {
 .react-select__indicator-separator {
   display: none;
 }
+
+.addtheater-error {
+  color: red;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 4rem;
+}

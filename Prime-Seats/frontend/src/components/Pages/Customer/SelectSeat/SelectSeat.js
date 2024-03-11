@@ -42,7 +42,7 @@ const SeatSelection = () => {
     };
 
 
-    console.log(selectedSeats);
+    console.log(selecteddate);
 
     const bookSeats = async () => {
         try {

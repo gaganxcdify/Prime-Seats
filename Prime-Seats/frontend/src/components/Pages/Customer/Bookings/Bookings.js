@@ -25,7 +25,7 @@ const Booking = () => {
     getMovieDetails(movieid)
       .then((res) => setMovie(res.movie))
       .catch((err) => console.log(err));
-  }, [movieid]);
+  }, []);
 
 
   const getTheaters = async (cityid, movieid) => {
@@ -63,7 +63,6 @@ const Booking = () => {
   useEffect(() => {
     getTheaters(cityid, movieid)
       .then(async (res) => {
-        setTheaters(res.theaters);
         console.log(res.theaters)
         const theaterTimeslots = await Promise.all(res.theaters.map(theater => getTimeslotsByTheater(theater._id)));
 
@@ -79,7 +78,7 @@ const Booking = () => {
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
   };
-  console.log(theaters)
+
   return (
     <div>
       <div className='moviedetail-card moviedetail-theatersform'>
@@ -90,10 +89,10 @@ const Booking = () => {
           <div className='bookings-theaterdetails' key={theater._id}>
             <h3>{theater.name}</h3>
             <div className='bookings-timeslots'>
-              {theater.timeslots.map((timeslot) => (
-                <button key={timeslot._id} className='booking-button'>
-                  <NavLink className='booking-timeslot-button' to={`/selectseats/${movieid}/${theater._id}/${timeslot.timeslot._id}/selecteddate=${selectedDate}`}>
-                    {timeslot.slot}
+              {theater.timeslots.map((time) => (
+                <button key={time._id} className='booking-button'>
+                  <NavLink className='booking-timeslot-button' to={`/selectseats/${movieid}/${theater._id}/${time.timeslot._id}/${selectedDate}`}>
+                    {time.timeslot.slot}
                   </NavLink>
                 </button>
               ))}

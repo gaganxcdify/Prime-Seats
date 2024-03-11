@@ -42,7 +42,7 @@ const SummaryPage = () => {
         <p className="summary-selected-seats">Selected seats: {selectedSeats}</p>
         <p className="summary-amount">AMOUNT PER TICKET:&#8377;150</p>
         <p className="summary-amount">TOTAL AMOUNT:&#8377;{seats * 150}</p>
-        <NavLink to="/payment">
+        <NavLink to="/homepage">
           <button className="summary-pay-button">PAY</button>
         </NavLink>
       </div>

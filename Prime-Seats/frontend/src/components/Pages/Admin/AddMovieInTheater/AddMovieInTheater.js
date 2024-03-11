@@ -3,6 +3,10 @@ import axios, { all } from "axios";
 import { useEffect, useState } from "react";
 import { Await, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+
+
 const AddMovieInTheater = () => {
   const navigate = useNavigate();
   const [cities, setCities] = useState([]);
@@ -331,6 +335,7 @@ const AddMovieInTheater = () => {
           <button type="submit" className="addmovieintheater-submit">
             ADD
           </button>
+          <ToastContainer position="bottom-right" />
         </div>
       </div>
     </form>

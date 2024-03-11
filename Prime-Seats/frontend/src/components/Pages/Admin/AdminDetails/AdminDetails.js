@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { IoPersonSharp } from "react-icons/io5";
 import "./AdminDetails.css";
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const AdminDetails = () => {
+
+
     const [admin, setAdmin] = useState([]);
 
     const formatDate = (dateString) => {
@@ -21,6 +25,7 @@ const AdminDetails = () => {
             return console.log("Unexpected Error");
         }
         const resData = await res.data;
+        console.log(resData)
         return resData;
     };
 
@@ -52,16 +57,16 @@ const AdminDetails = () => {
                             <h4 style={{ color: "White" }}>RELEASE DATE</h4>
                         </div>
                         {admin.addedMovies && admin.addedMovies.map((movie) => (
-                            <div key={movie._id} className='admindetails-addedmovies'>
-                                <h3 className='admindetails-moviename' >{movie.name}</h3>
-                                <h3 >{movie.genre}</h3>
-                                <h3 >{formatDate(movie.releaseDate)}</h3>
-                            </div>
+                                <div key={movie._id} className='admindetails-addedmovies'>
+                                    <h3 className='admindetails-moviename' >{movie.name}</h3>
+                                    <h3 >{movie.genre}</h3>
+                                    <h3 >{formatDate(movie.releaseDate)}</h3>
+                                </div>
                         ))}
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

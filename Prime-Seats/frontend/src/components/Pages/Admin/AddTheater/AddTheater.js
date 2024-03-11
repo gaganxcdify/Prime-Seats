@@ -3,6 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+
 
 const AddTheater = () => {
   const navigate = useNavigate();
@@ -160,6 +163,7 @@ const AddTheater = () => {
           <button type="submit" className="addtheater-submit">
             ADD
           </button>
+          <ToastContainer position="bottom-right" />
         </div>
       </div>
     </form>

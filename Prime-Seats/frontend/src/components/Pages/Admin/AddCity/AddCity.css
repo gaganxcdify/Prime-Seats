@@ -110,3 +110,10 @@ input[type="checkbox"] {
 .addcity-input-file {
   margin: auto;
 }
+
+.addcity-error {
+  color: red;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 4rem;
+}
