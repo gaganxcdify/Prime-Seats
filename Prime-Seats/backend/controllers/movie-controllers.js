@@ -95,6 +95,7 @@ export const getAllMovies = async (req, res, next) => {
 export const getMovieById = async (req, res, next) => {
     let id = req.params.id;
     let movie;
+    
     try {
         movie = await Movie.findById(id)
     } catch (err) {

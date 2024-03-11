@@ -97,24 +97,26 @@ export const getBookingById = async (req, res, next) => {
 }
 
 
-// export const deleteBooking = async (req, res, next) => {
-//     const id = req.params.id;
-//     let booking;
-//     try {
-//         booking = await Booking.findByIdAndUpdate(id, { is_deleted: true });
-//         if (!booking) {
-//             return res.status(500).json({ message: "Booking not found" });
-//         }
+export const deleteBooking = async (req, res, next) => {
+    const id = req.params.id;
+    let booking;
+    try {
+        booking = await Booking.findByIdAndUpdate(id, { is_deleted: true });
+        if (!booking) {
+            return res.status(500).json({ message: "Booking not found" });
+        }
 
-//         const session = await mongoose.startSession();
+        const session = await mongoose.startSession();
+        session.startTransaction();
 
-//         await booking.customerId.booking.pull(booking);
-//         await booking.customerId.save({ session });
+        // Remove the booking from the customer's bookings array
+        await Customer.findByIdAndUpdate(booking.customerId, { $pull: { bookings: id } }, { session });
 
-//         session.commitTransaction();
-//     } catch (err) {
-//         console.error(err);
-//         return res.status(500).json({ message: "Something went wrong" });
-//     }
-//     return res.status(200).json({ message: "Booking Deleted successfully" });
-// };
+        await session.commitTransaction();
+        session.endSession();
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+    return res.status(200).json({ message: "Booking Deleted successfully" });
+};
