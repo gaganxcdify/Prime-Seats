@@ -15,12 +15,11 @@ import SummaryPage from './components/Pages/Customer/SummaryPage/SummaryPage';
 import AddCity from './components/Pages/Admin/AddCity/AddCity';
 import AddTheater from './components/Pages/Admin/AddTheater/AddTheater';
 import CustomerDetails from './components/Pages/Customer/CustomerDetails/CustomerDetails';
-import Privateroute from './components/Privateroute';
 import MovieDetails from './components/Pages/All/MovieDetails/MovieDetails';
 import { adminActions, homePageActions, personActions } from './store';
 import AddTimeSlot from './components/Pages/Admin/AddTimeSlot/AddTimeSlot';
 import AddMovieInTheater from './components/Pages/Admin/AddMovieInTheater/AddMovieInTheater';
-import Payment from './components/Pages/Customer/Payment/Payment';
+import Success from './components/Pages/Customer/Success/Succress';
 
 
 function App() {
@@ -70,7 +69,7 @@ function App() {
             <Route path="/booking/:movieid/:cityid" element={<Booking />} />
             <Route path="/selectseats/:movieid/:theaterid/:timeslotid/:selecteddate" element={<SelectSeats />} />
             <Route path="/summary/:movieid/:theaterid/:timeslotid/:selectedSeats" element={<SummaryPage />} />
-            <Route path="/payment" element={<Payment />} />
+            <Route path="/success" element={<Success />} />
           </>
         )}
       </Routes>

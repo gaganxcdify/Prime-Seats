@@ -109,7 +109,6 @@ export const deleteBooking = async (req, res, next) => {
         const session = await mongoose.startSession();
         session.startTransaction();
 
-        // Remove the booking from the customer's bookings array
         await Customer.findByIdAndUpdate(booking.customerId, { $pull: { bookings: id } }, { session });
 
         await session.commitTransaction();

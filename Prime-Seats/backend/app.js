@@ -13,6 +13,7 @@ import theaterRouter from "./routes/theater-routes.js";
 import userRouter from "./routes/user-controller.js";
 import timeslotsRouter from "./routes/timeslots-routes.js";
 import BookedSeatsOfTimeSlotRouter from "./routes/BookedSeatsOfTimeslot-routes.js";
+import paymentRouter from "./routes/stripe.js";
 
 dotenv.config();
 const app = express();
@@ -31,6 +32,8 @@ app.use("/city", cityRouter);
 app.use("/theater", theaterRouter);
 app.use("/BookedSeatsOfTimeslot", BookedSeatsOfTimeSlotRouter);
 app.use("/timeslots", timeslotsRouter)
+app.use("/payment", paymentRouter)
+
 
 app.use(notFound)
 app.use(errorhandler)
