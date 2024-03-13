@@ -2,42 +2,14 @@ import React, { useState, useEffect } from 'react';
 import "./SummaryPage.css";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import StripeCheckout from 'react-stripe-checkout'
-
-
-const KEY = "pk_test_51OokXXSIHGmlXgjD2RBw8YHoq6s6He6UB3hyY2qpCcXLv2iLQQKdOLoS7Aa4TVkTsdJMbZW7MG3mNDC9e7JJNG1Y00M1Rz70sm"
-
-
 const SummaryPage = () => {
   const { movieid, theaterid, timeslotid, selectedSeats } = useParams();
   const [movieName, setMovieName] = useState('');
   const [theaterName, setTheaterName] = useState('');
   const [timeslot, setTimeslot] = useState('');
-  const [stripeToken, setStripeToken] = useState(null);
   const seats = selectedSeats.split(",").length
 
-  console.log({ movieid, theaterid, timeslotid, selectedSeats })
-
-  const onToken = (token) => {
-    setStripeToken(token)
-  }
-
-  useEffect(() => {
-    const makeRequest = async () => {
-      try {
-        const res = await axios.post("http://localhost:5000/payment/payment", {
-          tokenId: stripeToken.id,
-          amount: totalamount,
-        })
-        console.log(res.data)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    stripeToken && makeRequest()
-  }, [stripeToken])
-
-
+  // console.log({ movieid, theaterid, timeslotid, selectedSeats })
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -57,6 +29,20 @@ const SummaryPage = () => {
     };
     fetchData();
   }, [movieid, theaterid, timeslotid]);
+
+  const handlepayment = () => {
+    axios.post('http://localhost:5000/payment/payment', {
+      name: 'Waleed',
+      number: '7498608775',
+      amount: totalamount,
+      MUID: "MUID" + Date.now(),
+      transactionId: 'T' + Date.now(), A
+    }).catch(error => {
+      console.error(error);
+    });
+  }
+
+
   const totalamount = seats * 150
   return (
     <div className='summary-bigbox'>
@@ -69,9 +55,7 @@ const SummaryPage = () => {
         <p className="summary-selected-seats">Selected seats: {selectedSeats}</p>
         <p className="summary-amount">AMOUNT PER TICKET:&#8377;150</p>
         <p className="summary-amount">TOTAL AMOUNT:&#8377;{totalamount}</p>
-        <StripeCheckout name="Primeseats" amount={totalamount * 100} token={onToken} stripeKey={KEY} currency='INR'>
-          <button className="summary-pay-button">PAY</button>
-        </StripeCheckout>
+        <button className="summary-pay-button" onClick={() => handlepayment()}>PAY</button>
       </div>
     </div>
   );

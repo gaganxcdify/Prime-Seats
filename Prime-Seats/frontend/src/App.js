@@ -20,6 +20,7 @@ import { adminActions, homePageActions, personActions } from './store';
 import AddTimeSlot from './components/Pages/Admin/AddTimeSlot/AddTimeSlot';
 import AddMovieInTheater from './components/Pages/Admin/AddMovieInTheater/AddMovieInTheater';
 import Success from './components/Pages/Customer/Success/Succress';
+import Failure from './components/Pages/Customer/Failure/Failure';
 
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
             <Route path="/selectseats/:movieid/:theaterid/:timeslotid/:selecteddate" element={<SelectSeats />} />
             <Route path="/summary/:movieid/:theaterid/:timeslotid/:selectedSeats" element={<SummaryPage />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/failure" element={<Failure />} />
           </>
         )}
       </Routes>

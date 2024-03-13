@@ -5,7 +5,7 @@ import React from 'react';
 const Success = () => {
 
   return (
-    <div >
+    <div className="success" >
       Success
     </div>
   );
