@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useSelector } from 'react-redux';
@@ -7,8 +7,12 @@ import "./Bookings.css";
 const Booking = () => {
   const [minDate, setMinDate] = useState('');
   const [maxDate, setMaxDate] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  const [selectedDate, setSelectedDate] = useState(tomorrow);
   const [theaters, setTheaters] = useState([]);
+  const [allTheters , setAlltheaters] = useState([])
   const [movie, setMovie] = useState();
   const { movieid, cityid } = useParams();
 
@@ -52,13 +56,56 @@ const Booking = () => {
   useEffect(() => {
     const today = new Date();
     const threeDaysLater = new Date(today);
-    threeDaysLater.setDate(today.getDate() + 3);
+    threeDaysLater.setDate(today.getDate() + 6);
     const minDateString = today.toISOString().split('T')[0];
-    const maxDateString = threeDaysLater.toISOString().split('T')[0];
     setMinDate(minDateString);
-    setMaxDate(maxDateString);
     setSelectedDate(minDateString);
   }, []);
+
+
+  let getIdsForSelectedDate = useCallback((selectedDate, dateRanges) => {
+    let matchingIds = [];
+    console.log(selectedDate , dateRanges)
+    for (const group of dateRanges) {
+        for (const range of group) {
+            const startDate = new Date(range.startDate);
+            const endDate = new Date(range.endDate);
+            const currentDate = new Date(selectedDate);
+            
+            if (currentDate >= startDate && currentDate <= endDate) {
+                matchingIds.push(range.id);
+            }
+        }
+    }
+    console.log(matchingIds)
+    console.log(allTheters.filter((item) => matchingIds.includes(item._id)))
+
+
+    setTheaters(allTheters.filter((item) => matchingIds.includes(item._id)))
+
+    return matchingIds;
+  } , [selectedDate])
+
+//   function getIdsForSelectedDate(selectedDate, dateRanges) {
+//     const matchingIds = [];
+    
+//     for (const group of dateRanges) {
+//         for (const range of group) {
+//             const startDate = new Date(range.startDate);
+//             const endDate = new Date(range.endDate);
+//             const currentDate = new Date(selectedDate);
+            
+//             if (currentDate >= startDate && currentDate <= endDate) {
+//                 matchingIds.push(range.id);
+//             }
+//         }
+//     }
+//     console.log(theaters.filter((item) => matchingIds.includes(item._id)))
+
+
+//     setTheaters(theaters.filter((item) => matchingIds.includes(item._id)))
+//     return matchingIds;
+// }
 
   useEffect(() => {
     getTheaters(cityid, movieid)
@@ -69,11 +116,25 @@ const Booking = () => {
         const updatedTheaters = res.theaters.map((theater, index) => {
           return { ...theater, timeslots: theaterTimeslots[index] };
         });
-        // console.log(updatedTheaters)
+        //console.log(updatedTheaters)
         setTheaters(updatedTheaters);
+        setAlltheaters(updatedTheaters)
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+
+    let startDate = allTheters?.map((theater) => theater.timeslots.map((item) =>{
+      return {
+        id: item.theaterId,
+        startDate : item.startdate,
+        endDate : item.enddate
+      }
+    }));
+
+    getIdsForSelectedDate(selectedDate, startDate)
+  }, [selectedDate])
 
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
@@ -83,9 +144,11 @@ const Booking = () => {
     <div>
       <div className='moviedetail-card moviedetail-theatersform'>
         <div className='bookings-date-input'>
-          <input type='date' className='bookings-date' min={minDate} max={maxDate} value={selectedDate} onChange={handleDateChange} />
+          <input type='date' className='bookings-date' min={minDate} value={selectedDate} onChange={handleDateChange} />
         </div>
-        {theaters.map((theater) => (
+        <>
+        {theaters.length > 0 ? <>
+          {theaters.map((theater) => (
           <div className='bookings-theaterdetails' key={theater._id}>
             <h3>{theater.name}</h3>
             <div className='bookings-timeslots'>
@@ -99,6 +162,16 @@ const Booking = () => {
             </div>
           </div>
         ))}
+        </> 
+        : 
+        <>
+        <div>
+          <h2>No theaters found</h2>
+        </div>
+        </>
+        }
+        </>
+     
       </div>
     </div>
   );

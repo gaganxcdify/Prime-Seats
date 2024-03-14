@@ -18,13 +18,17 @@ const AddMovieInTheater = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [inputs, setInputs] = useState({});
 
+
+
+
   const addMovieToTimeSlot = async () => {
     try {
       const res = await axios.post(
         `http://localhost:5000/BookedSeatsOfTimeslot/timeSlots`,
         {
           movie: inputs?.movie,
-          posted_date: inputs?.posted_date,
+          startdate: inputs?.startdate,
+          enddate: inputs?.enddate,
           theaterId: inputs?.theaters,
           timeSlot: inputs?.timeSlot,
         },
@@ -238,8 +242,12 @@ const AddMovieInTheater = () => {
           />
         </div>
         <div className="addmovieintheater-input-date">
-          <label className='addmovieintheater-label-date'>Movie adding Date:</label>
-          <input type="date" name="posted_date" onChange={handleChange} />
+          <label className='addmovieintheater-label-date'>Movie Starting Date:</label>
+          <input type="date" name="startdate" onChange={handleChange} />
+        </div>
+        <div className="addmovieintheater-input-date">
+          <label className='addmovieintheater-label-date'>Movie End Date:</label>
+          <input type="date" name="enddate" onChange={handleChange} />
         </div>
         <div>
           <Select

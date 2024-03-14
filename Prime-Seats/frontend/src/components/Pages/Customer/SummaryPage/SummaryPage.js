@@ -30,17 +30,17 @@ const SummaryPage = () => {
     fetchData();
   }, [movieid, theaterid, timeslotid]);
 
-  const handlepayment = () => {
-    axios.post('http://localhost:5000/payment/payment', {
-      name: 'Waleed',
-      number: '7498608775',
-      amount: totalamount,
-      MUID: "MUID" + Date.now(),
-      transactionId: 'T' + Date.now(), A
-    }).catch(error => {
-      console.error(error);
-    });
-  }
+  // const handlepayment = () => {
+  //   axios.post('http://localhost:5000/payment/payment', {
+  //     name: 'Waleed',
+  //     number: '7498608775',
+  //     amount: totalamount,
+  //     MUID: "MUID" + Date.now(),
+  //     transactionId: 'T' + Date.now(),
+  //   }).catch(error => {
+  //     console.error(error);
+  //   });
+  // }
 
 
   const totalamount = seats * 150
@@ -55,7 +55,7 @@ const SummaryPage = () => {
         <p className="summary-selected-seats">Selected seats: {selectedSeats}</p>
         <p className="summary-amount">AMOUNT PER TICKET:&#8377;150</p>
         <p className="summary-amount">TOTAL AMOUNT:&#8377;{totalamount}</p>
-        <button className="summary-pay-button" onClick={() => handlepayment()}>PAY</button>
+        <button className="summary-pay-button">PAY</button>
       </div>
     </div>
   );

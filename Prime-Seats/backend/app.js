@@ -12,7 +12,7 @@ import cityRouter from "./routes/city-routes.js";
 import theaterRouter from "./routes/theater-routes.js";
 import userRouter from "./routes/user-controller.js";
 import timeslotsRouter from "./routes/timeslots-routes.js";
-import paymentRouter from "./routes/payment-routes.js";
+// import paymentRouter from "./routes/payment-routes.js";
 import BookedSeatsOfTimeSlotRouter from "./routes/BookedSeatsOfTimeslot-routes.js";
 
 dotenv.config();
@@ -32,7 +32,7 @@ app.use("/city", cityRouter);
 app.use("/theater", theaterRouter);
 app.use("/BookedSeatsOfTimeslot", BookedSeatsOfTimeSlotRouter);
 app.use("/timeslots", timeslotsRouter)
-app.use("/payment", paymentRouter)
+// app.use("/payment", paymentRouter)
 
 
 

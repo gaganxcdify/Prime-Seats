@@ -8,10 +8,10 @@ import City from "../models/City.js";
 
 export const addMovieToTimeSlot = async (req, res) => {
   try {
-    const { theaterId, movie, posted_date, timeSlot } = req.body;
+    const { theaterId, movie, startdate, enddate, timeSlot } = req.body;
 
     console.log(req.body)
-    if (!movie || !posted_date || !theaterId || !timeSlot || !Array.isArray(timeSlot) || timeSlot.length === 0) {
+    if (!movie || !startdate || !enddate || !theaterId || !timeSlot || !Array.isArray(timeSlot) || timeSlot.length === 0) {
       return res.status(400).json({
         error: "Invalid request. Please provide all required fields.",
       });
@@ -26,7 +26,8 @@ export const addMovieToTimeSlot = async (req, res) => {
         const newTimeSlot = new BookedSeatsOfTimeslot({
           theaterId,
           timeslot: slot,
-          date: posted_date,
+          startdate,
+          enddate,
           movie: movie,
         });
         timeSlotDocuments.push(newTimeSlot);

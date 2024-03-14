@@ -3,7 +3,7 @@ import axios from "axios";
 import Moviecard from "../MovieCard/Moviecard";
 import "./HomePage.css";
 import { useSelector } from "react-redux";
-import Confetti from 'react-confetti';
+// import Confetti from 'react-confetti';
 
 const HomePage = () => {
     const isAdmin = useSelector((state) => state.setlogin.isAdmin);
@@ -11,7 +11,7 @@ const HomePage = () => {
     const movieId = useSelector((state) => state.movie.movieid);
     const [movies, setMovies] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [showConfetti, setShowConfetti] = useState(true);
+    // const [showConfetti, setShowConfetti] = useState(true);
 
     const getAllMovies = async () => {
         try {
@@ -75,7 +75,7 @@ const HomePage = () => {
                     />
                 ))}
             </div>
-            {showConfetti &&
+            {/* {showConfetti &&
                 <Confetti
                     recycle={false}
                     width={window.innerWidth - 100}
@@ -83,7 +83,7 @@ const HomePage = () => {
                     gravity={0.2}
                     colors={['#1da59e', '#faad40', '#e94539']}
                 />
-            }
+            } */}
         </>
     );
 };
